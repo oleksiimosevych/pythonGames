@@ -1,5 +1,5 @@
 #first programm in Py
-#initial commit to do
+#ARE YOU FAMOUS? TALK SHOW v.1.2
 
 famousProgrammers="Durov, Mosevych, Zukkerberg, Cuccerberg"
 
@@ -47,7 +47,7 @@ while(1==1): #break need
         
         
     while(i<99):
-        if(name==famousPersonsM[i]):
+        for(name in famousPersonsM):
             print('And what else can you tell us Mr. ', name, '? ')
             story+=input()
             
@@ -56,7 +56,7 @@ while(1==1): #break need
             else:
                 print(onceMore)
                 story+= input()
-        elif(name==famousPersonsW[i]):
+        for(name in famousPersonsW):
             print('And what else can you tell us Mrs. ', name, '? Have I already told you how goodlooking you are today? So tell us more! ')
             story=input()
             if (end in story):
