@@ -1,5 +1,5 @@
 #first programm in Py
-
+#initial commit to do
 
 famousProgrammers="Durov, Mosevych, Zukkerberg, Cuccerberg"
 
