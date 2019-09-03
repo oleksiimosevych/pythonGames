@@ -1,5 +1,5 @@
 #first programm in Py
-#ARE YOU FAMOUS? TALK SHOW v.1.2
+#ARE YOU FAMOUS? TALK SHOW v.1.3
 
 famousProgrammers="Durov, Mosevych, Zukkerberg, Cuccerberg"
 
@@ -47,7 +47,8 @@ while(1==1): #break need
         
         
     while(i<99):
-        for(name in famousPersonsM):
+        #only to test for with no braackets
+        for name in famousPersonsM:
             print('And what else can you tell us Mr. ', name, '? ')
             story+=input()
             
@@ -56,7 +57,7 @@ while(1==1): #break need
             else:
                 print(onceMore)
                 story+= input()
-        for(name in famousPersonsW):
+        for name in famousPersonsW:
             print('And what else can you tell us Mrs. ', name, '? Have I already told you how goodlooking you are today? So tell us more! ')
             story=input()
             if (end in story):
