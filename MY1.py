@@ -1,42 +1,56 @@
 #first programm in Py
 #ARE YOU FAMOUS? TALK SHOW v.2.0
 
-famousProgrammers=['Durov', 'Mosevych', 'Zukkerberg', 'Cuccerberg']
-famousPersonsM=['Jobs','Musk']
-famousPersonsW=['Opra Winfrie','Jessica Alba', 'Jennifer Aniston', 'Avril Lavigne']
-
-puilo=['Putin', 'Putyn', 'Puten', 'putin', 'putyn', 'pu', 'puten']
-
-while(1==1): #break need
-    #declaration of variables
-    story='So here the story begins... '
-    end="The End"
-    nothing='nothing'
-    timeNow = input('First of all we need to know what time is it now? Type from 0 to 24 \n')
+#functions
+class timeN:
     morningTime="5,6,7,8,9"
     dayTime="10,11,12,13,14,15,16,17"
     eveningTime = "18,19,20,21"
     nightTime= "22,23,24,00,1,2,3,4"
+    
+    def whatTimeIsItNow(time):
+        if(timeNow in morningTime):
+            time = 'Good morning! '
+        elif(timeNow in dayTime):
+            time = 'Good day! '
+        elif(timeNow in eveningTime):
+            time = 'Good evening! '
+        elif(timeNow in nightTime):
+            time = 'Good night! '
+        else:
+            print ("There is no such time. \n")
+            
+            #restart here but how... I know . I have to call a function. I need to learn how to create functions...
+            
+        return time
+    
+
+#declaration of variables
+    
+    story='So here the story begins... ' 
+    end="The End"
+    nothing='nothing'
+    
     bye="It is fantastic! Thanks for coming und using our program made by Alex/Oleksii Mosevych specially at 02.09.2019!\n"
     gameOver='Game Over... Try again later!\n'
     onceMore="Oh Wow! And what happen later?"
+    famousProgrammers=['Durov', 'Mosevych', 'Zukkerberg', 'Cuccerberg']
+    famousPersonsM=['Jobs','Musk']
+    famousPersonsW=['Opra Winfrie','Jessica Alba', 'Jennifer Aniston', 'Avril Lavigne']
+    puilo=['Putin', 'Putyn', 'Puten', 'putin', 'putyn', 'pu', 'puten']
+
+#loop...
+while(1==1): #break need
+    
 
     #I will push it into function later
     #I want to create another file for this... is it possible?)
-    
-    if(timeNow in morningTime):
-        time = 'Good morning! '
-    elif(timeNow in dayTime):
-        time = 'Good day! '
-    elif(timeNow in eveningTime):
-        time = 'Good evening! '
-    elif(timeNow in nightTime):
-        time = 'Good night! '
-    else:
-        print ("So it is impossible. \n", gameOver)
-        break
-        
+            
     #the game
+    timeNow = input('First of all we need to know what time is it now? Type from 0 to 24 \n')
+    settime(timeNow)
+    
+
     print("Now we know the time! It is time for our Talk Show! Are you famous or not? \n Lets start it! \n")
     name = input('What is your Surname? \n')
         
