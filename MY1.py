@@ -1,14 +1,34 @@
 #first programm in Py
-#ARE YOU FAMOUS? TALK SHOW v.2.0
+#ARE YOU FAMOUS? TALK SHOW v.3.0
 
 #functions
-class timeN:
-    morningTime="5,6,7,8,9"
-    dayTime="10,11,12,13,14,15,16,17"
-    eveningTime = "18,19,20,21"
-    nightTime= "22,23,24,00,1,2,3,4"
+class ShowTime:
+    story='So here the story begins...' 
+    end="The End"
+    nothing='nothing'
+    bye="It is fantastic! Thanks for coming und using our program made by Alex/Oleksii Mosevych specially at 02.09.2019!\n"
+    gameOver='Game Over... Try again later!\n'
+    onceMore="Oh Wow! And what happen later?"
+    famousProgrammers=['Durov', 'Mosevych', 'Zukkerberg', 'Cuccerberg']
+    famousPersonsM=['Jobs','Musk']
+    famousPersonsW=['Opra Winfrie','Jessica Alba', 'Jennifer Aniston', 'Avril Lavigne']
+    puilo=['Putin', 'Putyn', 'Puten', 'putin', 'putyn', 'pu', 'puten']    
+
     
-    def whatTimeIsItNow(time):
+    def autoSetTime(self):
+        morningTime="5,6,7,8,9"
+        dayTime="10,11,12,13,14,15,16,17"
+        eveningTime = "18,19,20,21"
+        nightTime= "22,23,24,00,1,2,3,4"
+
+    def __init__(self):
+        print('I am A of the class. I was called..from Time as test')
+
+    def setTime(self, timeNow):
+        timeNow = input('First of all we need to know what time is it now? Type from 0 to 24 \n')
+
+        
+    def whatTimeIsItNow(self, timeNow):
         if(timeNow in morningTime):
             time = 'Good morning! '
         elif(timeNow in dayTime):
@@ -19,25 +39,21 @@ class timeN:
             time = 'Good night! '
         else:
             print ("There is no such time. \n")
-            
+            self.setTime()    
             #restart here but how... I know . I have to call a function. I need to learn how to create functions...
-            
+        print("Now we know the time! It is time for our Talk Show! Are you famous or not? \n Lets start it! \n")
+
         return time
     
+f=ShowTime()
+f.setTime()
 
+
+#print(a)
 #declaration of variables
     
-    story='So here the story begins... ' 
-    end="The End"
-    nothing='nothing'
     
-    bye="It is fantastic! Thanks for coming und using our program made by Alex/Oleksii Mosevych specially at 02.09.2019!\n"
-    gameOver='Game Over... Try again later!\n'
-    onceMore="Oh Wow! And what happen later?"
-    famousProgrammers=['Durov', 'Mosevych', 'Zukkerberg', 'Cuccerberg']
-    famousPersonsM=['Jobs','Musk']
-    famousPersonsW=['Opra Winfrie','Jessica Alba', 'Jennifer Aniston', 'Avril Lavigne']
-    puilo=['Putin', 'Putyn', 'Puten', 'putin', 'putyn', 'pu', 'puten']
+    
 
 #loop...
 while(1==1): #break need
@@ -47,11 +63,9 @@ while(1==1): #break need
     #I want to create another file for this... is it possible?)
             
     #the game
-    timeNow = input('First of all we need to know what time is it now? Type from 0 to 24 \n')
-    settime(timeNow)
+    #settime(timeNow)
     
-
-    print("Now we know the time! It is time for our Talk Show! Are you famous or not? \n Lets start it! \n")
+    
     name = input('What is your Surname? \n')
         
     i=0
