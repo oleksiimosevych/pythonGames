@@ -3,16 +3,16 @@
 
 #functions
 class ShowTime:
-    story='So here the story begins...' 
-    end="The End"
-    nothing='nothing'
-    bye="It is fantastic! Thanks for coming und using our program made by Alex/Oleksii Mosevych specially at 02.09.2019!\n"
-    gameOver='Game Over... Try again later!\n'
-    onceMore="Oh Wow! And what happen later?"
-    famousProgrammers=['Durov', 'Mosevych', 'Zukkerberg', 'Cuccerberg']
-    famousPersonsM=['Jobs','Musk']
-    famousPersonsW=['Opra Winfrie','Jessica Alba', 'Jennifer Aniston', 'Avril Lavigne']
-    puilo=['Putin', 'Putyn', 'Puten', 'putin', 'putyn', 'pu', 'puten']    
+    self.story='So here the story begins...' 
+    self.end="The End"
+    self.nothing='nothing'
+    self.bye="It is fantastic! Thanks for coming und using our program made by Alex/Oleksii Mosevych specially at 02.09.2019!\n"
+    self.gameOver='Game Over... Try again later!\n'
+    self.onceMore="Oh Wow! And what happen later?"
+    self.famousProgrammers=['Durov', 'Mosevych', 'Zukkerberg', 'Cuccerberg']
+    self.famousPersonsM=['Jobs','Musk']
+    self.famousPersonsW=['Opra Winfrie','Jessica Alba', 'Jennifer Aniston', 'Avril Lavigne']
+    self.puilo=['Putin', 'Putyn', 'Puten', 'putin', 'putyn', 'pu', 'puten']    
 
     
     def autoSetTime(self):
@@ -39,14 +39,15 @@ class ShowTime:
             time = 'Good night! '
         else:
             print ("There is no such time. \n")
-            self.setTime()    
+            setTime()    
             #restart here but how... I know . I have to call a function. I need to learn how to create functions...
         print("Now we know the time! It is time for our Talk Show! Are you famous or not? \n Lets start it! \n")
 
         return time
     
 f=ShowTime()
-f.setTime()
+print(f)
+#f.setTime()
 
 
 #print(a)
