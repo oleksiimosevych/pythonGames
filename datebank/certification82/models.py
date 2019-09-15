@@ -37,9 +37,14 @@ class Project(models.Model):
 
 class EzeHersteller(models.Model):
 	hersteller_name = models.CharField(max_length=250) 
+	def __str__(self):
+		return self.hersteller_name
+
 
 class EzeTyp(models.Model):
 	typ_name = models.CharField(max_length=250)	
+	def __str__(self):
+		return self.typ_name
 
 class EzeNeu(models.Model):
 	#vDE_EZE1_Herst_id
