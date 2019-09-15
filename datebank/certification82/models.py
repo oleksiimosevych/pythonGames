@@ -1,7 +1,8 @@
 from django.db import models
 #for decimal
 from decimal import Decimal
-
+from django.utils import timezone
+#please use only TAB not spaces...
 class Document(models.Model):
 	proofed = models.BooleanField(default=False)
 	name = models.CharField(max_length=250)
@@ -10,7 +11,10 @@ class Document(models.Model):
 	upload = models.FileField(upload_to='uploads/%Y/%m/%d/')
 
 	def __str__(self):
-        return self.name
+		return self.name
+
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 class Project(models.Model):
 	#ex. windkraft timmendorf 
@@ -25,8 +29,11 @@ class Project(models.Model):
 	access_for_moderator = models.BooleanField(default=False)
 	access_for_admin = models.BooleanField(default=True)
 
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
 	def __str__(self):
-        return self.project_name
+		return self.project_name
 
 class EzeHersteller(models.Model):
 	hersteller_name = models.CharField(max_length=250) 
@@ -48,7 +55,7 @@ class EzeNeu(models.Model):
 	vDE_Anzahl_EZE1 = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 
 	def __str__(self):
-        return self.vDE_EZE1_Name
+		return self.vDE_EZE1_Name
 
 class EzeBestand(models.Model):
 	vDE_EZE_Bestand_Zahl = models.IntegerField(default=0)
@@ -63,7 +70,7 @@ class EzeBestand(models.Model):
 	vDE_P_inbe_ALT = models.IntegerField(default=0)
 
 	def __str__(self):
-        return self.vDE_EZE_Name_ALT
+		return self.vDE_EZE_Name_ALT
 
 
 # class Proof(models.Model):
