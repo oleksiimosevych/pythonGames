@@ -9,6 +9,8 @@ class Document(models.Model):
 	#file will be saved to MEDIA_ROOT/uploads/2019/11/30
 	upload = models.FileField(upload_to='uploads/%Y/%m/%d/')
 
+	def __str__(self):
+        return self.name
 
 class Project(models.Model):
 	#ex. windkraft timmendorf 
@@ -22,6 +24,9 @@ class Project(models.Model):
 	access_for_user = models.BooleanField(default=False)
 	access_for_moderator = models.BooleanField(default=False)
 	access_for_admin = models.BooleanField(default=True)
+
+	def __str__(self):
+        return self.project_name
 
 class EzeHersteller(models.Model):
 	hersteller_name = models.CharField(max_length=250) 
@@ -42,6 +47,9 @@ class EzeNeu(models.Model):
 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	vDE_Anzahl_EZE1 = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 
+	def __str__(self):
+        return self.vDE_EZE1_Name
+
 class EzeBestand(models.Model):
 	vDE_EZE_Bestand_Zahl = models.IntegerField(default=0)
 	#vDE_EZE_Herst_Alt_id = //added EZE to Hersteller 13 12
@@ -53,6 +61,9 @@ class EzeBestand(models.Model):
 	vDE_P_EZE_ALT = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	#jahr
 	vDE_P_inbe_ALT = models.IntegerField(default=0)
+
+	def __str__(self):
+        return self.vDE_EZE_Name_ALT
 
 
 # class Proof(models.Model):
