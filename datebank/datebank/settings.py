@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #dont forget the comma!!!
+    'certification82.apps.Certification82Config',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,6 +77,7 @@ WSGI_APPLICATION = 'datebank.wsgi.application'
 
 DATABASES = {
     'default': {
+        #SQLITE3
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
