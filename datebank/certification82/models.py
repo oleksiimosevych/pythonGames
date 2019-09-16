@@ -58,9 +58,13 @@ class EzeNeu(models.Model):
 	vDE_EZE1_S = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	vDE_Anzahl_EZE1 = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
-
+	#eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
+	
 	def __str__(self):
 		return self.vDE_EZE1_Name
+
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 class EzeBestand(models.Model):
 	vDE_EZE_Bestand_Zahl = models.IntegerField(default=0)
