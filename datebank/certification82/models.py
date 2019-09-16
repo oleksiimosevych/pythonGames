@@ -51,14 +51,16 @@ class EzeNeu(models.Model):
 	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE)
 	#vDE_EZE1_Typ_id
 	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE)
+	#every eze belongs to project
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	vDE_EZE1_Name = models.CharField(max_length=250)
 	vDE_EZE1_ZertNR = models.BigIntegerField(default=0)
 	vDE_EZE1_Motor = models.CharField(max_length=250)
 	vDE_EZE1_Generator = models.CharField(max_length=250)
 	vDE_EZE1_S = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
-	vDE_Anzahl_EZE1 = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
-	#eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
+	vDE_Anzahl_EZE1 = models.IntegerField(default=0)
+	# eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
 	
 	def __str__(self):
 		return self.vDE_EZE1_Name
@@ -67,6 +69,9 @@ class EzeNeu(models.Model):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 class EzeBestand(models.Model):
+	#every ezebestand belongs to a specific Project
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
 	vDE_EZE_Bestand_Zahl = models.IntegerField(default=0)
 	#vDE_EZE_Herst_Alt_id = //added EZE to Hersteller 13 12
 	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE)
