@@ -205,12 +205,6 @@ The final step is to enter your password. You will be asked to enter your passwo
 Password: **********
 Password (again): *********
 Superuser created successfully.
-add wimpty before cmd command in win 10
-
-login myloginasadmin20193009
-mypassisgood2019@@@
-
-py manage.py runserver
-volodia
-@@@2019vova2019@@
+add winpty before cmd command in win 10
+so
 
