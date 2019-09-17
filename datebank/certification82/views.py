@@ -1,10 +1,13 @@
 #rendering possible
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 #add 404
 from django.http import Http404
 from django.http import HttpResponse
 from .models import EzeNeu, EzeBestand, Project
 from django.template import loader
+#add pagination
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 	
 # Create your views here.
 def index(request):
@@ -18,15 +21,27 @@ def index(request):
 	return render(request, 'certification82/index.html', context)
 	# return HttpResponse(project_Names+'\n\n<br> Neue Ezes: \n'+eze_Neus )
 #add more views
+
 def detail(request, project_id):
+	# try:
+	ezen = get_object_or_404(Project, pk = project_id)
+	eze_neu_list = EzeNeu.objects.all()
+	page = request.GET.get('page', 1)
+	#paginator1
+	paginator = Paginator(eze_neu_list, 2)
 	try:
-		latest_EzeNeu_list = EzeNeu.objects.get(pk=project_id)
-	except EzeNeu.DoesNotExist:
-		raise Http404("No Eze with this project number: "+str(project_id))
+		ezes = paginator.page(page)
+	except PageNotAnInteger:
+		ezes = paginator.page(1)
+	except EmptyPage:
+		ezes = paginator.page(paginator.num_pages)
+
+	# except EzeNeu.DoesNotExist:
+	# raise Http404("No Eze with this project number: "+str(project_id))
+	# context = {	'latest_EzeNeu_list': latest_EzeNeu_list, }
 	
-	context = {	'latest_EzeNeu_list': latest_EzeNeu_list, }
-	
-	return render(request, 'certification82/details.html', {'latest_EzeNeu_list' : latest_EzeNeu_list})
+	return render(request, 'certification82/detail.html', {'ezen' : ezen })
+
 
 def results(request, project_id):
 	response = "You're looking at the results of project %s."

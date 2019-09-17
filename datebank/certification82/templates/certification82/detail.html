@@ -1,0 +1,67 @@
+<!-- {{latest_EzeNeu_list}} -->
+<h1>All Ezes of the Project "{{ ezen.project_name }}"</h1>
+<h2>Eze Neues of the project:  "{{ ezen.project_name }}"</h2>
+
+<ol class = "pagination">
+{% for eze in ezen.ezeneu_set.all %}
+	<li>
+		<h3>EZE NAME: {{ eze.vDE_EZE1_Name }}</h3><br>
+		Hersteller der EZE--id: {{ eze.eZeHersteller }}<br>
+		Typ der EZE--id: {{ eze.eZeTyp }}<br>
+		Bezeichnung der EZE: {{ eze.vDE_EZE1_Name }}<br>
+		Einheitenzertifikat Nr.: {{ eze.vDE_EZE1_ZertNR }}<br>
+		Motortyp für VKM: {{ eze.vDE_EZE1_Motor }}<br>
+		Generatortyp für VKM: {{ eze.vDE_EZE1_Generator }}<br>
+		Bemessungsscheinleistung in MVA: {{ eze.vDE_EZE1_S }}<br>
+		Bemessungswirkleistung in MW: {{ eze.vDE_EZE1_P }}<br>
+		Anzahl der EZE: {{ eze.vDE_Anzahl_EZE1 }}<br>		
+
+
+	</li>
+	{% if eze.has_other_pages %}
+		<ul class="pagination">
+			{% if eze.has_previous %}
+				<li><a href="?page={{ eze.previous_page_number }}">&laquo;</a></li>
+			{% else %}
+				<li class="disabled"><span>&laquo;</span></li>
+			{% endif %}
+			{% for i in eze.paginator.page_range %}
+				{% if eze.number == i %}
+					<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+				{% else %}
+					<li><a href="?page={{ i }}">{{ i }}</a></li>
+				{% endif %}
+			{% endfor %}
+			{% if eze.has_next %}
+				<li><a href="?page={{ eze.next_page_number }}">&raquo;</a></li>
+			{% else %}
+				<li class="disabled"><span>&raquo;</span></li>
+			{% endif %}
+		</ul>
+	{% endif %}
+
+
+{% endfor %}
+</ol>
+<h2>Eze Bestands of the project:  "{{ ezen.project_name }}"</h2>
+<ol class = "pagination" id="right_side_block">
+{% for ezebest in ezen.ezebestand_set.all %}
+	{% if ezebest.HasNoItems %}
+		<li>NO ITEMS YET</li>
+	{% else %}
+		<li>
+			<h3>EZE Bestand NAME: {{ ezebest.vDE_EZE_Name_ALT }}</h3>
+			Anzahl Bestands-BHKW: {{ ezebest.vDE_EZE_Bestand_Zahl }}<br>
+			Hersteller der EZE: {{ ezebest.eZeHersteller }}<br>
+			Typ der EZE: {{ ezebest.eZeTyp }}<br>
+			Bezeichnung der EZE: {{ ezebest.vDE_EZE_Name_ALT }}<br>
+			Bemessungsscheinleistung in MVA: {{ ezebest.vDE_S_EZE_Alt }}<br>
+			Bemessungswirkleistung: {{ ezebest.vDE_P_EZE_ALT }}<br>
+			Inbetriebnahmedatum: {{ ezebest.vDE_P_inbe_ALT }}<br>
+			
+		</li>
+	{% endif %}
+
+{% endfor %}
+</ol>
+
