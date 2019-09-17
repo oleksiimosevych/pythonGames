@@ -9,4 +9,9 @@ urlpatterns = [
     path('<int:eZeTyp_id>/results/', views.results, name='results'),
     # ex: /polls/5/vote/
     path('<int:eZeTyp_id>/vote/', views.vote, name='vote'),
+
+	path('ezenues/', views.ezenues, name='ezenues'),
+	path('ezebestands/', views.ezebestands, name='ezebestands'),
+	
+
 ]
