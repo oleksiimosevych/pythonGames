@@ -1,0 +1,9 @@
+{% if project_name_list %}
+	<h1>
+	{% for proj in project_name_list %}
+		<li><a href="/certification82/{{ proj.id }}/">{{ proj.project_name }}</a></li>
+	{% endfor %}
+	</h1>
+{% else %}
+	<p>No projects are available.</p>
+{% endif %}
