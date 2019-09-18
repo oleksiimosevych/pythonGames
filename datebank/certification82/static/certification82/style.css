@@ -2,13 +2,13 @@
 
 span.ezeneu_left{
 	float:left;
-	clear: left;
+	/*clear: left;*/
 	/*background-color: ;*/
 }
 
 span.ezebestand_right{
 	float: right;
-	clear: right;
+	/*clear: right;*/
 }
 
 span.ezebestand_right, span.ezeneu_left{

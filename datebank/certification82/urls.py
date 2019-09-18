@@ -1,9 +1,12 @@
 from django.urls import path
 
 from . import views
-
+#namespacing paths
+app_name = 'certification82'
 urlpatterns = [
+    path('ezedetails/<int:eze_id>/', views.eze_neu_detail, name='eze_neu_detail'),
     path('', views.index, name='index'),
+    # the 'name' value as called by the {% url %} template tag
     path('<int:project_id>/', views.detail, name='detail'),
     # ex: /polls/5/results/
     path('<int:project_id>/results/', views.results, name='results'),

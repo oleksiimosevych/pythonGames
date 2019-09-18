@@ -2,7 +2,8 @@
 {% if project_name_list %}
 	<h1>
 	{% for proj in project_name_list %}
-		<li><a href="/certification82/{{ proj.id }}/">{{ proj.project_name }}</a></li>
+	<!-- no more hardcoded href  appname:viewname-->
+		<li><a href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></li>
 	{% endfor %}
 	</h1>
 {% else %}

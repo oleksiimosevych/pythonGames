@@ -10,53 +10,57 @@
 	</div>
 		<span class='col-md-6 ezeneu_left '>
 		<h3>Eze Neues of the project:  "{{ ezen.project_name }}"</h3>
+		<table border=2 class="table-hover">
 		{% for eze in ezen.ezeneu_set.all %}
-			<b>EZE NAME: {{ eze.vDE_EZE1_Name }}</b><br>
-			Hersteller der EZE--id: {{ eze.eZeHersteller }}<br>
-			Typ der EZE--id: {{ eze.eZeTyp }}<br>
-			Bezeichnung der EZE: {{ eze.vDE_EZE1_Name }}<br>
-			Einheitenzertifikat Nr.: {{ eze.vDE_EZE1_ZertNR }}<br>
-			Motortyp für VKM: {{ eze.vDE_EZE1_Motor }}<br>
-			Generatortyp für VKM: {{ eze.vDE_EZE1_Generator }}<br>
-			Bemessungsscheinleistung in MVA: {{ eze.vDE_EZE1_S }}<br>
-			Bemessungswirkleistung in MW: {{ eze.vDE_EZE1_P }}<br>
-			Anzahl der EZE: {{ eze.vDE_Anzahl_EZE1 }}<br>
-			<a href="">View</a>	<a href="">Edit</a>	<a href="">Delete</a> <br>
-			<br>
+			<tr><th>EZE NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Motortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>Generatortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><th></th></tr>
 		{%endfor%}
+		</table>
 		</span>
 
 		<span class='col-md-6 ezebestand_right'>
 		<h3>Eze Bestand of the project:  "{{ ezen.project_name }}"</h3>
+		<table border=2 class = "table-hover">
 		{% for ezebest in ezen.ezebestand_set.all %}
-			<b>EZE Bestand NAME: {{ ezebest.vDE_EZE_Name_ALT }}</b><br>
-			Anzahl Bestands-BHKW: {{ ezebest.vDE_EZE_Bestand_Zahl }}<br>
-			Hersteller der EZE: {{ ezebest.eZeHersteller }}<br>
-			Typ der EZE: {{ ezebest.eZeTyp }}<br>
-			Bezeichnung der EZE: {{ ezebest.vDE_EZE_Name_ALT }}<br>
-			Bemessungsscheinleistung in MVA: {{ ezebest.vDE_S_EZE_Alt }}<br>
-			Bemessungswirkleistung: {{ ezebest.vDE_P_EZE_ALT }}<br>
-			Inbetriebnahmedatum: {{ ezebest.vDE_P_inbe_ALT }}<br>
-			<a href="">View</a>	<a href="">Edit</a>	<a href="">Delete</a> <br>
-			<br>
+			<tr><th>EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th></th></tr>
+			<!-- <tr><td><a href="">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr> -->
 		{% endfor %}
+		</table>
 		</span>
-	{% if eze.has_other_pages %}
+	{% if ezes.has_other_pages %}
 		<ul class="pagination">
-			{% if eze.has_previous %}
-				<li><a href="?page={{ eze.previous_page_number }}">&laquo;</a></li>
+			{% if ezes.has_previous %}
+				<li><a href="?page={{ ezes.previous_page_number }}">&laquo;</a></li>
 			{% else %}
 				<li class="disabled"><span>&laquo;</span></li>
 			{% endif %}
-			{% for i in eze.paginator.page_range %}
-				{% if eze.number == i %}
+			{% for i in ezes.paginator.page_range %}
+				{% if ezes.number == i %}
 					<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
 				{% else %}
 					<li><a href="?page={{ i }}">{{ i }}</a></li>
 				{% endif %}
 			{% endfor %}
-			{% if eze.has_next %}
-				<li><a href="?page={{ eze.next_page_number }}">&raquo;</a></li>
+			{% if ezes.has_next %}
+				<li><a href="?page={{ ezes.next_page_number }}">&raquo;</a></li>
 			{% else %}
 				<li class="disabled"><span>&raquo;</span></li>
 			{% endif %}
