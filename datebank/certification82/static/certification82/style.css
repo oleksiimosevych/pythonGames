@@ -14,3 +14,7 @@ span.ezebestand_right{
 span.ezebestand_right, span.ezeneu_left{
 	/**/
 }
+
+#ezename, #ezebname{
+	background-color: silver;
+}

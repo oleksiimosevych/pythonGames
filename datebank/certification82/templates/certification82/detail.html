@@ -12,7 +12,7 @@
 		<h3>Eze Neues of the project:  "{{ ezen.project_name }}"</h3>
 		<table border=2 class="table-hover">
 		{% for eze in ezen.ezeneu_set.all %}
-			<tr><th>EZE NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr id="ezename"><th >EZE NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
 			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
 			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
 			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
@@ -32,7 +32,7 @@
 		<h3>Eze Bestand of the project:  "{{ ezen.project_name }}"</h3>
 		<table border=2 class = "table-hover">
 		{% for ezebest in ezen.ezebestand_set.all %}
-			<tr><th>EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
 			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
 			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
 			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
