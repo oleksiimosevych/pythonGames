@@ -11,8 +11,11 @@
 		<span class='col-md-6 ezeneu_left '>
 		<h3>Eze Neues of the project:  "{{ ezen.project_name }}"</h3>
 		<table border=2 class="table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>EZENeu to delete maybe</td></tr>
+			
 		{% for eze in ezen.ezeneu_set.all %}
-			<tr id="ezename"><th >EZE NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+
+			<tr id="ezename"><th >EZE Neu NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
 			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
 			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
 			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
@@ -25,7 +28,56 @@
 			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
 			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
-
+		{%endfor%}
+		</table>
+		<table border=2 class="table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>Windkrafts</td></tr>
+		{% for ezenw in ezen.ezeneu_windkraft_set.all %}
+			<tr id="ezename"><th >Windkraft Neu NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezenw.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezenw.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezenw.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezenw.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezenw.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezenw.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezenw.id }}</td> </tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezenw.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+		</table>
+		<table border=2 class="table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>Fotovoltaics</td></tr>
+			
+		{% for eze in ezen.ezeneufotovoltaic_set.all %}
+			<tr id="ezename"><th >Fotovoltaics NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+		</table>
+		<table border=2 class="table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>Generators</td></tr>
+			
+		{% for eze in ezen.ezeneugenerator_set.all %}
+			<tr id="ezename"><th >Generator NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
 		{%endfor%}
 		</table>
 		</span>
@@ -33,6 +85,8 @@
 		<span class='col-md-6 ezebestand_right'>
 		<h3>Eze Bestand of the project:  "{{ ezen.project_name }}"</h3>
 		<table border=2 class = "table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>B EzeBestands</td></tr>
+		
 		{% for ezebest in ezen.ezebestand_set.all %}
 			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
 			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
@@ -44,10 +98,59 @@
 			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
 			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
-			
-
 		{% endfor %}
 		</table>
+		<table border=2 class = "table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>B Windkrafts</td></tr>
+		{% for ezebest in ezen.ezebestwindkraft_set.all %}
+			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{% endfor %}
+		</table>
+		<table border=2 class = "table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>B Fotovoltaics</td></tr>
+		{% for ezebest in ezen.ezebest_fotovoltaic_set.all %}
+			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{% endfor %}
+		</table>
+		<table border=2 class = "table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>B Generators</td></tr>
+		{% for ezebest in ezen.ezebestgenerator_set.all %}
+			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{% endfor %}
+		</table>
+		
 		</span>
 	<br>
+
+		
+	<br>
+
+	
 </div>

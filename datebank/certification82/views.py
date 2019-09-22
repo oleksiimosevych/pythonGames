@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, render
 #add 404
 from django.http import Http404
 from django.http import HttpResponse
-from .models import EzeNeu, EzeBestand, Project
+from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft, EzeNeuFotovoltaic
 from django.template import loader
 #add pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -25,16 +25,21 @@ def index(request):
 def detail(request, project_id):
 	# try:
 	ezen = get_object_or_404(Project, pk = project_id)
-	eze_neu_list = EzeNeu.objects.all()
-	page = request.GET.get('page', 1)
-	#paginator1
-	paginator = Paginator(eze_neu_list, 2)
-	try:
-		ezes = paginator.page(page)
-	except PageNotAnInteger:
-		ezes = paginator.page(1)
-	except EmptyPage:
-		ezes = paginator.page(paginator.num_pages)
+	
+	# eze_neu_list = EzeNeu.objects.all()
+	# eze_best_list = EzeBestand.objects.all()
+	# eze_neu_wind_list = EzeNeuWindkraft.objects.all()
+	
+
+	# page = request.GET.get('page', 1)
+	# #paginator1
+	# paginator = Paginator(eze_neu_list, 2)
+	# try:
+	# 	ezes = paginator.page(page)
+	# except PageNotAnInteger:
+	# 	ezes = paginator.page(1)
+	# except EmptyPage:
+	# 	ezes = paginator.page(paginator.num_pages)
 
 	# except EzeNeu.DoesNotExist:
 	# raise Http404("No Eze with this project number: "+str(project_id))

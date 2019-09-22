@@ -48,18 +48,19 @@ class EzeTyp(models.Model):
 
 class EzeNeu(models.Model):
 	#vDE_EZE1_Herst_id
-	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE)
+	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE, default=None)
 	#vDE_EZE1_Typ_id
-	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE)
+	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE, default=1)
 	#every eze belongs to project
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
 	vDE_EZE1_Name = models.CharField(max_length=250)
-	vDE_EZE1_ZertNR = models.BigIntegerField(default=0)
-	vDE_EZE1_Motor = models.CharField(max_length=250)
-	vDE_EZE1_Generator = models.CharField(max_length=250)
+	vDE_EZE1_ZertNR = models.BigIntegerField(default=0)	
 	vDE_EZE1_S = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	vDE_Anzahl_EZE1 = models.IntegerField(default=0)
+	#not for wind and foto
+	vDE_EZE1_Motor = models.CharField(max_length=250)
+	vDE_EZE1_Generator = models.CharField(max_length=250)
 	# eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
 	
 	def __str__(self):
@@ -67,6 +68,49 @@ class EzeNeu(models.Model):
 
 	def was_published_recently(self):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+class Eze(models.Model):
+	#vDE_EZE1_Herst_id
+	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE, default=None)
+	#vDE_EZE1_Typ_id
+	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE, default=1)
+	#every eze belongs to project
+	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	vDE_EZE1_Name = models.CharField(max_length=250)
+	vDE_EZE1_ZertNR = models.BigIntegerField(default=0)	
+	vDE_EZE1_S = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	vDE_Anzahl_EZE1 = models.IntegerField(default=0)
+	# eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
+
+
+class EzeNeuWindkraft(Eze):
+	name = models.CharField(max_length=250, default=None)
+class EzeNeuFotovoltaic(Eze):
+	name = models.CharField(max_length=250, default=None)
+class EzeNeuGenerator(EzeNeu):
+	name = models.CharField(max_length=250, default=None)
+
+
+# class EzeNeu_Generator(models.Model):
+# 	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE)
+# 	#vDE_EZE1_Typ_id
+# 	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE)
+# 	#every eze belongs to project
+# 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+# 	vDE_EZE1_Name = models.CharField(max_length=250)
+# 	vDE_EZE1_ZertNR = models.BigIntegerField(default=0)
+# 	vDE_EZE1_S = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+# 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+# 	vDE_Anzahl_EZE1 = models.IntegerField(default=0)
+	
+# 	name = models.CharField(max_length=250)
+# 	vDE_EZE1_Motor = models.CharField(max_length=250)
+# 	vDE_EZE1_Generator = models.CharField(max_length=250)
+# 	def __str__(self):
+# 		return self.name
+
+
 
 class EzeBestand(models.Model):
 	#every ezebestand belongs to a specific Project
@@ -86,6 +130,13 @@ class EzeBestand(models.Model):
 	def __str__(self):
 		return self.vDE_EZE_Name_ALT
 
+
+class EzeBestWindkraft(EzeBestand):
+	name = models.CharField(max_length=250, default=None)
+class EzeBestFotovoltaic(EzeBestand):
+	name = models.CharField(max_length=250, default=None)
+class EzeBestGenerator(EzeBestand):
+	name = models.CharField(max_length=250, default=None)
 
 # class Proof(models.Model):
 # 	projektname = models.CharField(max_length=250)
