@@ -4,7 +4,8 @@ from . import views
 #namespacing paths
 app_name = 'certification82'
 urlpatterns = [
-    path('ezedetails/<int:eze_id>/', views.eze_neu_detail, name='eze_neu_detail'),
+    path('<int:ezeneu_id>/show', views.eze_neu_show, name='eze_neu_show'),
+    # path('ezebestdetails/<int:ezebest_id>/', views.eze_best_show, name='eze_best_show'),
     path('', views.index, name='index'),
     # the 'name' value as called by the {% url %} template tag
     path('<int:project_id>/', views.detail, name='detail'),
@@ -13,8 +14,8 @@ urlpatterns = [
     # ex: /polls/5/vote/
     path('<int:project_id>/vote/', views.vote, name='vote'),
 
-	path('ezenues/', views.ezenues, name='ezenues'),
-	path('ezebestands/', views.ezebestands, name='ezebestands'),
+	# path('ezenues/', views.ezenues, name='ezenues'),
+	# path('ezebestands/', views.ezebestands, name='ezebestands'),
 	
 
 ]

@@ -79,8 +79,10 @@ WSGI_APPLICATION = 'datebank.wsgi.application'
 
 DATABASES = {
     'default': {
-        #SQLITE3
+        #for SQLITE3
         'ENGINE': 'django.db.backends.sqlite3',
+        #for MYSQL
+        # 'ENGINE': 'django.db.backends.mysql',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }

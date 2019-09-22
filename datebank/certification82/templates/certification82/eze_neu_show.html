@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
+<!-- {{latest_EzeNeu_list}} -->
+<div class="container">	
+	<div class="jumbotron text-center">
+		<h1>Eze Number "{{ ezeneu1.id }} has name {{ ezeneu1.vDE_EZE1_Name }}"</h1>
+	</div>
+		<span class='col-md-6 ezeneu_left '>
+		<h3>Eze Neu: "{{ ezeneu1.vDE_EZE1_Name }}"</h3>
+		<table border=2 class="table-hover">
+			<tr id="ezename"><th >EZE NAME:</th> <td>{{ ezeneu1.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezeneu1.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezeneu1.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezeneu1.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezeneu1.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Motortyp für VKM:</th> <td> {{ ezeneu1.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>Generatortyp für VKM:</th> <td> {{ ezeneu1.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezeneu1.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezeneu1.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezeneu1.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezeneu1.id }}</td> </tr>
+			<tr><th></th></tr>
+		</table>
+		</span>
+	<br>
+</div>

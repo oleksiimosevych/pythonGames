@@ -42,10 +42,17 @@ def detail(request, project_id):
 	
 	return render(request, 'certification82/detail.html', {'ezen' : ezen })
 
-def eze_neu_detail(request, ezeneu_id):
+def eze_neu_show(request, ezeneu_id):
 	ezeneu1 = get_object_or_404(EzeNeu, pk = ezeneu_id)
+	eze_neu_list = EzeNeu.objects.all()
 	
-	return render(request, 'certification82/eze_neu_detail.html', {'ezeneu1' :ezeneu1 })
+	return render(request, 'certification82/eze_neu_show.html', {'ezeneu1' :ezeneu1 })
+
+def eze_best_show(request, ezeneu_id):
+	ezeneu1 = get_object_or_404(EzeBestand, pk = ezebestand_id)
+	eze_best_list = EzeBestand.objects.all()
+	
+	return render(request, 'certification82/eze_best_show.html', {'ezeneu1' :ezeneu1 })
 
 def results(request, project_id):
 	response = "You're looking at the results of project %s."

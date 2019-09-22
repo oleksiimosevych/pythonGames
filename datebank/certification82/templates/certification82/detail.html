@@ -23,7 +23,9 @@
 			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
 			<tr><th>Anzahl der EZE:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
 			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
+
 		{%endfor%}
 		</table>
 		</span>
@@ -40,31 +42,12 @@
 			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
 			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
 			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
-			<tr><td><a href="">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			
+
 		{% endfor %}
 		</table>
 		</span>
-	{% if ezes.has_other_pages %}
-		<ul class="pagination">
-			{% if ezes.has_previous %}
-				<li><a href="?page={{ ezes.previous_page_number }}">&laquo;</a></li>
-			{% else %}
-				<li class="disabled"><span>&laquo;</span></li>
-			{% endif %}
-			{% for i in ezes.paginator.page_range %}
-				{% if ezes.number == i %}
-					<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-				{% else %}
-					<li><a href="?page={{ i }}">{{ i }}</a></li>
-				{% endif %}
-			{% endfor %}
-			{% if ezes.has_next %}
-				<li><a href="?page={{ ezes.next_page_number }}">&raquo;</a></li>
-			{% else %}
-				<li class="disabled"><span>&raquo;</span></li>
-			{% endif %}
-		</ul>
-	{% endif %}
 	<br>
 </div>
