@@ -13,9 +13,9 @@ urlpatterns = [
     path('<int:project_id>/results/', views.results, name='results'),
     # ex: /polls/5/vote/
     path('<int:project_id>/vote/', views.vote, name='vote'),
-
-	# path('ezenues/', views.ezenues, name='ezenues'),
+    #???
+	path('ezeneuwind/', views.ezeneuwindindex, name='ezeneuwindindex'),
 	# path('ezebestands/', views.ezebestands, name='ezebestands'),
-	
+	path('ezeneuwindofproj/<int:project_id>', views.ezeneuwindkraftsoftheprojectindex, name='ezeneuwindkraftsoftheprojectindex'),
 
 ]

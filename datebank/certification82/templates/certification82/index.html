@@ -7,10 +7,17 @@
 <div class="container">	
 
 {% if project_name_list %}
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Generators |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Generators |</a>
 	<h1>
 	{% for proj in project_name_list %}
 	<!-- no more hardcoded href  appname:viewname-->
 	<div for = "link" class="jumbotron text-center">
+
 		<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
 	</div>
 	{% endfor %}

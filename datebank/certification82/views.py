@@ -22,10 +22,32 @@ def index(request):
 	# return HttpResponse(project_Names+'\n\n<br> Neue Ezes: \n'+eze_Neus )
 #add more views
 
+def ezeneuwindindex(request):
+	ezeneuwind = EzeNeuWindkraft.objects.all()
+	# ezeneuwind = get_object_or_404(EzeNeuWindkraft, pk = ezeneuwindkraft_id)
+	context = {'ezeneuwind' : ezeneuwind }
+	return render(request, 'certification82/ezeneuwindindex.html', context)
+#???
+def ezeneuwindkraftsoftheprojectindex(request, project_id):
+	ezeneuwindofpro = get_object_or_404(Project, pk = project_id)
+	ezeneuwind = EzeNeuWindkraft.objects.filter(project_id=project_id)
+	
+	# ezeneuwind = get_object_or_404(EzeNeuWindkraft, pk = ezeneuwindkraft_id)
+	context = {'ezeneuwindofpro' : ezeneuwindofpro, 'ezeneuwind':ezeneuwind }
+	return render(request, 'certification82/ezeneuwindofproindex.html', context)
+
+
 def detail(request, project_id):
 	# try:
 	ezen = get_object_or_404(Project, pk = project_id)
-	
+	ezeneuwind = EzeNeuWindkraft.objects.filter(project_id=project_id)
+	ezeneugen = EzeNeuGenerator.objects.filter(project_id=project_id)
+	ezeneufotovoltaic = EzeNeuFotovoltaic.objects.filter(project_id=project_id)
+	ezebestwindkraft = EzeBestWindkraft.objects.filter(project_id=project_id)
+	ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project_id=project_id)
+	ezebestgenerator = EzeBestGenerator.objects.filter(project_id=project_id)
+	# .filter(project_id=project_id)
+	context = {'ezen' : ezen, 'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft, 'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
 	# eze_neu_list = EzeNeu.objects.all()
 	# eze_best_list = EzeBestand.objects.all()
 	# eze_neu_wind_list = EzeNeuWindkraft.objects.all()
@@ -45,8 +67,9 @@ def detail(request, project_id):
 	# raise Http404("No Eze with this project number: "+str(project_id))
 	# context = {	'latest_EzeNeu_list': latest_EzeNeu_list, }
 	
-	return render(request, 'certification82/detail.html', {'ezen' : ezen })
+	return render(request, 'certification82/detail.html', context)
 
+#shows only 1 result exactly with number given by link
 def eze_neu_show(request, ezeneu_id):
 	ezeneu1 = get_object_or_404(EzeNeu, pk = ezeneu_id)
 	eze_neu_list = EzeNeu.objects.all()

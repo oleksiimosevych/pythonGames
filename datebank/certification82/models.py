@@ -82,14 +82,22 @@ class Eze(models.Model):
 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	vDE_Anzahl_EZE1 = models.IntegerField(default=0)
 	# eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
+	def __str__(self):
+		return self.vDE_EZE1_Name
 
 
 class EzeNeuWindkraft(Eze):
 	name = models.CharField(max_length=250, default=None)
+	def __str__(self):
+		return self.name
 class EzeNeuFotovoltaic(Eze):
 	name = models.CharField(max_length=250, default=None)
+	def __str__(self):
+		return self.name
 class EzeNeuGenerator(EzeNeu):
 	name = models.CharField(max_length=250, default=None)
+	def __str__(self):
+		return self.name
 
 
 # class EzeNeu_Generator(models.Model):
