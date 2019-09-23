@@ -39,8 +39,6 @@
 			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
 		{%endfor%}
-		</table>
-		<table border=2 class="table-hover">
 			<tr id="ezename"><th >NEXT:</th> <td>NEUE Windkrafts</td></tr>
 		{% for ezenw in ezeneuwind %}
 			<tr id="ezename"><th >Neu Windkraft NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
@@ -56,8 +54,6 @@
 			<tr><td><a href="{% url 'certification82:ezeneuwindindex'%}">View ALL</a>
 			<tr><th></th></tr>
 		{%endfor%}
-		</table>
-		<table border=2 class="table-hover">
 			<tr id="ezename"><th >NEXT:</th> <td>N Generators</td></tr>
 			
 		{% for ezegen in ezeneugen %}
@@ -79,30 +75,13 @@
 		
 		</table>
 		</span>
-
+<vr>
 		<span class='col-md-6 ezebestand_right'>
 		<h3>Eze Bestand of the project:  "{{ ezen.project_name }}"</h3>
 		<table border=2 class = "table-hover">
-			<tr id="ezename"><th >NEXT:</th> <td>B EzeBestands</td></tr>
 		
-		{% for ezebest in ezen.ezebestand_set.all %}
-			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
-			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
-			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
-			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
-			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
-			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
-			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
-			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
-			<tr><th>NAME:</th> <td> {{ ezebest.name }}</td></tr>
-			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
-			<tr><th></th></tr>
-		{% endfor %}
-		
-		</table>
-		<table border=2 class = "table-hover">
+			<!-- here was eze besnad all togather using set function -->
 			<tr id="ezename"><th >NEXT:</th> <td>B Windkrafts</td></tr>
-		
 		{% for ezebestwind in ezebestwindkraft %}
 			<tr id="ezebname"><th >Bestand WINDKRAFT Name:</th> <td>{{ ezebestwind.vDE_EZE_Name_ALT }}</td></tr>
 			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestwind.vDE_EZE_Bestand_Zahl }}</td></tr>
@@ -117,10 +96,7 @@
 			<tr><th></th></tr>
 		{% endfor %}
 		
-		</table>
-		<table border=2 class = "table-hover">
 			<tr id="ezename"><th >NEXT:</th> <td>Best Fotovoltaics</td></tr>
-		
 		{% for ezebestfot in ezebestfotovoltaic %}
 			<tr id="ezebname"><th >Bestand FOTO NAME:</th> <td>{{ ezebestfot.vDE_EZE_Name_ALT }}</td></tr>
 			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestfot.vDE_EZE_Bestand_Zahl }}</td></tr>
@@ -135,10 +111,7 @@
 			<tr><th></th></tr>
 		{% endfor %}
 		
-		</table>
-		<table border=2 class = "table-hover">
 			<tr id="ezename"><th >NEXT:</th> <td>B Generators</td></tr>
-		
 		{% for ezebestgen in ezebestgenerator %}
 			<tr id="ezebname"><th >Bestand GENERATOR NAME:</th> <td>{{ ezebestgen.vDE_EZE_Name_ALT }}</td></tr>
 			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestgen.vDE_EZE_Bestand_Zahl }}</td></tr>
