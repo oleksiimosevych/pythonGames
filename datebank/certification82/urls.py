@@ -10,7 +10,7 @@ urlpatterns = [
     ##new GENERIC
     path('', views.IndexView.as_view(), name='index'),
     # the 'name' value as called by the {% url %} template tag
-    path('project<pk>/detail', views.DetailView.as_view(), name='detail'),
+    path('detail<int:project_id>', views.detail, name='detail'),
     ##############
     
     # ex: /polls/5/results/

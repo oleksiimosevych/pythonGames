@@ -32,9 +32,9 @@ class IndexView(generic.ListView):
 		"""Return the last five published questions."""
 		return Project.objects.order_by('-project_creation_date')[:5]
 
-class DetailView(generic.DetailView):
-	model = Project
-	template_name = 'certification82/detail.html'
+# class DetailView(generic.DetailView):
+# 	model = Project
+# 	template_name = 'certification82/detail.html'
 
 	# def get_object(context, project_id):
 		# try:OLD
@@ -141,7 +141,7 @@ def ezeneuwindkraftsoftheprojectindex(request, project_id):
 	return render(request, 'certification82/ezeneuwindofproindex.html', context)
 
 
-'''def detail(request, project_id):
+def detail(request, project_id):
 	# try:
 	ezen = get_object_or_404(Project, pk = project_id)
 	ezeneuwind = EzeNeuWindkraft.objects.filter(project_id=project_id)
@@ -172,7 +172,6 @@ def ezeneuwindkraftsoftheprojectindex(request, project_id):
 	# context = {	'latest_EzeNeu_list': latest_EzeNeu_list, }
 	
 	return render(request, 'certification82/detail.html', context)
-'''
 
 #shows only 1 result exactly with number given by link
 def eze_neu_show(request, ezeneu_id):

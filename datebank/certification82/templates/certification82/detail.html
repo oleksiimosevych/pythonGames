@@ -8,7 +8,7 @@
 	<div class="jumbotron text-center">
 		<h1>All Ezes of the Project "{{ project.project_name }}"</h1>
 		<br>
-		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' project.pk %}">Neue WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' ezen.id %}">Neue WINDKRAFTS |</a>
 		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Fotovoltaics |</a>
 		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Generators |</a>
 		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene WINDKRAFTS |</a>
@@ -21,7 +21,7 @@
 		<table border=2 class="table-hover">
 			<tr id="ezename"><th >NEXT:</th> <td>EZENeus</td></tr>
 			
-		{% for eze in project.ezeneu_set.all %}
+		{% for eze in ezen.ezeneu_set.all %}
 
 			<tr id="ezename"><th >EZE Neu NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
 			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
@@ -40,7 +40,7 @@
 			<tr><th></th></tr>
 		{%endfor%}
 			<tr id="ezename"><th >NEXT:</th> <td>NEUE Windkrafts</td></tr>
-		{% for ezenw in project.ezeneuwind_set.all %}
+		{% for ezenw in ezeneuwind %}
 			<tr id="ezename"><th >Neu Windkraft NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
 			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezenw.eZeHersteller }}</td></tr>
 			<tr><th>Typ der EZE--id:</th> <td> {{ ezenw.eZeTyp }}</td></tr>
