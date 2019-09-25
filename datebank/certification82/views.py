@@ -23,14 +23,56 @@ from django.urls import reverse
 # 	return render(request, 'certification82/index.html', context)
 	# return HttpResponse(project_Names+'\n\n<br> Neue Ezes: \n'+eze_Neus )
 #add more views
-####TRY TO USE GENERIC add at the top from django.views import generic from django.urls import reverse
+####USing GENERIC add at the top from django.views import generic from django.urls import reverse
 class IndexView(generic.ListView):
 	template_name = 'certification82/index.html'
 	context_object_name = 'project_name_list'
-
 	def get_queryset(self):
 		"""Return the last five published questions."""
 		return Project.objects.order_by('-project_creation_date')[:5]
+#####new and best gener views of index
+class NeuWindkraftIndexView(generic.ListView):
+	template_name = 'certification82/neuwindindex.html'
+	context_object_name = 'neuwindkraft_name_list'
+
+	def get_queryset(self):
+		return EzeNeuWindkraft.objects.order_by('-name')[:5]
+class BestWindkraftIndexView(generic.ListView):
+	template_name = 'certification82/bestwindindex.html'
+	context_object_name = 'bestwindkraft_name_list'
+
+	def get_queryset(self):
+		return EzeBestWindkraft.objects.order_by('-name')[:5]
+
+class NeuFotovoltaicIndexView(generic.ListView):
+	template_name = 'certification82/neufotoindex.html'
+	context_object_name = 'neufoto_name_list'
+
+	def get_queryset(self):
+		return EzeNeuFotovoltaic.objects.order_by('-name')[:5]
+class BestFotovoltaicIndexView(generic.ListView):
+	template_name = 'certification82/bestfotoindex.html'
+	context_object_name = 'bestfoto_name_list'
+
+	def get_queryset(self):
+		return EzeBestFotovoltaic.objects.order_by('-name')[:5]
+
+class NeuGeneratorIndexView(generic.ListView):
+	template_name = 'certification82/neugenindex.html'
+	context_object_name = 'neugen_name_list'
+
+	def get_queryset(self):
+		"""Return the last five published questions."""
+		return EzeNeuGenerator.objects.order_by('-name')[:5]
+class BestGeneratorIndexView(generic.ListView):
+	template_name = 'certification82/bestgenindex.html'
+	context_object_name = 'bestgen_name_list'
+
+	def get_queryset(self):
+		"""Return the last five published questions."""
+		return EzeBestGenerator.objects.order_by('-name')[:5]
+
+
 
 # class DetailView(generic.DetailView):
 # 	model = Project

@@ -7,8 +7,17 @@ urlpatterns = [
     path('<int:ezeneu_id>/show', views.eze_neu_show, name='eze_neu_show'),
     # path('ezebestdetails/<int:ezebest_id>/', views.eze_best_show, name='eze_best_show'),
     
-    ##new GENERIC
+    ## GENERIC indexes 
     path('', views.IndexView.as_view(), name='index'),
+    ###new
+    path('', views.NeuWindkraftIndexView.as_view(), name='neuwindindex'),
+    path('', views.NeuFotovoltaicIndexView.as_view(), name='neufotoindex'),
+    path('', views.NeuGeneratorIndexView.as_view(), name='neugeneratorindex'),
+    ###best
+    path('', views.BestWindkraftIndexView.as_view(), name='bestwindindex'),
+    path('', views.BestFotovoltaicIndexView.as_view(), name='bestfotoindex'),
+    path('', views.BestGeneratorIndexView.as_view(), name='bestgeneratorindex'),
+    
     # the 'name' value as called by the {% url %} template tag
     path('detail<int:project_id>', views.detail, name='detail'),
     ##############
@@ -20,7 +29,7 @@ urlpatterns = [
     #???
 	path('ezeneuwind/', views.ezeneuwindindex, name='ezeneuwindindex'),
 	# path('ezebestands/', views.ezebestands, name='ezebestands'),
-	path('ezeneuwindofproj/<int:project_id>/index', views.ezeneuwindkraftsoftheprojectindex, name='ezeneuwindkraftsoftheprojectindex'),
+    path('ezeneuwindofproj/<int:project_id>/index', views.ezeneuwindkraftsoftheprojectindex, name='ezeneuwindkraftsoftheprojectindex'),
 
     #############################new
     ###docs, betreibers, schutzs, trafos, regelungs

@@ -1,0 +1,36 @@
+{% load static %}
+<html>
+<head>
+	<title>
+		{% block title %}{% endblock %}
+	</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
+</head>
+<body>
+	<img src="{% static 'images/sitelogo.png' %}" alt="Logo">
+		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
+		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
+		<a href="{% url 'certification82:index'%}">EZE |</a>
+		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
+		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
+		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+		
+		
+		<p>WINDKRAFT: <a href="{% url 'certification82:ezeneuwindindex'%}">Neu |</a>
+		<a href="{% url 'certification82:ezebestwindindex'%}">Bestand |</a>
+		</p>
+		<nobr>
+		<p>Fotovoltaic: <a href="{% url 'certification82:ezeneufotoindex'%}">Neu |</a>
+		<a href="{% url 'certification82:ezebestfotoindex'%}">Bestand Fotovoltaics |</a>
+		</p><nobr>
+		<p>Generator: 
+		<a href="{% url 'certification82:ezeneugenindex'%}">Neu |</a>
+		<a href="{% url 'certification82:ezebestgenindex'%}">Bestand |</a>
+	<div class="container">
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html>

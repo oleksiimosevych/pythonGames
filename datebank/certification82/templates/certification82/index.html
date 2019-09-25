@@ -1,39 +1,21 @@
-{% load staticfiles %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+{% extends "base.html" %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
-<!-- {{latest_EzeNeu_list}} -->
-<div class="container">	
 
-{% if project_name_list %}
-		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
-		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
-		<a href="{% url 'certification82:index'%}">EZE |</a>
-		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
-		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
-		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+{% block title %}
+	Certification index
+{% endblock %}
 		
-		
-		<p>WINDKRAFT: <a href="{% url 'certification82:ezeneuwindindex'%}">Neu |</a>
-		<a href="{% url 'certification82:ezebestwindindex'%}">Bestand |</a>
-		</p>
-		<nobr>
-		<p>Fotovoltaic: <a href="{% url 'certification82:ezeneufotoindex'%}">Neu |</a>
-		<a href="{% url 'certification82:ezebestfotoindex'%}">Bestand Fotovoltaics |</a>
-		</p><nobr>
-		<p>Generator: 
-		<a href="{% url 'certification82:ezeneugenindex'%}">Neu |</a>
-		<a href="{% url 'certification82:ezebestgenindex'%}">Bestand |</a>
-	<h1>
-	{% for proj in project_name_list %}
-	<!-- no more hardcoded href  appname:viewname-->
-	<div for = "link" class="jumbotron text-center">
-
-		<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
-	</div>
+{% block content %}
+	{% if project_name_list %}
+		<h1>
+		{% for proj in project_name_list %}
+		<!-- no more hardcoded href  appname:viewname-->
+		<div for = "link" class="jumbotron text-center">
+			<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
+		</div>
 	{% endfor %}
 	</h1>
-{% else %}
-	<p>No projects are available.</p>
-{% endif %}
+	{% else %}
+		<p>No projects are available.</p>
+	{% endif %}
+{% endblock %}
