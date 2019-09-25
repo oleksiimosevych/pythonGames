@@ -7,20 +7,24 @@
 <div class="container">	
 
 {% if project_name_list %}
-		<a href="{% url 'certification82:ezeneuwindindex'%}">DOCUMENTE |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">BETREIBER |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">EZE |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">SCHUTZ |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">TRAFO |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">REGELUNG |</a>
+		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
+		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
+		<a href="{% url 'certification82:index'%}">EZE |</a>
+		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
+		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
+		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
 		
 		
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Generators |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Generators |</a>
+		<p>WINDKRAFT: <a href="{% url 'certification82:ezeneuwindindex'%}">Neu |</a>
+		<a href="{% url 'certification82:ezebestwindindex'%}">Bestand |</a>
+		</p>
+		<nobr>
+		<p>Fotovoltaic: <a href="{% url 'certification82:ezeneufotoindex'%}">Neu |</a>
+		<a href="{% url 'certification82:ezebestfotoindex'%}">Bestand Fotovoltaics |</a>
+		</p><nobr>
+		<p>Generator: 
+		<a href="{% url 'certification82:ezeneugenindex'%}">Neu |</a>
+		<a href="{% url 'certification82:ezebestgenindex'%}">Bestand |</a>
 	<h1>
 	{% for proj in project_name_list %}
 	<!-- no more hardcoded href  appname:viewname-->

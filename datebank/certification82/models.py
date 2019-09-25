@@ -98,6 +98,7 @@ class EzeNeuGenerator(EzeNeu):
 	name = models.CharField(max_length=250, default=None)
 	def __str__(self):
 		return self.name
+
 class TrafoHersteller(models.Model):
 	name = models.CharField(max_length=250, default='No INFO')
 	def __str__(self):
@@ -120,6 +121,25 @@ class Transformator(models.Model):
 	VDE_Trafo_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	def __str__(self):
 		return self.VDE_Trafo
+
+################################
+#new
+class Betreiber(models.Model):
+	name = models.CharField(max_length=250, default='No INFO')
+	def __str__(self):
+		return self.name
+
+class Schutz(models.Model):
+	"""docstring for Schutz"""
+	def __str__(self):
+		return self.name
+		
+class Regelung(models.Model):
+	"""docstring for Regelung"""
+	def __str__(self):
+		return self.name
+
+##################################decomment after all created
 
 
 # class EzeNeu_Generator(models.Model):
