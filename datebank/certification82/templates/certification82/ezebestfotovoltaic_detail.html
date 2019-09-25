@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	Best. Foto details
+{% endblock %}
+		
+{% block content %}
+{%if ezebestfotovoltaic %}
+	<table border=2 class="table-hover">
+
+		<tr id="ezebname"><th >Bestand Foto Name:</th> <td>{{ ezebestfotovoltaic.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestfotovoltaic.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebestfotovoltaic.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebestfotovoltaic.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebestfotovoltaic.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebestfotovoltaic.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebestfotovoltaic.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebestfotovoltaic.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th>NAME:</th> <td> {{ ezebestfotovoltaic.name }}</td></tr>
+
+			<tr><th></th></tr>
+	</h1>
+{% else %}
+		<p>No fotovoltaics are available.</p>
+{% endif %}
+	
+{% endblock %}

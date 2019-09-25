@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	Best. Windkraft details
+{% endblock %}
+		
+{% block content %}
+{%if ezebestwindkraft %}
+	<table border=2 class="table-hover">
+
+		<tr id="ezebname"><th >Bestand Windkraft Name:</th> <td>{{ ezebestwindkraft.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestwindkraft.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebestwindkraft.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebestwindkraft.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebestwindkraft.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebestwindkraft.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebestwindkraft.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebestwindkraft.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th>NAME:</th> <td> {{ ezebestwindkraft.name }}</td></tr>
+
+			<tr><th></th></tr>
+	</h1>
+{% else %}
+		<p>No windkrafts are available.</p>
+{% endif %}
+	
+{% endblock %}

@@ -1,10 +1,9 @@
 {% extends "base.html" %}
-{% block content %}
-<h1>All Neu Windkrafts of the Project "{{ ezeneuwindofpro.project_name }}"</h1>
+{% block content%}
+<h1>All Generators of the Project "{{ project.project_name }}"</h1>
 <table border=2 class="table-hover">
-			<tr id="ezename"><th >NEXT:</th> <td>WINDKRAFTS</td></tr>
-		
-		{% for ezenw in ezeneuwind %}
+	{% if items %}
+		{% for ezenw in items %}
 			<tr id="ezename"><th >Windkraft Neu NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
 			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezenw.eZeHersteller }}</td></tr>
 			<tr><th>Typ der EZE--id:</th> <td> {{ ezenw.eZeTyp }}</td></tr>
@@ -18,4 +17,7 @@
 			<tr><td><a href="{% url 'certification82:eze_neu_show' ezenw.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
 		{%endfor%}
-{%endblock%}
+	{% else %}
+			<tr id="ezename"><th >NO ITEMS</th> <td></td></tr>
+	{% endif %}	
+{% endblock %}

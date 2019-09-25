@@ -32,30 +32,37 @@ class IndexView(generic.ListView):
 		return Project.objects.order_by('-project_creation_date')[:5]
 #####new and best gener views of index
 class NeuWindkraftIndexView(generic.ListView):
+	#or modelname_list.html
 	template_name = 'certification82/neuwindindex.html'
 	context_object_name = 'neuwindkraft_name_list'
 
 	def get_queryset(self):
 		return EzeNeuWindkraft.objects.order_by('-name')[:5]
-class BestWindkraftIndexView(generic.ListView):
-	template_name = 'certification82/bestwindindex.html'
-	context_object_name = 'bestwindkraft_name_list'
 
+class NeuWindkraftDetailView(generic.DetailView):
+	model = EzeNeuWindkraft
+	# template_name = 'certification82/myOWN_Named-details.html' or ModelName_detail.html
+
+class BestWindkraftIndexView(generic.ListView):
+	context_object_name = 'bestwindkraft_name_list'
 	def get_queryset(self):
 		return EzeBestWindkraft.objects.order_by('-name')[:5]
+class BestWindkraftDetailView(generic.DetailView):
+	model = EzeBestWindkraft
 
 class NeuFotovoltaicIndexView(generic.ListView):
-	template_name = 'certification82/neufotoindex.html'
-	context_object_name = 'neufoto_name_list'
-
+	context_object_name = 'neufotovoltaic_name_list'
 	def get_queryset(self):
 		return EzeNeuFotovoltaic.objects.order_by('-name')[:5]
-class BestFotovoltaicIndexView(generic.ListView):
-	template_name = 'certification82/bestfotoindex.html'
-	context_object_name = 'bestfoto_name_list'
+class NeuFotovoltaicDetailView(generic.DetailView):
+	model = EzeNeuFotovoltaic
 
+class BestFotovoltaicIndexView(generic.ListView):
+	context_object_name = 'bestfotovoltaic_name_list'
 	def get_queryset(self):
 		return EzeBestFotovoltaic.objects.order_by('-name')[:5]
+class BestFotovoltaicDetailView(generic.DetailView):
+	model = EzeBestFotovoltaic
 
 class NeuGeneratorIndexView(generic.ListView):
 	template_name = 'certification82/neugenindex.html'
@@ -181,7 +188,39 @@ def ezeneuwindkraftsoftheprojectindex(request, project_id):
 	# ezeneuwind = get_object_or_404(EzeNeuWindkraft, pk = ezeneuwindkraft_id)
 	context = {'ezeneuwindofpro' : ezeneuwindofpro, 'ezeneuwind':ezeneuwind }
 	return render(request, 'certification82/ezeneuwindofproindex.html', context)
+#indexes of that
+def ezeneufotooftheprojectindex(request, project_id):
+	project = get_object_or_404(Project, pk = project_id)
+	items = EzeNeuFotovoltaic.objects.filter(project_id=project_id)
+	context = {'project' : project, 'items':items }
+	return render(request, 'certification82/ezeneufotoofproindex.html', context)
+def ezeneugenoftheprojectindex(request, project_id):
+	project = get_object_or_404(Project, pk = project_id)
+	items = EzeNeuGenerator.objects.filter(project_id=project_id)
+	context = {'project' : project, 'items':items }
+	return render(request, 'certification82/ezeneugenofproindex.html', context)
 
+def ezebestwindoftheprojectindex(request, project_id):
+	project = get_object_or_404(Project, pk = project_id)
+	items = EzeBestWindkraft.objects.filter(project_id=project_id)
+	context = {'project' : project, 'items':items }
+	return render(request, 'certification82/ezebestwindofproindex.html', context)
+def ezebestfotooftheprojectindex(request, project_id):
+	project = get_object_or_404(Project, pk = project_id)
+	items = EzeBestFotovoltaic.objects.filter(project_id=project_id)
+	context = {'project' : project, 'items':items }
+	return render(request, 'certification82/ezebestfotoofproindex.html', context)
+def ezebestgenoftheprojectindex(request, project_id):
+	project = get_object_or_404(Project, pk = project_id)
+	items = EzeBestGenerator.objects.filter(project_id=project_id)
+	context = {'project' : project, 'items':items }
+	return render(request, 'certification82/ezebestgenofproindex.html', context)
+
+
+
+
+
+################################################################################################3
 
 def detail(request, project_id):
 	# try:

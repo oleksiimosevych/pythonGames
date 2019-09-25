@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+<!-- # detail which depends to the project id -->
 
 {% block title %}
 	Details index
@@ -7,14 +7,14 @@
 {% block content %}
 
 	<div class="jumbotron text-center">
-		<h1>All Ezes of the Project "{{ project.project_name }}"</h1>
+		<h2>All EZEs of the Project</h2> <br> <h5>"{{ ezen.project_name }}"</h5>
 		<br>
 		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' ezen.id %}">Neue WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Generators |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Generators |</a>
+		<a href="{% url 'certification82:ezeneufotooftheprojectindex' ezen.id  %}">Neue Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneugenoftheprojectindex' ezen.id %}">Neue Generators |</a>
+		<a href="{% url 'certification82:ezebestwindoftheprojectindex' ezen.id %}">Bestandene WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezebestfotooftheprojectindex' ezen.id %}">Bestandene Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezebestgenoftheprojectindex' ezen.id %}">Bestandene Generators |</a>
 		
 	</div>
 		<span class='col-md-6 ezeneu_left '>
