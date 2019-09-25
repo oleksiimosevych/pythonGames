@@ -1,0 +1,14 @@
+	<tr id="ezename"><th >NEXT:</th> <td>B EzeBestands</td></tr>
+				{% for ezebest in ezen.ezebestand_set.all %}
+			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th>NAME:</th> <td> {{ ezebest.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{% endfor %}

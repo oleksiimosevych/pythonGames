@@ -1,0 +1,24 @@
+
+
+span.ezeneu_left{
+	float:left;
+	/*clear: left;*/
+	/*background-color: ;*/
+}
+
+span.ezebestand_right{
+	float: right;
+	/*clear: right;*/
+}
+
+span.ezebestand_right, span.ezeneu_left{
+	/**/
+}
+
+#ezename, #ezebname{
+	background-color: silver;
+}
+table{
+	width: 75%;
+	min-width: 75%;
+}

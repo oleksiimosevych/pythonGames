@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
+<!-- {{latest_EzeNeu_list}} -->
+<div class="container">	
+
+{% if project_name_list %}
+		<a href="{% url 'certification82:ezeneuwindindex'%}">DOCUMENTE |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">BETREIBER |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">EZE |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">SCHUTZ |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">TRAFO |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">REGELUNG |</a>
+		
+		
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Generators |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Generators |</a>
+	<h1>
+	{% for proj in project_name_list %}
+	<!-- no more hardcoded href  appname:viewname-->
+	<div for = "link" class="jumbotron text-center">
+
+		<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
+	</div>
+	{% endfor %}
+	</h1>
+{% else %}
+	<p>No projects are available.</p>
+{% endif %}

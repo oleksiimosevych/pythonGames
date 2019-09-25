@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
+<!-- {{latest_EzeNeu_list}} -->
+<div class="container">	
+	<div class="jumbotron text-center">
+
+<table border=2 class="table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>Windkrafts</td></tr>
+		{% for ezenw in ezeneuwind %}
+			<tr id="ezename"><th >Windkraft Neu NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezenw.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezenw.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezenw.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezenw.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezenw.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezenw.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezenw.id }}</td> </tr>
+			<tr><th>NAME:</th> <td> {{ ezenw.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezenw.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+		</table>

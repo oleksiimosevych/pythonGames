@@ -1,0 +1,137 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
+<!-- {{latest_EzeNeu_list}} -->
+<div class="container">	
+	<div class="jumbotron text-center">
+		<h1>All Ezes of the Project "{{ ezen.project_name }}"</h1>
+		<br>
+		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' ezen.id %}">Neue WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Neue Generators |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneuwindindex'%}">Bestandene Generators |</a>
+		
+	</div>
+		<span class='col-md-6 ezeneu_left '>
+		<h3>Eze Neues of the project:  "{{ ezen.project_name }}"</h3>
+		<table border=2 class="table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>EZENeus</td></tr>
+			
+		{% for eze in ezen.ezeneu_set.all %}
+
+			<tr id="ezename"><th >EZE Neu NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Motortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>Generatortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+
+			<tr><th>NAME:</th> <td> {{ eze.name }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+			<tr id="ezename"><th >NEXT:</th> <td>NEUE Windkrafts</td></tr>
+		{% for ezenw in ezeneuwind %}
+			<tr id="ezename"><th >Neu Windkraft NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezenw.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezenw.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezenw.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezenw.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezenw.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezenw.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezenw.id }}</td> </tr>
+			<tr><th>NAME:</th> <td> {{ ezenw.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:ezeneuwindindex'%}">View ALL</a>
+			<tr><th></th></tr>
+		{%endfor%}
+			<tr id="ezename"><th >NEXT:</th> <td>N Generators</td></tr>
+			
+		{% for ezegen in ezeneugen %}
+			<tr id="ezename"><th >Neu Generator NAME:</th> <td>{{ ezegen.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezegen.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezegen.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezegen.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezegen.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Motortyp für VKM:</th> <td> {{ ezegen.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>Generatortyp für VKM:</th> <td> {{ ezegen.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezegen.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezegen.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezegen.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezegen.id }}</td> </tr>
+			<tr><th>NAME:</th> <td> {{ ezegen.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezegen.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+		
+		</table>
+		</span>
+<vr>
+		<span class='col-md-6 ezebestand_right'>
+		<h3>Eze Bestand of the project:  "{{ ezen.project_name }}"</h3>
+		<table border=2 class = "table-hover">
+		
+			<!-- here was eze besnad all togather using set function -->
+			<tr id="ezename"><th >NEXT:</th> <td>B Windkrafts</td></tr>
+		{% for ezebestwind in ezebestwindkraft %}
+			<tr id="ezebname"><th >Bestand WINDKRAFT Name:</th> <td>{{ ezebestwind.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestwind.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebestwind.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebestwind.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebestwind.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebestwind.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebestwind.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebestwind.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th>NAME:</th> <td> {{ ezebestwind.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebestwind.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{% endfor %}
+		
+			<tr id="ezename"><th >NEXT:</th> <td>Best Fotovoltaics</td></tr>
+		{% for ezebestfot in ezebestfotovoltaic %}
+			<tr id="ezebname"><th >Bestand FOTO NAME:</th> <td>{{ ezebestfot.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestfot.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebestfot.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebestfot.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebestfot.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebestfot.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebestfot.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebestfot.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th>NAME:</th> <td> {{ ezebestfot.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebestfot.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{% endfor %}
+		
+			<tr id="ezename"><th >NEXT:</th> <td>B Generators</td></tr>
+		{% for ezebestgen in ezebestgenerator %}
+			<tr id="ezebname"><th >Bestand GENERATOR NAME:</th> <td>{{ ezebestgen.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebestgen.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebestgen.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebestgen.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebestgen.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebestgen.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebestgen.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebestgen.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th>NAME:</th> <td> {{ ezebestgen.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezebestgen.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{% endfor %}
+		</table>
+		
+		</span>
+	<br>
+
+		
+	<br>
+
+	
+</div>
