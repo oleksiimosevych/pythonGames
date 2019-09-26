@@ -31,53 +31,64 @@ class IndexView(generic.ListView):
 		"""Return the last five published questions."""
 		return Project.objects.order_by('-project_creation_date')[:5]
 #####new and best gener views of index
+#neuwind
 class NeuWindkraftIndexView(generic.ListView):
 	#or modelname_list.html
-	template_name = 'certification82/neuwindindex.html'
+	template_name = 'certification82/list_views/EzeNeuWindkraft_list.html'
 	context_object_name = 'neuwindkraft_name_list'
-
 	def get_queryset(self):
 		return EzeNeuWindkraft.objects.order_by('-name')[:5]
-
 class NeuWindkraftDetailView(generic.DetailView):
 	model = EzeNeuWindkraft
-	# template_name = 'certification82/myOWN_Named-details.html' or ModelName_detail.html
-
+	template_name = 'certification82/detailed_views/EzeNeuWindkraft_detail.html' #or ModelName_detail.html
+#bestwind
 class BestWindkraftIndexView(generic.ListView):
 	context_object_name = 'bestwindkraft_name_list'
+	template_name = 'certification82/list_views/EzeBestWindkraft_list.html'
 	def get_queryset(self):
 		return EzeBestWindkraft.objects.order_by('-name')[:5]
 class BestWindkraftDetailView(generic.DetailView):
 	model = EzeBestWindkraft
-
+	template_name = 'certification82/detailed_views/EzeBestWindkraft_detail.html' #or ModelName_detail.html
+#neufoto
 class NeuFotovoltaicIndexView(generic.ListView):
 	context_object_name = 'neufotovoltaic_name_list'
+	template_name = 'certification82/list_views/EzeNeuFotovoltaic_list.html'
+
 	def get_queryset(self):
 		return EzeNeuFotovoltaic.objects.order_by('-name')[:5]
 class NeuFotovoltaicDetailView(generic.DetailView):
 	model = EzeNeuFotovoltaic
-
+	template_name = 'certification82/detailed_views/EzeNeuFotovoltaic_detail.html'
+#bestfoto
 class BestFotovoltaicIndexView(generic.ListView):
 	context_object_name = 'bestfotovoltaic_name_list'
+	template_name = 'certification82/list_views/EzeBestFotovoltaic_list.html'
 	def get_queryset(self):
 		return EzeBestFotovoltaic.objects.order_by('-name')[:5]
 class BestFotovoltaicDetailView(generic.DetailView):
 	model = EzeBestFotovoltaic
-
+	template_name = 'certification82/detailed_views/EzeBestFotovoltaic_detail.html'
+#neugen
 class NeuGeneratorIndexView(generic.ListView):
-	template_name = 'certification82/neugenindex.html'
 	context_object_name = 'neugen_name_list'
-
+	template_name = 'certification82/list_views/EzeNeuGenerator_list.html'
 	def get_queryset(self):
-		"""Return the last five published questions."""
+		"""Return the last a-z added generators."""
 		return EzeNeuGenerator.objects.order_by('-name')[:5]
-class BestGeneratorIndexView(generic.ListView):
-	template_name = 'certification82/bestgenindex.html'
-	context_object_name = 'bestgen_name_list'
+class NeuGeneratorDetailView(generic.DetailView):
+	model = EzeNeuGenerator
+	template_name = 'certification82/detailed_views/EzeNeuGenerator_detail.html'
 
+
+class BestGeneratorIndexView(generic.ListView):
+	context_object_name = 'bestgen_name_list'
+	template_name = 'certification82/list_views/EzeBestGenerator_list.html'
 	def get_queryset(self):
-		"""Return the last five published questions."""
 		return EzeBestGenerator.objects.order_by('-name')[:5]
+class BestGeneratorDetailView(generic.DetailView):
+	model = EzeBestGenerator
+	template_name = 'certification82/detailed_views/EzeBestGenerator_detail.html'
 
 
 

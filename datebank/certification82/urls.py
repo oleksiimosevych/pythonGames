@@ -26,16 +26,20 @@ urlpatterns = [
     path('<int:project_id>/results/', views.results, name='results'),
     # ex: /polls/5/vote/
     path('<int:project_id>/vote/', views.vote, name='vote'),
-    #???
+    
+
+    #######################################DETAILS!
 	path('ezeneuwind/', views.NeuWindkraftIndexView.as_view(), name='ezeneuwindindex'),
     path('neuwind/number/<int:pk>', views.NeuWindkraftDetailView.as_view(), name = 'ezeneuwinddetail'),
     path('bestwind/number/<int:pk>', views.BestWindkraftDetailView.as_view(), name = 'ezebestwinddetail'),
     path('neufoto/number/<int:pk>', views.NeuFotovoltaicDetailView.as_view(), name = 'ezeneufotodetail'),
     path('bestfoto/number/<int:pk>', views.BestFotovoltaicDetailView.as_view(), name = 'ezebestfotodetail'),
+    path('neugen/number/<int:pk>', views.NeuGeneratorDetailView.as_view(), name = 'ezeneugendetail'),
+    path('bestgen/number/<int:pk>', views.BestGeneratorDetailView.as_view(), name = 'ezebestgendetail'),
     
     
 
-######OF THE PROJECT using id
+#OF THE PROJECT using id
 	# path('ezebestands/', views.ezebestands, name='ezebestands'),
     path('ezeneuwindofproj/<int:project_id>/index', views.ezeneuwindkraftsoftheprojectindex, name='ezeneuwindkraftsoftheprojectindex'),
     path('ezeneufotooftheproj/<int:project_id>/index', views.ezeneufotooftheprojectindex, name='ezeneufotooftheprojectindex'),
@@ -43,6 +47,7 @@ urlpatterns = [
     path('ezebestwindoftheproj/<int:project_id>/index', views.ezebestwindoftheprojectindex, name='ezebestwindoftheprojectindex'),
     path('ezebestfotooftheproj/<int:project_id>/index', views.ezebestfotooftheprojectindex, name='ezebestfotooftheprojectindex'),
     path('ezebestgenoftheproj/<int:project_id>/index', views.ezebestgenoftheprojectindex, name='ezebestgenoftheprojectindex'),
+
     
   
     #############################new
