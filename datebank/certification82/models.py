@@ -39,12 +39,11 @@ class EzeHersteller(models.Model):
 	hersteller_name = models.CharField(max_length=250) 
 	def __str__(self):
 		return self.hersteller_name
-
-
 class EzeTyp(models.Model):
 	typ_name = models.CharField(max_length=250)	
 	def __str__(self):
 		return self.typ_name
+
 
 class EzeNeu(models.Model):
 	#vDE_EZE1_Herst_id
@@ -61,6 +60,17 @@ class EzeNeu(models.Model):
 	#not for wind and foto
 	vDE_EZE1_Motor = models.CharField(max_length=250)
 	vDE_EZE1_Generator = models.CharField(max_length=250)
+	##TEXTMARKEN
+	eZeHerstellerTextmarke = models.CharField(max_length=250, default="")
+	eZeTypTextmarke = models.CharField(max_length=250, default="")
+	projectTextmarke = models.CharField(max_length=250, default="")
+	vDE_EZE1_NameTextmarke = models.CharField(max_length=250, default="")
+	vDE_EZE1_ZertNRTextmarke = models.CharField(max_length=250, default="")
+	vDE_EZE1_STextmarke = models.CharField(max_length=250, default="")
+	vDE_EZE1_PTextmarke = models.CharField(max_length=250, default="")
+	vDE_Anzahl_EZE1Textmarke = models.CharField(max_length=250, default="")
+	vDE_EZE1_MotorTextmarke = models.CharField(max_length=250, default="")
+	vDE_EZE1_GeneratorTextmarke = models.CharField(max_length=250, default="")
 	# eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
 	
 	def __str__(self):
@@ -119,6 +129,7 @@ class Transformator(models.Model):
 	VDE_TrafoUnter = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	VDE_Trafo_kurz = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 	VDE_Trafo_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+
 	def __str__(self):
 		return self.VDE_Trafo
 

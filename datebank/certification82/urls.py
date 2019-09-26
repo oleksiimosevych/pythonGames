@@ -1,5 +1,4 @@
 from django.urls import path
-
 from . import views
 #namespacing paths
 app_name = 'certification82'
@@ -36,10 +35,8 @@ urlpatterns = [
     path('bestfoto/number/<int:pk>', views.BestFotovoltaicDetailView.as_view(), name = 'ezebestfotodetail'),
     path('neugen/number/<int:pk>', views.NeuGeneratorDetailView.as_view(), name = 'ezeneugendetail'),
     path('bestgen/number/<int:pk>', views.BestGeneratorDetailView.as_view(), name = 'ezebestgendetail'),
-    
-    
 
-#OF THE PROJECT using id
+    #OF THE PROJECT using id
 	# path('ezebestands/', views.ezebestands, name='ezebestands'),
     path('ezeneuwindofproj/<int:project_id>/index', views.ezeneuwindkraftsoftheprojectindex, name='ezeneuwindkraftsoftheprojectindex'),
     path('ezeneufotooftheproj/<int:project_id>/index', views.ezeneufotooftheprojectindex, name='ezeneufotooftheprojectindex'),
@@ -51,13 +48,23 @@ urlpatterns = [
     
   
     #############################new
-    ###docs, betreibers, schutzs, trafos, regelungs
-    path('alldocs/', views.documenteindex, name='documenteindex'),
-    path('betreibers/', views.betreiberindex, name='betreiberindex'),
-    path('schutz/', views.schutzindex, name='schutzindex'),
-    path('trafos/', views.trafoindex, name='trafoindex'),
-    path('regelungindex/', views.regelungindex, name='regelungindex'),
+    ###docs, betreibers, schutzs, trafos, regelungs list and details
+    path('alldocs/', views.DocumentIndexView.as_view(), name='documenteindex'),
+    path('doc/number/<int:pk>', views.DocumentDetailView.as_view(), name = 'documentdetailview'),
+
+    path('betreibers/', views.BetreiberIndexView.as_view(), name='betreiberindex'),
+    path('betreiber/number/<int:pk>', views.BetreiberDetailView.as_view(), name = 'betreiberdetailview'),
     
+    
+    path('schutz/', views.schutzindex, name='schutzindex'),
+    # path('schutz/number/<int:pk>', views.SchutzDetailView.as_view(), name = 'documentdetailview'),
+
+    path('trafos/', views.TransformatorIndexView.as_view(), name='trafoindex'),
+    path('trafo/number/<int:pk>', views.TransformatorDetailView.as_view(), name = 'transformatordetailview'),
+
+    path('regelungindex/', views.regelungindex, name='regelungindex'),
+    # path('regel/number/<int:pk>', views.RegelungDetailView.as_view(), name = 'documentdetailview'),
+
     ###wind, foto, generator
     # path('ezebestwindindex/', views.BestWindkraftIndexView.as_view(), name='ezebestwindindex'),
     # path('ezeneufotoindex/', views.ezeneufotoindex, name='ezeneufotoindex'),

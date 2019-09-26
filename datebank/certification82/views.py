@@ -92,7 +92,7 @@ class BestGeneratorDetailView(generic.DetailView):
 
 
 
-# class DetailView(generic.DetailView):
+# class EveryProjectDetailView(generic.DetailView):
 # 	model = Project
 # 	template_name = 'certification82/detail.html'
 
@@ -115,17 +115,36 @@ class BestGeneratorDetailView(generic.DetailView):
 #########################################################################
 #new
 
-def documenteindex(request):
-	alldocuments = Document.objects.all()
-	context = {'alldocuments' : alldocuments }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def documenteindex(request):
+# 	alldocuments = Document.objects.all()
+# 	context = {'alldocuments' : alldocuments }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+class DocumentIndexView(generic.ListView):
+	context_object_name = 'document_name_list'
+	template_name = 'certification82/list_views/Document_list.html'
+	def get_queryset(self):
+		return Document.objects.order_by('-name')[:5]
+class DocumentDetailView(generic.DetailView):
+	model = Document
+	template_name = 'certification82/detailed_views/Document_detail.html'
 
-def betreiberindex(request):
-	allbetreibers = Betreiber.objects.all()
-	context = {'allbetreibers' : allbetreibers }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+# def betreiberindex(request):
+# 	allbetreibers = Betreiber.objects.all()
+# 	context = {'allbetreibers' : allbetreibers }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+class BetreiberIndexView(generic.ListView):
+	context_object_name = 'betreiber_name_list'
+	template_name = 'certification82/list_views/Betreiber_list.html'
+	def get_queryset(self):
+		return Betreiber.objects.order_by('-name')[:5]
+class BetreiberDetailView(generic.DetailView):
+	model = Betreiber
+	template_name = 'certification82/detailed_views/Betreiber_detail.html'
+
+
 
 def schutzindex(request):
 	allschutz = Schutz.objects.all()
@@ -133,11 +152,20 @@ def schutzindex(request):
 	#CHANGE IT!
 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-def trafoindex(request):
-	alltransformators = Transformator.objects.all()
-	context = {'alltransformators' : alltransformators }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def trafoindex(request):
+# 	alltransformators = Transformator.objects.all()
+# 	context = {'alltransformators' : alltransformators }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+class TransformatorIndexView(generic.ListView):
+	context_object_name = 'transformator_name_list'
+	template_name = 'certification82/list_views/Transformator_list.html'
+	def get_queryset(self):
+		return Transformator.objects.order_by('-VDE_Trafo')[:5]
+class TransformatorDetailView(generic.DetailView):
+	model = Transformator
+	template_name = 'certification82/detailed_views/Transformator_detail.html'
+
 
 def regelungindex(request):
 	allregelungs = Regelung.objects.all()
@@ -145,42 +173,42 @@ def regelungindex(request):
 	#CHANGE IT!
 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-def ezebestwindindex(request):
-	allEBWi = EzeBestWindkraft.objects.all()
-	context = {'allEBWi' : allEBWi }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def ezebestwindindex(request):
+# 	allEBWi = EzeBestWindkraft.objects.all()
+# 	context = {'allEBWi' : allEBWi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-def ezeneufotoindex(request):
-	allENFi = EzeNeuFotovoltaic.objects.all()
-	context = {'allENFi' : allENFi }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def ezeneufotoindex(request):
+# 	allENFi = EzeNeuFotovoltaic.objects.all()
+# 	context = {'allENFi' : allENFi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-def ezebestfotoindex(request):
-	allEBFi = EzeBestFotovoltaic.objects.all()
-	context = {'allEBFi' : allEBFi }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def ezebestfotoindex(request):
+# 	allEBFi = EzeBestFotovoltaic.objects.all()
+# 	context = {'allEBFi' : allEBFi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-def ezeneugenindex(request):
-	allENGi = EzeNeuGenerator.objects.all()
-	context = {'allENGi' : allENGi }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def ezeneugenindex(request):
+# 	allENGi = EzeNeuGenerator.objects.all()
+# 	context = {'allENGi' : allENGi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-def ezebestgenindex(request):
-	allEBGi = EzeBestGenerator.objects.all()
-	context = {'allEBGi' : allEBGi }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def ezebestgenindex(request):
+# 	allEBGi = EzeBestGenerator.objects.all()
+# 	context = {'allEBGi' : allEBGi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
 
-def ezetestindex(request):
-	allEBGi = EzeBestGenerator.objects.all()
-	context = {'allEBGi' : allEBGi }
-	#CHANGE IT!
-	return render(request, 'certification82/ezeneuwindindex.html', context)
+# def ezetestindex(request):
+# 	allEBGi = EzeBestGenerator.objects.all()
+# 	context = {'allEBGi' : allEBGi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
 ################################################################################
 

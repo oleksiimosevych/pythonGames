@@ -12,12 +12,14 @@
 <body>
 	<img src="{% static 'images/sitelogo.png' %}" alt="Logo">
 	<nav class="navbar navbar-light bg-light" type="button">
-		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
-		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
-		<a href="{% url 'certification82:index'%}">EZE |</a>
-		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
-		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
-		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+{% block menu %}
+<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
+<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
+<a href="{% url 'certification82:index'%}">EZE |</a>
+<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
+<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
+<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+{% endblock %}
 		</nav>
 	<nav class="navbar navbar-light bg-light ">
 		<button class="btn">WINDKRAFT: <a href="{% url 'certification82:ezeneuwindindex'%}">Neu</a>
