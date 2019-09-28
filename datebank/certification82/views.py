@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import Http404
 ###or HttpResponseRedirect
 from django.http import HttpResponse
-from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft, EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Schutz, Betreiber, Regelung
+from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft, EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Betreiber, Zertifikatsinhaber#, Schutz, Regelung
 from django.template import loader
 #add pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -29,7 +29,7 @@ class IndexView(generic.ListView):
 	context_object_name = 'project_name_list'
 	def get_queryset(self):
 		"""Return the last five published questions."""
-		return Project.objects.order_by('-project_creation_date')[:5]
+		return Project.objects.order_by('-project_number')[:5]
 #####new and best gener views of index
 #neuwind
 class NeuWindkraftIndexView(generic.ListView):

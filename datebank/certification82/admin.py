@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import Document, Project, EzeHersteller,\
  EzeTyp, EzeNeu, EzeBestand, EzeNeuWindkraft, EzeNeuFotovoltaic,\
   EzeNeuGenerator, EzeBestWindkraft, EzeBestFotovoltaic,\
-   EzeBestGenerator, Transformator, TrafoTyp, TrafoHersteller
+   EzeBestGenerator, Transformator, TrafoTyp, TrafoHersteller,\
+    Betreiber, Zertifikatsinhaber
 # Register your models here.
 
 admin.site.register(Document)
@@ -26,3 +27,5 @@ admin.site.register(Transformator)
 admin.site.register(TrafoTyp)
 admin.site.register(TrafoHersteller)
 
+admin.site.register(Betreiber)
+admin.site.register(Zertifikatsinhaber)

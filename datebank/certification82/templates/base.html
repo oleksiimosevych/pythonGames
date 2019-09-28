@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
 </head>
 <body>
-	<img src="{% static 'images/sitelogo.png' %}" alt="Logo">
+	<a href="{% url 'certification82:index' %}"><img id="logo82" src="{% static 'images/sitelogo.png' %}" alt="Logo"></a>
 	<nav class="navbar navbar-light bg-light" type="button">
 {% block menu %}
 <a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
