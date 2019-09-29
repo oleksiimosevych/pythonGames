@@ -20,60 +20,83 @@
 		<span class='col-md-6 ezeneu_left '>
 		<h3>Eze Neues of the project:  "{{ ezen.project_name }}"</h3>
 		<table border=2 class="table-hover">
-			<tr id="ezename"><th >NEXT:</th> <td>EZENeus</td></tr>
 			
-		{% for eze in ezen.ezeneu_set.all %}
+		<!-- {9% for allnezes in allneuezes %}	 -->
+		<!-- {9% for eze in allnezes %} -->
+			<!-- <tr id="ezename"><th >NEXT:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
+			<tr id="ezename"><th >{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_TypTextmarke }}:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_ZertNRTextmarke }}:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_MotorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_GeneratorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_STextmarke }}:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_PTextmarke }}:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>{{ eze.VDE_Anzahl_EZE1Textmarke }}:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
 
-			<tr id="ezename"><th >EZE Neu NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
-			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
-			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
-			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
-			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
-			<tr><th>Motortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
-			<tr><th>Generatortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
-			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
-			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
-			<tr><th>Anzahl der EZE:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>NAME:</th> <td> {{ eze.name }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<!- <tr><td><a href="{ url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr> -->
+			<!-- <tr><th></th></tr> --> -->
+		<!-- {6%endfor%} -->
+		<!-- {6%endfor%} -->
+
+		{% for eze in ezeneufotovoltaic %}
+			<tr id="ezename"><th >NEXT:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
+			<tr id="ezename"><th >{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_TypTextmarke }}:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_ZertNRTextmarke }}:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_MotorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_GeneratorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_STextmarke }}:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_PTextmarke }}:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>{{ eze.VDE_Anzahl_EZE1Textmarke }}:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
 
 			<tr><th>NAME:</th> <td> {{ eze.name }}</td></tr>
 			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
 			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
 		{%endfor%}
-			<tr id="ezename"><th >NEXT:</th> <td>NEUE Windkrafts</td></tr>
-		{% for ezenw in ezeneuwind %}
-			<tr id="ezename"><th >Neu Windkraft NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
-			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezenw.eZeHersteller }}</td></tr>
-			<tr><th>Typ der EZE--id:</th> <td> {{ ezenw.eZeTyp }}</td></tr>
-			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezenw.vDE_EZE1_Name }}</td></tr>
-			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezenw.vDE_EZE1_ZertNR }}</td></tr>
-			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezenw.vDE_EZE1_S }}</td></tr>
-			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezenw.vDE_EZE1_P }}</td></tr>
-			<tr><th>Anzahl der EZE:</th> <td> {{ ezenw.vDE_Anzahl_EZE1 }}</td></tr>
-			<tr><th>ID:</th> <td> {{ ezenw.id }}</td> </tr>
-			<tr><th>NAME:</th> <td> {{ ezenw.name }}</td></tr>
-			<tr><td><a href="{% url 'certification82:ezeneuwindindex'%}">View ALL</a>
+		<h1>sTOP</h1>
+		{% for eze in ezeneuwind %}
+			<tr id="ezename"><th >NEXT:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
+			<tr id="ezename"><th >{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_TypTextmarke }}:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_ZertNRTextmarke }}:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_MotorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_GeneratorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_STextmarke }}:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_PTextmarke }}:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>{{ eze.VDE_Anzahl_EZE1Textmarke }}:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+
+			<tr><th>NAME:</th> <td> {{ eze.name }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
 		{%endfor%}
-			<tr id="ezename"><th >NEXT:</th> <td>N Generators</td></tr>
-			
-		{% for ezegen in ezeneugen %}
-			<tr id="ezename"><th >Neu Generator NAME:</th> <td>{{ ezegen.vDE_EZE1_Name }}</td></tr>
-			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezegen.eZeHersteller }}</td></tr>
-			<tr><th>Typ der EZE--id:</th> <td> {{ ezegen.eZeTyp }}</td></tr>
-			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezegen.vDE_EZE1_Name }}</td></tr>
-			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezegen.vDE_EZE1_ZertNR }}</td></tr>
-			<tr><th>Motortyp für VKM:</th> <td> {{ ezegen.vDE_EZE1_Motor }}</td></tr>
-			<tr><th>Generatortyp für VKM:</th> <td> {{ ezegen.vDE_EZE1_Generator }}</td></tr>
-			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezegen.vDE_EZE1_S }}</td></tr>
-			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezegen.vDE_EZE1_P }}</td></tr>
-			<tr><th>Anzahl der EZE:</th> <td> {{ ezegen.vDE_Anzahl_EZE1 }}</td></tr>
-			<tr><th>ID:</th> <td> {{ ezegen.id }}</td> </tr>
-			<tr><th>NAME:</th> <td> {{ ezegen.name }}</td></tr>
-			<tr><td><a href="{% url 'certification82:eze_neu_show' ezegen.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+		{% for eze in ezeneugen %}
+			<tr id="ezename"><th >NEXT:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
+			<tr id="ezename"><th >{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_TypTextmarke }}:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_ZertNRTextmarke }}:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_MotorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_GeneratorTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_STextmarke }}:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>{{ eze.VDE_EZE1_PTextmarke }}:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>{{ eze.VDE_Anzahl_EZE1Textmarke }}:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+
+			<tr><th>NAME:</th> <td> {{ eze.name }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
 		{%endfor%}
-		
 		</table>
 		</span>
 <vr>

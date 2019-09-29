@@ -270,8 +270,10 @@ def detail(request, project_id):
 	ezebestwindkraft = EzeBestWindkraft.objects.filter(project_id=project_id)
 	ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project_id=project_id)
 	ezebestgenerator = EzeBestGenerator.objects.filter(project_id=project_id)
+	allneuezes = {'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic}
+	allbestezes = {'ezebestwindkraft': ezebestwindkraft, 'ezebestgenerator':ezebestgenerator, 'ezebestfotovoltaic': ezebestfotovoltaic}
 	# .filter(project_id=project_id)
-	context = {'ezen' : ezen, 'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft, 'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
+	context = {'allneuezes' : allneuezes, 'allbestezes' : allbestezes, 'ezen' : ezen, 'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft, 'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
 	# eze_neu_list = EzeNeu.objects.all()
 	# eze_best_list = EzeBestand.objects.all()
 	# eze_neu_wind_list = EzeNeuWindkraft.objects.all()
