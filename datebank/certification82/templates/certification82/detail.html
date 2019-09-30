@@ -38,7 +38,7 @@
 			<tr><th>NAME:</th> <td> {{ eze.name }}</td></tr>
 			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
 			<!- <tr><td><a href="{ url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr> -->
-			<!-- <tr><th></th></tr> --> -->
+			<!-- <tr><th></th></tr> --9> -->
 		<!-- {6%endfor%} -->
 		<!-- {6%endfor%} -->
 
@@ -60,7 +60,7 @@
 			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
 			<tr><th></th></tr>
 		{%endfor%}
-		<h1>sTOP</h1>
+<!-- 		<h1>sTOP</h1> -->
 		{% for eze in ezeneuwind %}
 			<tr id="ezename"><th >NEXT:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
 			<tr id="ezename"><th >{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>

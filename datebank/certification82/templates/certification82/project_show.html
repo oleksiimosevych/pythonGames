@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+<!-- # detail which depends to the project id -->
+
+{% block title %}
+	Details index
+{% endblock %}
+{% block content %}
+
+	<div class="jumbotron text-center">
+		<h2>Project "{{pro1.project_name}}" details:</h2> 	
+		<br>
+	</div>
+		<span class='col-md-6 ezeneu_left '>
+		<table border=0 class="table-hover">
+			
+			<tr id="ezename"><th >{{pro1.ProjekttitelTexmarke}}:</th> <td><b>{{ pro1.project_name }}</b></td></tr>
+			<tr><th>{{ pro1.Projekt_NrTexmarke }}:</th> <td> {{ pro1.project_number }}</td></tr>
+			<tr><th>{{ pro1.Projekt_DateTexmarke }}:</th> <td> {{ pro1.project_deadline_date }}</td></tr>
+			<tr><th>{{ pro1.EZA_Betreiber_AnspreTextmarke }}:</th> <td> {{ pro1.betreiber }}</td></tr>
+			<tr><th>{{ pro1.Zert_PartTextmarke }}:</th> <td> {{ pro1.zertifikatsinhaber }}</td></tr>
+			<tr><th>ID:</th> <td> {{ pro1.id }}</td> </tr>
+			
+		</table>
+		</span>
+		<span class='col-md-6 ezeneu_left clear_both margin_top_20px'>
+		<p>
+			Neue EZEs
+		</p>
+		<table border=2 class="table-hover ">
+			{% for proj in ezeneuwind %}
+			<tr><th>{{proj.eZeTyp}}:</th><td>
+				<a href="{% url 'certification82:ezeneuwinddetail' proj.id %}">{{ proj.vDE_EZE1_Name }}</a>
+			</td></tr>
+			{%endfor%}
+			{% for proj in ezeneugen %}
+			<tr><th>{{proj.eZeTyp}}:</th><td>
+				<a href="{% url 'certification82:ezeneugendetail' proj.id %}">{{ proj.vDE_EZE1_Name }}</a>
+			</td></tr>
+			{%endfor%}
+			{% for proj in ezeneufotovoltaic %}
+			<tr><th>{{proj.eZeTyp}}:</th><td>
+				<a href="{% url 'certification82:ezeneufotodetail' proj.id %}">{{ proj.vDE_EZE1_Name }}</a>
+			</td></tr>
+			{%endfor%}
+		</table>		
+		</span>
+		<span class='col-md-6 ezebestand_right margin_top_20px'>
+			<p>
+				Bestandene EZEs
+			</p>
+
+		<table border=2 class="table-hover">
+			{% for proj in ezebestwindkraft %}
+			<tr><th>{{proj.eZeTyp}}:</th><td>
+				<a href="{% url 'certification82:ezebestwinddetail' proj.id %}">{{ proj.vDE_EZE_Name_ALT }}</a>
+			</td></tr>
+			{%endfor%}
+			{% for proj in ezebestgenerator %}
+			<tr><th>{{proj.eZeTyp}}:</th><td>
+				<a href="{% url 'certification82:ezebestgendetail' proj.id %}">{{ proj.vDE_EZE_Name_ALT }}</a>
+			</td></tr>
+			{%endfor%}
+			{% for proj in ezebestfotovoltaic %}
+			<tr><th>{{proj.eZeTyp}}:</th><td>
+				<a href="{% url 'certification82:ezebestfotodetail' proj.id %}">{{ proj.vDE_EZE_Name_ALT }}</a>
+			</td></tr>
+			{%endfor%}
+		</table>		
+		</span>
+		<span class='col-md-6 ezeneu_left clear_both margin_top_20px'>
+		<p>
+			Transformators
+		</p>
+		<table border=2 class="table-hover ">
+			{% for proj in pro1.transformator_set.all %}
+			<tr><th>{{proj.VDE_Trafotyp}}:</th><td>
+				<a href="{% url 'certification82:transformatordetailview' proj.id %}">{{ proj.VDE_Trafo }}</a>
+			</td></tr>
+			{%endfor%}
+			
+		</table>		
+		</span>
+
+	<br>
+
+		
+	<br>	
+</div>
+
+{% endblock %}

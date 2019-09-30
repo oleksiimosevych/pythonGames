@@ -4,6 +4,8 @@ from . import views
 app_name = 'certification82'
 urlpatterns = [
     path('<int:ezeneu_id>/show', views.eze_neu_show, name='eze_neu_show'),
+    path('pro<int:project_id>/show', views.project_show, name='project_show'),
+    
     # path('ezebestdetails/<int:ezebest_id>/', views.eze_best_show, name='eze_best_show'),
     
     ## GENERIC indexes 

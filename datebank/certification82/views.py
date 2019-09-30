@@ -296,6 +296,19 @@ def detail(request, project_id):
 	return render(request, 'certification82/detail.html', context)
 
 #shows only 1 result exactly with number given by link
+
+def project_show(request, project_id):
+	pro1 = get_object_or_404(Project, pk = project_id)
+	project_list = Project.objects.all()
+	ezeneuwind = EzeNeuWindkraft.objects.filter(project_id=project_id)
+	ezeneugen = EzeNeuGenerator.objects.filter(project_id=project_id)
+	ezeneufotovoltaic = EzeNeuFotovoltaic.objects.filter(project_id=project_id)
+	ezebestwindkraft = EzeBestWindkraft.objects.filter(project_id=project_id)
+	ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project_id=project_id)
+	ezebestgenerator = EzeBestGenerator.objects.filter(project_id=project_id)
+	context = {'pro1' :pro1, 'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft, 'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
+	return render(request, 'certification82/project_show.html', context)
+
 def eze_neu_show(request, ezeneu_id):
 	ezeneu1 = get_object_or_404(EzeNeu, pk = ezeneu_id)
 	eze_neu_list = EzeNeu.objects.all()

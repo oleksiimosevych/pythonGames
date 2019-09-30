@@ -81,7 +81,8 @@ class Project(models.Model):
 	#link to betreiber
 	betreiber = models.ForeignKey(Betreiber, on_delete=models.CASCADE, default="", null=True)
 	zertifikatsinhaber = models.ForeignKey(Zertifikatsinhaber, on_delete=models.CASCADE, default="", null=True)
-
+	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre")
+	Zert_PartTextmarke = models.CharField(max_length=100, default="Zert_Part")
 
 	def was_published_recently(self):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)

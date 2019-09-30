@@ -12,28 +12,33 @@
 <body>
 	<a href="{% url 'certification82:index' %}"><img id="logo82" src="{% static 'images/sitelogo.png' %}" alt="Logo"></a>
 	<nav class="navbar navbar-light bg-light" type="button">
-{% block menu %}
-<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
-<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
-<a href="{% url 'certification82:index'%}">EZE |</a>
-<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
-<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
-<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
-{% endblock %}
-		</nav>
-	<nav class="navbar navbar-light bg-light ">
-		<button class="btn">WINDKRAFT: <a href="{% url 'certification82:ezeneuwindindex'%}">Neu</a>
-		<a href="{% url 'certification82:ezebestwindindex'%}">Bestand |</a>
-		</button>
-		<button class="btn">Fotovoltaic: <a href="{% url 'certification82:ezeneufotoindex'%}">Neu</a>
-		<a href="{% url 'certification82:ezebestfotoindex'%}">Bestand |</a>
-		</button> 
-		<button class="btn">Generator: 
-		<a href="{% url 'certification82:ezeneugenindex'%}">Neu</a>
-		<a href="{% url 'certification82:ezebestgenindex'%}">Bestand |</a></button>
+		{% block menu %}
+		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
+		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
+		<a href="{% url 'certification82:index'%}">EZE |</a>
+		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
+		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
+		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+		{% endblock %}
 	</nav>
 	<div class="container">
-		{% block content %}{% endblock %}
+		{% block content %}{% endblock %}	
 	</div>
+	
+	<footer class="container ">
+		<div class="float_left clear_both text-center">
+			<nav class="width_100_procent navbar navbar-light bg-light ">
+			<button class="btn">ALL WINDKRAFT: <a href="{% url 'certification82:ezeneuwindindex'%}">Neu</a>
+			<a href="{% url 'certification82:ezebestwindindex'%}">Bestand |</a>
+			</button>
+			<button class="btn">ALL Fotovoltaic: <a href="{% url 'certification82:ezeneufotoindex'%}">Neu</a>
+			<a href="{% url 'certification82:ezebestfotoindex'%}">Bestand |</a>
+			</button> 
+			<button class="btn">ALL Generator: 
+			<a href="{% url 'certification82:ezeneugenindex'%}">Neu</a>
+			<a href="{% url 'certification82:ezebestgenindex'%}">Bestand |</a></button>
+			</nav>
+		</div>
+	</footer>
 </body>
 </html>
