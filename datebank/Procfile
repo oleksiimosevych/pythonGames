@@ -1,0 +1,2 @@
+web: gunicorn certification82.wsgi
+web: gunicorn certification82:app --preload
