@@ -13,6 +13,27 @@ class Document(models.Model):
 		return self.name
 	def was_published_recently(self):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+class Netzbetreiber(models.Model):
+	NB_Ansprech = models.CharField(max_length=250, default='No INFO')
+	NB_Name = models.CharField(max_length=250, default='No INFO')
+	NB_Str = models.CharField(max_length=250, default='No INFO')
+	NB_PLZ = models.CharField(max_length=250, default='No INFO')
+	NB_Tel = models.CharField(max_length=250, default='No INFO')
+	NB_Fax = models.CharField(max_length=250, default='No INFO')
+	NB_Mail = models.CharField(max_length=250, default='No INFO')
+	# Textmarke
+	NB_AnsprechTextmarke = models.CharField(max_length=250, default='NB_Ansprech')
+	NB_NameTextmarke = models.CharField(max_length=250, default='NB_Name')
+	NB_StrTextmarke = models.CharField(max_length=250, default='NB_Str')
+	NB_PLZTextmarke = models.CharField(max_length=250, default='NB_PLZ')
+	NB_TelTextmarke = models.CharField(max_length=250, default='NB_Tel')
+	NB_FaxTextmarke = models.CharField(max_length=250, default='NB_Fax')
+	NB_MailTextmarke = models.CharField(max_length=250, default='NB_Mail')
+	
+	def __str__(self):
+		return self.NB_Ansprech
+
 class Betreiber(models.Model):
 	name = models.CharField(max_length=250, default='No INFO')
 	EZA_Betreiber_Anspre = models.CharField(max_length=250, default=' ')
@@ -79,10 +100,18 @@ class Project(models.Model):
 	Projekt_DateTexmarke = models.CharField(max_length=100, default="Projekt_DateN")	
 	Anlagenzert_NrTexmarke = models.CharField(max_length=100, default="Anlagenzert_NrN")
 	#link to betreiber
+	netzbetreiberTextmarke = models.CharField(max_length=100, default="NB_Ansprech")
+	betreiberTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre")
+	
+	netzbetreiber = models.ForeignKey(Netzbetreiber, on_delete=models.CASCADE, default="", null=True)
 	betreiber = models.ForeignKey(Betreiber, on_delete=models.CASCADE, default="", null=True)
 	zertifikatsinhaber = models.ForeignKey(Zertifikatsinhaber, on_delete=models.CASCADE, default="", null=True)
 	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre")
 	Zert_PartTextmarke = models.CharField(max_length=100, default="Zert_Part")
+
+	Registriernummer_NB = models.BigIntegerField(default=0, unique=False, null=True)
+	Registriernummer_NBTextmarke = models.CharField(max_length=250, default='Registriernummer_NB')
+
 
 	def was_published_recently(self):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)

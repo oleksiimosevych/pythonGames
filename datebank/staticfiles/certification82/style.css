@@ -1,0 +1,53 @@
+
+
+span.ezeneu_left{
+	float:left;
+	/*clear: left;*/
+	/*background-color: ;*/
+}
+
+span.ezebestand_right{
+	float: right;
+	/*clear: right;*/
+}
+
+span.ezebestand_right, span.ezeneu_left{
+	/**/
+}
+
+#ezename, #ezebname{
+	background-color: silver;
+}
+table{
+	width: 75%;
+	min-width: 75%;
+}
+
+#logo82{
+	max-width: 60px;
+	max-height: 60px;
+}
+.float_left{
+	float: left;
+}
+.float_right{
+	float: right;
+}
+.clear_both{
+	clear: both;
+}
+.clear_left{
+	clear: left;
+}
+.clear_right{
+	clear: right;
+}
+.width_100_procent{
+	width: 100%;
+}
+.padding_10px{
+	padding: 10px;
+}
+.margin_top_20px{
+	margin-top: 20px;
+}

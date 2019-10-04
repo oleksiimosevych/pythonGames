@@ -1,4 +1,7 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic.base import TemplateView # new
 from . import views
 #namespacing paths
 app_name = 'certification82'
@@ -10,6 +13,9 @@ urlpatterns = [
     
     ## GENERIC indexes 
     path('', views.IndexView.as_view(), name='index'),
+    path('login', TemplateView.as_view(template_name='registration/login.html'), name='login'),
+    path('home', TemplateView.as_view(template_name='home.html'), name='home'),
+    
     ###new
     path('neuwind/all', views.NeuWindkraftIndexView.as_view(), name='ezeneuwindindex'),
     path('neufoto/all', views.NeuFotovoltaicIndexView.as_view(), name='ezeneufotoindex'),

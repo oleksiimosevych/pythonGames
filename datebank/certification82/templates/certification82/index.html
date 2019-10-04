@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 
-
 {% block title %}
 	Certification index
 {% endblock %}
@@ -12,21 +11,22 @@
 		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
 		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
 		{% endblock %}
-{% block content %}
-	<h2 class="text-center nav-li">
-		<a href="">All the Projects</a>
-	</h2>
 
-	{% if project_name_list %}
-		<h1>
-		{% for proj in project_name_list %}
-		<!-- no more hardcoded href  appname:viewname-->
-		<div for = "link" class="jumbotron text-center">
-			<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
-		</div>
-	{% endfor %}
-	</h1>
-	{% else %}
-		<p>No projects are available.</p>
-	{% endif %}
-{% endblock %}
+	{% block content %}
+		<h2 class="text-center nav-li">
+			<a href="">Your access to the Project</a>
+		</h2>
+
+		{% if project_name_list %}
+			<h1>
+			{% for proj in project_name_list %}
+			<!-- no more hardcoded href  appname:viewname-->
+			<div for = "link" class="jumbotron text-center">
+				<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
+			</div>
+		{% endfor %}
+		</h1>
+		{% else %}
+			<p>No projects are available.</p>
+		{% endif %}
+	{% endblock %}
