@@ -2,6 +2,7 @@ from django.db import models
 #for decimal
 from decimal import Decimal
 from django.utils import timezone
+from django.contrib.auth.models import User
 #please use only TAB not spaces...
 class Document(models.Model):
 	proofed = models.BooleanField(default=False)
@@ -34,7 +35,7 @@ class Netzbetreiber(models.Model):
 	def __str__(self):
 		return self.NB_Ansprech
 
-class Betreiber(models.Model):
+class Betreiber(User):
 	name = models.CharField(max_length=250, default='No INFO')
 	EZA_Betreiber_Anspre = models.CharField(max_length=250, default=' ')
 	# EZA_Betreiber_Name = models.CharField(max_length=250, default=' ')
@@ -44,14 +45,18 @@ class Betreiber(models.Model):
 	EZA_Betreiber_Mail = models.EmailField(max_length=70, blank=True, null=True, unique = True)
 	Anlagenzert_Nr = models.CharField(max_length=250, default=' ')
 
-	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre", unique=True)
-	EZA_Betreiber_NameTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Name", unique=True)
-	EZA_Betreiber_StrNrTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_StrNr", unique=True)
-	EZA_Betreiber_PlzOrtTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_PlzOrt", unique=True)
-	EZA_Betreiber_TelTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Tel", unique=True)
-	EZA_Betreiber_MailTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Mail", unique=True)
-	Anlagenzert_NrTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=True)
-
+	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre", unique=False)
+	EZA_Betreiber_NameTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Name", unique=False)
+	EZA_Betreiber_StrNrTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_StrNr", unique=False)
+	EZA_Betreiber_PlzOrtTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_PlzOrt", unique=False)
+	EZA_Betreiber_TelTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Tel", unique=False)
+	EZA_Betreiber_MailTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Mail", unique=False)
+	Anlagenzert_NrTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
+	#so betr must have this field
+	Projekt_Nr = models.BigIntegerField(default=0, unique=False)
+	Projekttitel = models.CharField(max_length=250, default=' ')
+	Projekt_NrTexmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
+	ProjekttitelTexmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
 	def __str__(self):
 		return self.name
 

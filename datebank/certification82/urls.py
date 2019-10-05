@@ -13,6 +13,7 @@ urlpatterns = [
     
     ## GENERIC indexes 
     path('', views.IndexView.as_view(), name='index'),
+    # path('', views.index, name='index'),
     path('login', TemplateView.as_view(template_name='registration/login.html'), name='login'),
     path('home', TemplateView.as_view(template_name='home.html'), name='home'),
     

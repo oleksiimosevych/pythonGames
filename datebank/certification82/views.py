@@ -27,9 +27,15 @@ from django.urls import reverse
 class IndexView(generic.ListView):
 	template_name = 'certification82/index.html'
 	context_object_name = 'project_name_list'
+
 	def get_queryset(self):
+		# user = get_object_or_404(User, pk=user_id)
 		"""Return the last five published questions."""
-		return Project.objects.order_by('-project_number')[:5]
+		# return Project.objects.filter(project_number==user.projekt_Nr)[:5]
+
+		# user= get_object_or_404(Betreiber, betreiber_id=pk)
+		# return Project.objects.get(project_number=user.Project_NR)[:5]
+		return Project.objects.all
 #####new and best gener views of index
 #neuwind
 class NeuWindkraftIndexView(generic.ListView):
@@ -311,8 +317,7 @@ def project_show(request, project_id):
 
 def eze_neu_show(request, ezeneu_id):
 	ezeneu1 = get_object_or_404(EzeNeu, pk = ezeneu_id)
-	eze_neu_list = EzeNeu.objects.all()
-	
+	eze_neu_list = EzeNeu.objects.all()	
 	return render(request, 'certification82/eze_neu_show.html', {'ezeneu1' :ezeneu1 })
 
 def eze_best_show(request, ezeneu_id):
