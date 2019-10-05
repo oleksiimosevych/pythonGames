@@ -21,7 +21,7 @@ from django.views.generic.base import TemplateView # new for login and logout
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')), # new
-    
+    path('accounts/', include('accounts.urls')), #for registration for new app	accounts
     path('cert82', include('certification82.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     # path('login', TemplateView.as_view(template_name='login.html'), name='login'),
