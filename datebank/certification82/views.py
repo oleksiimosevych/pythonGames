@@ -4,12 +4,15 @@ from django.shortcuts import get_object_or_404, render
 from django.http import Http404
 ###or HttpResponseRedirect
 from django.http import HttpResponse
-from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft, EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Betreiber, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
+from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, \
+EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft,\
+ EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Betreiber, Betreiber2, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
 from django.template import loader
 #add pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic 
 from django.urls import reverse
+from django.contrib.auth import login, authenticate
 	
 # Create your views here.
 # def index(request):
@@ -145,9 +148,9 @@ class BetreiberIndexView(generic.ListView):
 	context_object_name = 'betreiber_name_list'
 	template_name = 'certification82/list_views/Betreiber_list.html'
 	def get_queryset(self):
-		return Betreiber.objects.order_by('-name')[:5]
+		return Betreiber2.objects.order_by('-name')[:5]
 class BetreiberDetailView(generic.DetailView):
-	model = Betreiber
+	model = Betreiber2
 	template_name = 'certification82/detailed_views/Betreiber_detail.html'
 
 

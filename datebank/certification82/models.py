@@ -35,7 +35,8 @@ class Netzbetreiber(models.Model):
 	def __str__(self):
 		return self.NB_Ansprech
 
-class Betreiber(User):
+
+class Betreiber(models.Model):
 	name = models.CharField(max_length=250, default='No INFO')
 	EZA_Betreiber_Anspre = models.CharField(max_length=250, default=' ')
 	# EZA_Betreiber_Name = models.CharField(max_length=250, default=' ')
@@ -55,10 +56,50 @@ class Betreiber(User):
 	#so betr must have this field
 	Projekt_Nr = models.BigIntegerField(default=0, unique=False)
 	Projekttitel = models.CharField(max_length=250, default=' ')
-	Projekt_NrTexmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
-	ProjekttitelTexmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
+	Projekt_NrTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
+	ProjekttitelTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
+	password1 = models.CharField(max_length=100 , default="f234dgthind2356")
+	password2 = models.CharField(max_length=100, default="f234dgthind2356")
+	login = models.CharField(max_length=100, unique=True, default="name123fdds44")
+
 	def __str__(self):
 		return self.name
+
+class Betreiber2(User):
+	name = models.CharField(max_length=250, default='No INFO')
+	EZA_Betreiber_Anspre = models.CharField(max_length=250, default=' ')
+	# EZA_Betreiber_Name = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_StrNr = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_PlzOrt = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_Tel = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_Mail = models.EmailField(max_length=70, blank=True, null=True, unique = True)
+	anlagenzert_Nr = models.CharField(max_length=250, default=' ')
+	projekt_Nr = models.IntegerField(default=0, unique=False)
+	projekttitel = models.CharField(max_length=250, default=' ')
+	
+
+	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre", unique=False)
+	EZA_Betreiber_NameTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Name", unique=False)
+	EZA_Betreiber_StrNrTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_StrNr", unique=False)
+	EZA_Betreiber_PlzOrtTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_PlzOrt", unique=False)
+	EZA_Betreiber_TelTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Tel", unique=False)
+	EZA_Betreiber_MailTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Mail", unique=False)
+	anlagenzert_NrTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
+	#so betr must have this field
+	projekt_NrTextmarke = models.CharField(max_length=100, default="Project_Nr", unique=False)
+	projekttitelTextmarke = models.CharField(max_length=100, default="Projekttitel", unique=False)
+	# password1 = models.CharField(max_length=100 , default="f234dgthind2356")
+	# password2 = models.CharField(max_length=100, default="f234dgthind2356")
+	# login = models.CharField(max_length=100, unique=True, default="name123fdds44")
+
+	def __str__(self):
+		return self.name
+
+
+# class BetreiberConnector(User):
+# 	betreiber = models.OneToOneField(Betreiber, on_delete=models.CASCADE, primary_key=True,)
+
+
 
 class Zertifikatsinhaber(models.Model):
 	#project_id you will select zerfinh in project

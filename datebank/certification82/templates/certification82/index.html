@@ -17,7 +17,7 @@
 			<a href="">Your access to the Project</a>
 		</h2>
 {% if user.is_authenticated %}
-	<h1>{{ user1.projekt_Nr }}</h1>
+	<h1>{{ user.projekt_Nr }}</h1>
 {%endif%}
 		{% if project_name_list %}
 			<h1>

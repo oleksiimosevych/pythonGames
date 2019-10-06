@@ -4,11 +4,11 @@ from django.views import generic
 #to add additional fields to user
 from django.contrib.auth.models import User
 #to reg Betreiber
-from certification82.models import Betreiber
+from certification82.models import Betreiber, Betreiber2
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from .forms import SignUpForm
+from accounts.forms import SignUpForm
 # from datebank.forms import SignUpForm
 
 # Create your views here.
