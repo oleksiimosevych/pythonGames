@@ -8,10 +8,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #for MYSQL
         # 'ENGINE': 'django.db.backends.mysql',
-        'PASSWORD': 'mai@sait@@is good$$$for$$$$FOR2019',
-        'NAME': 'cre1',
-        'USER': 'cre1',
-        'HOST': 'localhost',
-        'PORT': '5432',
+ 
     }
 }
