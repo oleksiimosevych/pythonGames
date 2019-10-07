@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'datebank.settings')
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'datebank.settings_prod ')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'datebank.settings'
 
 application = get_wsgi_application()

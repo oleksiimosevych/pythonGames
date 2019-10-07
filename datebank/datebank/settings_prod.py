@@ -1,9 +1,17 @@
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
         #for SQLITE3
         # 'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #for MYSQL
+        # 'ENGINE': 'django.db.backends.mysql',
+        'PASSWORD': 'mai@sait@@is good$$$for$$$$FOR2019',
+        'NAME': 'cre1',
+        'USER': 'cre1',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }

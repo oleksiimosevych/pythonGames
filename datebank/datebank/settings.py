@@ -28,7 +28,7 @@ STATICFILES_DIRS = (
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = 'ku!tsavqpnvy7gx3m30d8-6$*hm0n*yx)gzdbcsda0tahe=my!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,6 +42,7 @@ LOGOUT_REDIRECT_URL = 'home'
 INSTALLED_APPS = [
     #dont forget the comma!!!
     'certification82.apps.Certification82Config',
+    'datebank',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,8 +56,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
 
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -88,7 +89,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'datebank.wsgi.application'
+# WSGI_APPLICATION = 'datebank.wsgi.application'
 
 
 # Database
