@@ -13,11 +13,11 @@
 		{% endblock %}
 
 	{% block content %}
-		<h2 class="text-center nav-li">
+		<p class="text-center nav-li">
 			<a href="">Your access to the Project</a>
-		</h2>
+		</p>
 {% if user.is_authenticated %}
-	<h1>{{ user.projekt_Nr }}</h1>
+	<p>N: {{ user.id }}</p>
 {%endif%}
 		{% if project_name_list %}
 			<h1>

@@ -23,7 +23,7 @@
 		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
 		{% endblock %}
 
-		<p>Hi {{ user.username }}!</p>
+		<p>Hi {{ user.username }}! your id {{ user.id }}</p>
 			<a href="{% url 'logout' %}">LOGOUT |</a>
 {% endif %}
 	</nav>
