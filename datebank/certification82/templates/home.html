@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}Home{% endblock %}
-
+{% block menu %}
+		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
+		<a href="{% url 'certification82:index'%}">EZE |</a>
+		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
+		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
+		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+		{% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
 
@@ -10,7 +16,7 @@
 	<p>PROFILE SETTINGS:
 	<p><a href="{% url 'password_change' %}">change password</a>
 	<p><a href="{% url 'password_reset' %}">reset password</a>
-
+	<p><br><p><a href="{% url 'certification82:allgeminfo' user.projekt_nr %}">Allgemeine Information |</a>
 
 
 

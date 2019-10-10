@@ -2,8 +2,14 @@ from django.db import models
 #for decimal
 from decimal import Decimal
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth.models import BaseUserManager, User, AbstractBaseUser
+from datebank import settings
+# from django.contrib.auth.models import  AbstractBaseUser
 #please use only TAB not spaces...
+
+class User2(AbstractBaseUser):
+	pass
+
 class Document(models.Model):
 	proofed = models.BooleanField(default=False)
 	name = models.CharField(max_length=250)
@@ -16,13 +22,20 @@ class Document(models.Model):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
 class Netzbetreiber(models.Model):
+	NB_AnsprechOK=models.BooleanField(default=False)
 	NB_Ansprech = models.CharField(max_length=250, default='No INFO')
+	NB_NameOK=models.BooleanField(default=False)
 	NB_Name = models.CharField(max_length=250, default='No INFO')
+	NB_StrOK=models.BooleanField(default=False)
 	NB_Str = models.CharField(max_length=250, default='No INFO')
+	NB_PLZOK=models.BooleanField(default=False)
 	NB_PLZ = models.CharField(max_length=250, default='No INFO')
+	NB_TelOK=models.BooleanField(default=False)
 	NB_Tel = models.CharField(max_length=250, default='No INFO')
+	NB_FaxOK=models.BooleanField(default=False)
 	NB_Fax = models.CharField(max_length=250, default='No INFO')
-	NB_Mail = models.CharField(max_length=250, default='No INFO')
+	NB_MailOK=models.BooleanField(default=False)
+	NB_Mail = models.EmailField(max_length=250, default='a@b.dfg')
 	# Textmarke
 	NB_AnsprechTextmarke = models.CharField(max_length=250, default='NB_Ansprech')
 	NB_NameTextmarke = models.CharField(max_length=250, default='NB_Name')
@@ -31,19 +44,32 @@ class Netzbetreiber(models.Model):
 	NB_TelTextmarke = models.CharField(max_length=250, default='NB_Tel')
 	NB_FaxTextmarke = models.CharField(max_length=250, default='NB_Fax')
 	NB_MailTextmarke = models.CharField(max_length=250, default='NB_Mail')
+	Registriernummer_NB = models.BigIntegerField(default=0, null=True)
+	Registriernummer_NBTextmarke = models.CharField(max_length=250, default='Registriernummer_NB')
+	Projekt_Nr = models.BigIntegerField(default=0, unique=False)
+	Projekt_NrOK=models.BooleanField(default=False)
+	Registriernummer_NBOK=models.BooleanField(default=False)
+	Projekt_NrTextmarke = models.CharField(max_length=100, default="Projekt_Nr", unique=False)
 	
 	def __str__(self):
 		return self.NB_Ansprech
 
 
 class Betreiber(models.Model):
+	nameOK = models.BooleanField(default=False)
 	name = models.CharField(max_length=250, default='No INFO')
+	EZA_Betreiber_AnspreOK = models.BooleanField(default=False)
 	EZA_Betreiber_Anspre = models.CharField(max_length=250, default=' ')
 	# EZA_Betreiber_Name = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_StrNrOK = models.BooleanField(default=False)
 	EZA_Betreiber_StrNr = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_PlzOrtOK = models.BooleanField(default=False)
 	EZA_Betreiber_PlzOrt = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_TelOK = models.BooleanField(default=False)
 	EZA_Betreiber_Tel = models.CharField(max_length=250, default=' ')
+	EZA_Betreiber_MailOK = models.BooleanField(default=False)
 	EZA_Betreiber_Mail = models.EmailField(max_length=70, blank=True, null=True, unique = True)
+	Anlagenzert_NrOK = models.BooleanField(default=False)
 	Anlagenzert_Nr = models.CharField(max_length=250, default=' ')
 
 	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre", unique=False)
@@ -54,46 +80,79 @@ class Betreiber(models.Model):
 	EZA_Betreiber_MailTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Mail", unique=False)
 	Anlagenzert_NrTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
 	#so betr must have this field
+	Projekt_NrOK = models.BooleanField(default=False)
 	Projekt_Nr = models.BigIntegerField(default=0, unique=False)
+	ProjekttitelOK = models.BooleanField(default=False)
 	Projekttitel = models.CharField(max_length=250, default=' ')
-	Projekt_NrTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
-	ProjekttitelTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
+	Projekt_NrTextmarke = models.CharField(max_length=100, default="Projekt_Nr", unique=False)
+	ProjekttitelTextmarke = models.CharField(max_length=100, default="Projekttitel", unique=False)
 	password1 = models.CharField(max_length=100 , default="f234dgthind2356")
 	password2 = models.CharField(max_length=100, default="f234dgthind2356")
 	login = models.CharField(max_length=100, unique=True, default="name123fdds44")
-
+	# user = models.OneToOneField(User, on_delete = models.CASCADE, default="", null=True)
+	projectuser = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE, default="", null=True)
 	def __str__(self):
 		return self.name
 
-class Betreiber2(User):
-	name = models.CharField(max_length=250, default='No INFO')
-	EZA_Betreiber_Anspre = models.CharField(max_length=250, default=' ')
-	# EZA_Betreiber_Name = models.CharField(max_length=250, default=' ')
-	EZA_Betreiber_StrNr = models.CharField(max_length=250, default=' ')
-	EZA_Betreiber_PlzOrt = models.CharField(max_length=250, default=' ')
-	EZA_Betreiber_Tel = models.CharField(max_length=250, default=' ')
-	EZA_Betreiber_Mail = models.EmailField(max_length=70, blank=True, null=True, unique = True)
-	anlagenzert_Nr = models.CharField(max_length=250, default=' ')
-	projekt_Nr = models.IntegerField(default=0, unique=False)
-	projekttitel = models.CharField(max_length=250, default=' ')
+#////////////////////////////////////////////////////
+class ProjectManager(BaseUserManager):
+	def create_user(self, projekt_nr, password=None):
+		if not projekt_nr:
+			raise ValueError('projekt_nr must be set!')
+		user = self.model(projekt_nr=projekt_nr)
+			# , first_name=first_name, last_name=last_name)
+		user.set_password(password)
+		user.save(using=self._db)
+		return user
+
+	def create_superuser(self, projekt_nr, password):
+		user = self.create_user(projekt_nr, password)
+		user.is_admin = True
+		user.save(using=self._db)
+		return user
+
+	def natural_key(self, projekt_nr):
+		return self.get(projekt_nr=projekt_nr)
+#//////////////////////////////////////////////////////////////////////////////////
+class ProjectUser(AbstractBaseUser):
+	email = models.EmailField(max_length=255, unique=True, null = True)
+	active = models.BooleanField(default=True)
+	staff = models.BooleanField(default=False)
+	admin = models.BooleanField(default=False)
+	timestamp = models.DateTimeField(auto_now_add = True)
+	projekt_nr = models.BigIntegerField(default=10000001, unique = True)
+	username= models.CharField(max_length=255, null=True)
+	USERNAME_FIELD = 'projekt_nr'
+	REQUIRED_FIELDS = []
+	objects = ProjectManager()
+	def __str__(self):
+		return str(self.projekt_nr)
+
+	def get_full_name(self):
+		return self.email
+
+	def get_short_name(self):
+		return self.email
+
+	def get_full_name(self):
+		return self.email
+
+	@property
+	def is_staff(self):
+		return self._is_staff
 	
+	# @property
+	# def _is_staff(self):
+	# 	return self._is_staff
 
-	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre", unique=False)
-	EZA_Betreiber_NameTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Name", unique=False)
-	EZA_Betreiber_StrNrTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_StrNr", unique=False)
-	EZA_Betreiber_PlzOrtTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_PlzOrt", unique=False)
-	EZA_Betreiber_TelTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Tel", unique=False)
-	EZA_Betreiber_MailTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Mail", unique=False)
-	anlagenzert_NrTextmarke = models.CharField(max_length=100, default="Anlagenzert_Nr", unique=False)
-	#so betr must have this field
-	projekt_NrTextmarke = models.CharField(max_length=100, default="Project_Nr", unique=False)
-	projekttitelTextmarke = models.CharField(max_length=100, default="Projekttitel", unique=False)
-	# password1 = models.CharField(max_length=100 , default="f234dgthind2356")
-	# password2 = models.CharField(max_length=100, default="f234dgthind2356")
-	# login = models.CharField(max_length=100, unique=True, default="name123fdds44")
-
-	def __str__(self):
-		return self.name
+	@property
+	def _is_admin(self):
+		return self._is_admin
+	
+	@property
+	def _is_active(self):
+		return self._is_active
+	
 
 
 # class BetreiberConnector(User):
@@ -103,13 +162,21 @@ class Betreiber2(User):
 
 class Zertifikatsinhaber(models.Model):
 	#project_id you will select zerfinh in project
+	EZA_BezeichnungOK = models.BooleanField(default=False)
 	EZA_Bezeichnung  = models.CharField(max_length=250, null=True)
+	Zert_PartOK = models.BooleanField(default=False)
 	Zert_Part = models.CharField(max_length=250, null=True)
+	Zert_FirmOK = models.BooleanField(default=False)
 	Zert_Firm = models.CharField(max_length=250, null=True)
+	Zert_NrOK = models.BooleanField(default=False)
 	Zert_Nr = models.CharField(max_length=250, null=True)
+	Zert_PLZOK = models.BooleanField(default=False)
 	Zert_PLZ = models.CharField(max_length=250, null=True)
+	Zert_TelOK = models.BooleanField(default=False)
 	Zert_Tel = models.CharField(max_length=250, null=True)
+	Zert_FaxOK = models.BooleanField(default=False)
 	Zert_Fax = models.CharField(max_length=250, null=True)
+	Zert_MailOK = models.BooleanField(default=False)
 	Zert_Mail = models.EmailField(max_length=70, blank=True, null=True, unique = True)
 
 	EZA_BezeichnungTextmarke = models.CharField(max_length=100, default="EZA_BezeichnungTextmarke")
@@ -120,6 +187,9 @@ class Zertifikatsinhaber(models.Model):
 	Zert_TelTextmarke = models.CharField(max_length=100, default="Zert_Tel")
 	Zert_FaxTextmarke = models.CharField(max_length=100, default="Zert_Fax")
 	Zert_MailTextmarke = models.CharField(max_length=100, default="Zert_Mail")
+	Projekt_Nr = models.BigIntegerField(default=0, unique=False)
+	Projekt_NrOK=models.BooleanField(default=False)
+	Projekt_NrTextmarke = models.CharField(max_length=100, default="Projekt_Nr", unique=False)
 	def __str__(self):
 		return self.EZA_Bezeichnung
 
@@ -148,10 +218,11 @@ class Project(models.Model):
 	#link to betreiber
 	netzbetreiberTextmarke = models.CharField(max_length=100, default="NB_Ansprech")
 	betreiberTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre")
-	
+	#foreign keys
 	netzbetreiber = models.ForeignKey(Netzbetreiber, on_delete=models.CASCADE, default="", null=True)
 	betreiber = models.ForeignKey(Betreiber, on_delete=models.CASCADE, default="", null=True)
 	zertifikatsinhaber = models.ForeignKey(Zertifikatsinhaber, on_delete=models.CASCADE, default="", null=True)
+	
 	EZA_Betreiber_AnspreTextmarke = models.CharField(max_length=100, default="EZA_Betreiber_Anspre")
 	Zert_PartTextmarke = models.CharField(max_length=100, default="Zert_Part")
 
@@ -177,18 +248,27 @@ class EzeTyp(models.Model):
 
 class EzeNeu(models.Model):
 	#vDE_EZE1_Herst_id
+	eZeHerstellerOK = models.BooleanField(default=False)
 	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE, default=None)
 	#vDE_EZE1_Typ_id
+	eZeTypOK = models.BooleanField(default=False)
 	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE, default=1)
 	#every eze belongs to project
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	vDE_EZE1_NameOK = models.BooleanField(default=False)
 	vDE_EZE1_Name = models.CharField(max_length=250)
+	vDE_EZE1_ZertNROK = models.BooleanField(default=False)
 	vDE_EZE1_ZertNR = models.BigIntegerField(default=0)	
+	vDE_EZE1_SOK = models.BooleanField(default=False)
 	vDE_EZE1_S = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	vDE_EZE1_POK = models.BooleanField(default=False)
 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	vDE_Anzahl_EZE1OK = models.BooleanField(default=False)
 	vDE_Anzahl_EZE1 = models.IntegerField(default=0)
 	#not for wind and foto
+	vDE_EZE1_MotorOK = models.BooleanField(default=False)
 	vDE_EZE1_Motor = models.CharField(max_length=250)
+	vDE_EZE1_GeneratorOK = models.BooleanField(default=False)
 	vDE_EZE1_Generator = models.CharField(max_length=250)
 	##TEXTMARKEN
 	# eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
@@ -210,15 +290,22 @@ class EzeNeu(models.Model):
 
 class Eze(models.Model):
 	#vDE_EZE1_Herst_id
+	eZeHerstellerOK = models.BooleanField(default=False)
 	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE, default=None)
 	#vDE_EZE1_Typ_id
+	eZeTypOK = models.BooleanField(default=False)
 	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE, default=1)
 	#every eze belongs to project
 	project = models.ForeignKey(Project, on_delete=models.CASCADE)
+	vDE_EZE1_NameOK = models.BooleanField(default=False)
 	vDE_EZE1_Name = models.CharField(max_length=250)
+	vDE_EZE1_ZertNROK = models.BooleanField(default=False)
 	vDE_EZE1_ZertNR = models.BigIntegerField(default=0)	
+	vDE_EZE1_SOK = models.BooleanField(default=False)
 	vDE_EZE1_S = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	vDE_EZE1_POK = models.BooleanField(default=False)
 	vDE_EZE1_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	vDE_Anzahl_EZE1OK = models.BooleanField(default=False)
 	vDE_Anzahl_EZE1 = models.IntegerField(default=0)
 	# eZeNeu_creation_date = models.DateField('date published', default='2019-01-01')
 	VDE_EZE1_HerstTextmarke = models.CharField(max_length=100, default="VDE_EZE1_Herst", unique=True)
@@ -258,13 +345,21 @@ class TrafoTyp(models.Model):
 
 
 class Transformator(models.Model):
+	VDE_TrafoOK = models.BooleanField(default=False)
 	VDE_Trafo = models.CharField(max_length=250, default='No INFO')
+	VDE_TrafoherstellerOK = models.BooleanField(default=False)
 	VDE_Trafohersteller = models.ForeignKey(TrafoHersteller, on_delete=models.CASCADE, default='No INFO')
+	VDE_TrafotypOK = models.BooleanField(default=False)
 	VDE_Trafotyp = models.ForeignKey(TrafoTyp, on_delete=models.CASCADE, default='No INFO')
+	VDE_TrafoUeberOK = models.BooleanField(default=False)
 	VDE_TrafoUeber = models.CharField(max_length=250, default='No INFO')
+	VDE_TrafoOberOK = models.BooleanField(default=False)
 	VDE_TrafoOber = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	VDE_TrafoUnterOK = models.BooleanField(default=False)
 	VDE_TrafoUnter = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	VDE_Trafo_kurzOK = models.BooleanField(default=False)
 	VDE_Trafo_kurz = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
+	VDE_Trafo_POK = models.BooleanField(default=False)
 	VDE_Trafo_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 
 	VDE_TrafoTextmarke = models.CharField(max_length=250, default='VDE_Trafo', unique=True)

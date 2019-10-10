@@ -16,22 +16,24 @@
 
 		{% block menu %}
 		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
-		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
+		<a href="{% url 'certification82:allgeminfo' user.projekt_nr %}">Allgemeine Information |</a>
 		<a href="{% url 'certification82:index'%}">EZE |</a>
 		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
 		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
 		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
 		{% endblock %}
 
-		<p>Hi {{ user.username }}!</p>
+		<p>You have access to project N {{ user.projekt_nr }}!</p>
 			<a href="{% url 'logout' %}">LOGOUT |</a>
 {% endif %}
 	</nav>
 	<div class="container">
+		<div class="jumbotron">
 		{% block content %}{% endblock %}	
+		</div>
 	</div>
-	
 {% if user.is_authenticated %}
+	
 	<footer class="container ">
 		<div class="float_left clear_both text-center">
 			<nav class="width_100_procent navbar navbar-light bg-light ">

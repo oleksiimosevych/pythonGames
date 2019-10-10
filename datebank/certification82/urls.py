@@ -6,6 +6,12 @@ from . import views
 #namespacing paths
 app_name = 'certification82'
 urlpatterns = [
+    
+    path('ai_pro<int:projekt_nr>/show', views.allgeminfo, name='allgeminfo'),
+    path('new_betr', views.new_betreiber,name = 'new_betreiber'),
+    path('new_netzbet', views.new_netzbetreiber,name = 'new_netzbetreiber'),
+    path('new_zert', views.new_zert,name = 'new_zert'),
+    path('new_projekt', views.new_projekt, name = 'new_projekt'),
     path('<int:ezeneu_id>/show', views.eze_neu_show, name='eze_neu_show'),
     path('pro<int:project_id>/show', views.project_show, name='project_show'),
     
@@ -47,7 +53,7 @@ urlpatterns = [
 
     #OF THE PROJECT using id
 	# path('ezebestands/', views.ezebestands, name='ezebestands'),
-    path('ezeneuwindofproj/<int:project_id>/index', views.ezeneuwindkraftsoftheprojectindex, name='ezeneuwindkraftsoftheprojectindex'),
+    path('ezeneuwindofproj/<int:project_number>/index', views.ezeneuwindkraftsoftheprojectindex, name='ezeneuwindkraftsoftheprojectindex'),
     path('ezeneufotooftheproj/<int:project_id>/index', views.ezeneufotooftheprojectindex, name='ezeneufotooftheprojectindex'),
     path('ezeneugenoftheproj/<int:project_id>/index', views.ezeneugenoftheprojectindex, name='ezeneugenoftheprojectindex'),
     path('ezebestwindoftheproj/<int:project_id>/index', views.ezebestwindoftheprojectindex, name='ezebestwindoftheprojectindex'),

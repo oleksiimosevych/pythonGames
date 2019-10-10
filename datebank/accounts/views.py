@@ -4,7 +4,7 @@ from django.views import generic
 #to add additional fields to user
 from django.contrib.auth.models import User
 #to reg Betreiber
-from certification82.models import Betreiber, Betreiber2
+from certification82.models import Betreiber, User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -21,14 +21,14 @@ def signup(request):
 		form = SignUpForm(request.POST)
 		if form.is_valid():
 			form.save()
-			username = form.cleaned_data.get('username')
+			projekt_nr = form.cleaned_data.get('projekt_nr')
 			raw_password = form.cleaned_data.get('password1')
 			# email = form.cleaned_data.get('EZA_Betreiber_Mail')
 			# first_last_name = form.cleaned_data.get('first_name')
 
-			user = authenticate(username=username, password=raw_password)
+			user = form.save()
 			login(request, user)
-			return redirect('home')
+			return redirect('certification82:index')
 	else:
 		form = SignUpForm()
 	return render(request, 'registration/signup.html', {'form': form})

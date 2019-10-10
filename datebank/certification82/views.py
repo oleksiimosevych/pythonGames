@@ -1,18 +1,19 @@
 #rendering possible
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 #add 404
 from django.http import Http404
 ###or HttpResponseRedirect
 from django.http import HttpResponse
 from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, \
 EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft,\
- EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Betreiber, Betreiber2, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
+ EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Betreiber, User, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
 from django.template import loader
 #add pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic 
 from django.urls import reverse
 from django.contrib.auth import login, authenticate
+from .forms import BetreiberForm, NetzBetreiberForm, ZertifikatsinhaberForm, ProjectForm
 	
 # Create your views here.
 # def index(request):
@@ -27,18 +28,227 @@ from django.contrib.auth import login, authenticate
 	# return HttpResponse(project_Names+'\n\n<br> Neue Ezes: \n'+eze_Neus )
 #add more views
 ####USing GENERIC add at the top from django.views import generic from django.urls import reverse
+def new_projekt(request):
+	if request.method == 'POST':
+		form = ProjectForm(request.POST)
+		if form.is_valid():
+			form.save()
+			project_name = form.cleaned_data.get('project_name')
+			project_number  = form.cleaned_data.get('project_number')
+			project_deadline_date = form.cleaned_data.get('project_deadline_date')
+			is_done = form.cleaned_data.get('is_done')
+			access_for_user = form.cleaned_data.get('access_for_user')
+			access_for_moderator = form.cleaned_data.get('access_for_moderator')
+			access_for_admin = form.cleaned_data.get('access_for_admin')
+			Projekt_NrTexmarke = form.cleaned_data.get('Projekt_NrTexmarke')
+			ProjekttitelTexmarke = form.cleaned_data.get('ProjekttitelTexmarke')
+			Projekt_DateTexmarke = form.cleaned_data.get('Projekt_DateTexmarke')
+			Anlagenzert_NrTexmarke = form.cleaned_data.get('Anlagenzert_NrTexmarke')
+			netzbetreiberTextmarke = form.cleaned_data.get('netzbetreiberTextmarke')
+			betreiberTextmarke = form.cleaned_data.get('betreiberTextmarke')
+			netzbetreiber =form.cleaned_data.get('netzbetreiber')
+			betreiber = form.cleaned_data.get('betreiber')
+			zertifikatsinhaber = form.cleaned_data.get('zertifikatsinhaber')
+
+			EZA_Betreiber_AnspreTextmarke = form.cleaned_data.get("EZA_Betreiber_AnspreTextmarke")
+			Zert_PartTextmarke = form.cleaned_data.get("Zert_PartTextmarke")
+			Registriernummer_NB = form.cleaned_data.get("Registriernummer_NB")
+			Registriernummer_NBTextmarke = form.cleaned_data.get("Registriernummer_NBTextmarke")
+			
+			project = form.save()
+			print ('\n\nnew Project created\n\n')
+			# login(request, user)
+			return redirect('certification82:index')
+	else:
+		# project = get_object_or_404(Project, id=project_number)
+		form = ProjectForm()
+	# return render(request, 'registration/signup.html', {'form': form})
+
+	# form = BetreiberForm()
+	return render(request, 'new/projekt.html',{'form':form})
+
+def new_zert(request):
+	if request.method == 'POST':
+		form = ZertifikatsinhaberForm(request.POST)
+		if form.is_valid():
+			form.save()
+			EZA_BezeichnungOK = form.cleaned_data.get('EZA_BezeichnungOK')
+			EZA_Bezeichnung  = form.cleaned_data.get('EZA_Bezeichnung')
+			Zert_PartOK = form.cleaned_data.get('Zert_PartOK')
+			Zert_Part = form.cleaned_data.get('Zert_Part')
+			Zert_FirmOK = form.cleaned_data.get('Zert_FirmOK')
+			Zert_Firm = form.cleaned_data.get('Zert_Firm')
+			Zert_NrOK = form.cleaned_data.get('Zert_NrOK')
+			Zert_Nr = form.cleaned_data.get('Zert_Nr')
+			Zert_PLZOK = form.cleaned_data.get('Zert_PLZOK')
+			Zert_PLZ = form.cleaned_data.get('Zert_PLZ')
+			Zert_TelOK = form.cleaned_data.get('Zert_TelOK')
+			Zert_Tel = form.cleaned_data.get('Zert_Tel')
+			Zert_FaxOK = form.cleaned_data.get('Zert_FaxOK')
+			Zert_Fax =form.cleaned_data.get('Zert_Fax')
+			Zert_MailOK = form.cleaned_data.get('Zert_MailOK')
+			Zert_Mail = form.cleaned_data.get('Zert_Mail')
+
+			EZA_BezeichnungTextmarke = form.cleaned_data.get("EZA_BezeichnungTextmarke")
+			Zert_PartTextmarke = form.cleaned_data.get("Zert_Part")
+			Zert_FirmTextmarke = form.cleaned_data.get("Zert_Firm")
+			Zert_NrTextmarke = form.cleaned_data.get("Zert_Nr")
+			Zert_PLZTextmarke = form.cleaned_data.get("Zert_PLZ")
+			Zert_TelTextmarke = form.cleaned_data.get("Zert_Tel")
+			Zert_FaxTextmarke = form.cleaned_data.get("Zert_Fax")
+			Zert_MailTextmarke = form.cleaned_data.get("Zert_Mail")
+
+			zertifikatsinhaber = form.save()
+			print ('\n\nnew Zertifikatsinhaber created\n\n')
+			# login(request, user)
+			return redirect('certification82:index')
+	else:
+		form = ZertifikatsinhaberForm()
+	# return render(request, 'registration/signup.html', {'form': form})
+
+	# form = BetreiberForm()
+	return render(request, 'new/zertifikatsinhaber.html',{'form':form})
+
+def new_netzbetreiber(request):
+	if request.method == 'POST':
+		form = NetzBetreiberForm(request.POST)
+		if form.is_valid():
+			form.save()
+			NB_AnsprechOK = form.cleaned_data.get('nameOK')
+			NB_Ansprech = form.cleaned_data.get('NB_Ansprech')
+			NB_NameOK = form.cleaned_data.get('NB_NameOK')
+			NB_Name = form.cleaned_data.get('NB_Name')
+			NB_StrOK = form.cleaned_data.get('NB_StrOK')
+			NB_Str = form.cleaned_data.get('NB_Str')
+			NB_PLZOK = form.cleaned_data.get('NB_PLZOK')
+			NB_PLZ = form.cleaned_data.get('NB_PLZ')
+			NB_TelOK = form.cleaned_data.get('NB_TelOK')
+			NB_Tel = form.cleaned_data.get('NB_Tel')
+			NB_FaxOK = form.cleaned_data.get('NB_FaxOK')
+			NB_Fax = form.cleaned_data.get('NB_Fax')
+			NB_MailOK = form.cleaned_data.get('NB_MailOK')
+			NB_Mail = form.cleaned_data.get('NB_Mail')
+			NB_AnsprechTextmarke = form.cleaned_data.get('NB_AnsprechTextmarke')
+			NB_NameTextmarke = form.cleaned_data.get('NB_NameTextmarke')
+			NB_StrTextmarke = form.cleaned_data.get('NB_StrTextmarke')
+			NB_PLZTextmarke = form.cleaned_data.get('NB_PLZTextmarke')
+			NB_TelTextmarke = form.cleaned_data.get('NB_TelTextmarke')
+			NB_FaxTextmarke = form.cleaned_data.get('NB_FaxTextmarke')
+			NB_MailTextmarke = form.cleaned_data.get('NB_MailTextmarke')
+
+			netzbetreiber = form.save()
+			print ('new NETZbetreiber created')
+			# login(request, user)
+			return redirect('certification82:index')
+	else:
+		form = NetzBetreiberForm()
+	# return render(request, 'registration/signup.html', {'form': form})
+
+	# form = BetreiberForm()
+	return render(request, 'new/netzbetreiber.html',{'form':form})
+
+
+def new_betreiber(request):
+	if request.method == 'POST':
+		form = BetreiberForm(request.POST)
+		if form.is_valid():
+			form.save()
+			nameOK = form.cleaned_data.get('nameOK')
+			name = form.cleaned_data.get('name')
+			EZA_Betreiber_AnspreOK = form.cleaned_data.get('EZA_Betreiber_AnspreOK')
+			EZA_Betreiber_Anspre = form.cleaned_data.get('EZA_Betreiber_Anspre')
+			EZA_Betreiber_StrNrOK = form.cleaned_data.get('EZA_Betreiber_StrNrOK')
+			EZA_Betreiber_StrNr = form.cleaned_data.get('EZA_Betreiber_StrNr')
+			EZA_Betreiber_PlzOrtOK = form.cleaned_data.get('EZA_Betreiber_PlzOrtOK')
+			EZA_Betreiber_PlzOrt = form.cleaned_data.get('EZA_Betreiber_PlzOrt')
+			EZA_Betreiber_TelOK = form.cleaned_data.get('EZA_Betreiber_TelOK')
+			EZA_Betreiber_Tel = form.cleaned_data.get('EZA_Betreiber_Tel')
+			EZA_Betreiber_MailOK = form.cleaned_data.get('EZA_Betreiber_MailOK')
+			EZA_Betreiber_Mail = form.cleaned_data.get('EZA_Betreiber_Mail')
+			Anlagenzert_NrOK = form.cleaned_data.get('Anlagenzert_NrOK')
+			Anlagenzert_Nr = form.cleaned_data.get('Anlagenzert_Nr')
+			Projekt_NrOK = form.cleaned_data.get('Projekt_NrOK')
+			Projekt_Nr = form.cleaned_data.get('Projekt_Nr')
+			ProjekttitelOK = form.cleaned_data.get('ProjekttitelOK')
+			Projekttitel = form.cleaned_data.get('Projekttitel')
+
+			# projekt_nr = form.cleaned_data.get('projekt_nr')
+			# raw_password = form.cleaned_data.get('password1')
+			# email = form.cleaned_data.get('EZA_Betreiber_Mail')
+			# first_last_name = form.cleaned_data.get('first_name')
+			betreiber = form.save()
+			print ('new betreiber created')
+			# login(request, user)
+			return redirect('certification82:index')
+	else:
+		form = BetreiberForm()
+	# return render(request, 'registration/signup.html', {'form': form})
+
+	# form = BetreiberForm()
+	return render(request, 'new/betreiber.html',{'form':form})
+
+def allgeminfo(request, projekt_nr):
+	project = Project.objects.filter(project_number=projekt_nr)
+	# print(project)
+	# for proj in project:
+	# 	print(proj.id)
+	# 	print(proj.project_number)
+		
+
+	# print(project.objects.all())
+	# items = EzeNeuGenerator.objects.filter(project_id=project_id)
+	# context = {'project' : project, 'items':items }
+	# return render(request, 'certification82/ezeneugenofproindex.html', context)
+	# ezen = get_object_or_404(Project, pk = project_id)
+	betreiber = Betreiber.objects.filter(Projekt_Nr=projekt_nr)
+	if not betreiber:
+		print('no betr added ')
+		print('proofing....')
+		print(Betreiber.objects.all)
+
+	print(betreiber)
+	for proj in betreiber:
+		print('we are in cycle betreiber')
+		print(proj.Projekt_Nr)
+		print(proj.projectuser)
+	
+	zertifikatsinhaber = Zertifikatsinhaber.objects.filter(Projekt_Nr=projekt_nr)
+	print(zertifikatsinhaber)
+	print('zert is...')
+	a=Zertifikatsinhaber.objects.all()
+	print(a[1].Projekt_Nr)
+	netzbetreiber = Netzbetreiber.objects.filter(Projekt_Nr=projekt_nr)
+	print(netzbetreiber)
+
+	ezebestwindkraft = EzeBestWindkraft.objects.filter(project=projekt_nr)
+	ezeneuwind = EzeNeuWindkraft.objects.filter(project=projekt_nr)
+	
+	ezeneufotovoltaic = EzeNeuFotovoltaic.objects.filter(project=projekt_nr)
+	ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project=projekt_nr)
+	
+	ezeneugen = EzeNeuGenerator.objects.filter(project=projekt_nr)
+	ezebestgenerator = EzeBestGenerator.objects.filter(project=projekt_nr)
+	context = {'betreiber' : betreiber, 'project' : project, \
+	'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen,\
+	'zertifikatsinhaber':zertifikatsinhaber,'netzbetreiber':netzbetreiber,\
+	'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft,\
+	   'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
+	
+	return render(request, 'certification82/allgeminfo.html', context)
+
+
 class IndexView(generic.ListView):
 	template_name = 'certification82/index.html'
 	context_object_name = 'project_name_list'
 
 	def get_queryset(self):
-		# user = get_object_or_404(User, pk=user_id)
+		# user = get_object_or_404(User, pk=id)
 		"""Return the last five published questions."""
 		# return Project.objects.filter(project_number==user.projekt_Nr)[:5]
 
 		# user= get_object_or_404(Betreiber, betreiber_id=pk)
-		# return Project.objects.get(project_number=user.Project_NR)[:5]
-		return Project.objects.all
+		# return Project.objects.filter(project_number=user.projekt_nr)[:5]
+		return Project.objects.order_by('-project_number')[:5]
 #####new and best gener views of index
 #neuwind
 class NeuWindkraftIndexView(generic.ListView):
@@ -148,9 +358,9 @@ class BetreiberIndexView(generic.ListView):
 	context_object_name = 'betreiber_name_list'
 	template_name = 'certification82/list_views/Betreiber_list.html'
 	def get_queryset(self):
-		return Betreiber2.objects.order_by('-name')[:5]
+		return Betreiber.objects.order_by('-name')[:5]
 class BetreiberDetailView(generic.DetailView):
-	model = Betreiber2
+	model = Betreiber
 	template_name = 'certification82/detailed_views/Betreiber_detail.html'
 
 
@@ -229,9 +439,9 @@ def ezeneuwindindex(request):
 	context = {'ezeneuwind' : ezeneuwind }
 	return render(request, 'certification82/ezeneuwindindex.html', context)
 #???
-def ezeneuwindkraftsoftheprojectindex(request, project_id):
-	ezeneuwindofpro = get_object_or_404(Project, pk = project_id)
-	ezeneuwind = EzeNeuWindkraft.objects.filter(project_id=project_id)
+def ezeneuwindkraftsoftheprojectindex(request, project_number):
+	ezeneuwindofpro = get_object_or_404(Project, pk = project_number)
+	ezeneuwind = EzeNeuWindkraft.objects.filter(project=project_number)
 	
 	# ezeneuwind = get_object_or_404(EzeNeuWindkraft, pk = ezeneuwindkraft_id)
 	context = {'ezeneuwindofpro' : ezeneuwindofpro, 'ezeneuwind':ezeneuwind }
