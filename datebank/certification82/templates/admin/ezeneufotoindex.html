@@ -1,0 +1,19 @@
+<table border=2 class="table-hover">
+			<tr id="ezename"><th >NEXT:</th> <td>Fotovoltaics</td></tr>
+			
+		{% for ezefot in ezen.ezeneufotovoltaic_set.all %}
+			<tr id="ezename"><th >Fotovoltaics NAME:</th> <td>{{ ezefot.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezefot.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezefot.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezefot.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezefot.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezefot.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezefot.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezefot.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezefot.id }}</td> </tr>
+			<tr><th>NAME:</th> <td> {{ ezefot.name }}</td></tr>
+
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+		</table>

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	EZE detail
+{% endblock %}
+		
+{% block content %}
+{%if object %}
+	<table border=2 class="table table-hover">
+	{% if object.ist_bestand != True %}
+		<tr id="ezename"><th ><h2>NEXT:</th> <td>NEU EZE INFORMATION</td><td>OK</h2></td></tr>
+			<tr title="Neu Windkraft NAME" id="ezename"><th >{{object.VDE_EZE1_NameTextmarke}}:</th> <td>{{ object.vDE_EZE1_Name }}</td><td>{{ object.vDE_EZE1_NameOK }}</td></tr>
+			<tr title="Hersteller der EZE--id"><th>{{ object.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ object.eZeHersteller }}</td><td>{{ object.eZeHerstellerOK }}</td></tr>
+			<tr title="Typ der EZE--id"><th>{{ object.VDE_EZE1_TypTextmarke }}:</th> <td> {{ object.eZeTyp }}</td><td>{{ object.eZeTypOK }}</td></tr>
+			<tr title="Bezeichnung der EZE"><th>{{ object.VDE_EZE1_NameTextmarke }}:</th> <td> {{ object.vDE_EZE1_Name }}</td><td>{{ object.vDE_EZE1_NameOK }}</td></tr>
+			<tr title="Einheitenzertifikat Nr."><th>{{ object.VDE_EZE1_ZertNRTextmarke }}:</th> <td> {{ object.vDE_EZE1_ZertNR }}</td><td>{{ object.vDE_EZE1_ZertNROK }}</td></tr>
+			<tr title="Bemessungsscheinleistung in MVA"><th>{{ object.VDE_EZE1_STextmarke }}:</th> <td> {{ object.vDE_EZE1_S }}</td><td>{{ object.vDE_EZE1_SOK }}</td></tr>
+			<tr title="Bemessungswirkleistung in MW"><th>{{ object.VDE_EZE1_PTextmarke }}:</th> <td> {{ object.vDE_EZE1_P }}</td><td>{{ object.vDE_EZE1_POK }}</td></tr>
+			<tr title="Anzahl der EZE"><th>{{ object.VDE_Anzahl_EZE1Textmarke }}:</th> <td> {{ object.vDE_Anzahl_EZE1 }}</td><td>{{ object.vDE_Anzahl_EZE1OK }}</td></tr>
+			{% if object.VDE_EZE1_Motor %}
+			<tr title="Motortyp für VKM"><th>{{ object.VDE_EZE1_MotorTextmarke }}:</th> <td> {{ object.VDE_EZE1_Motor }}</td><td>{{ object.VDE_EZE1_MotorOK }}</td></tr>
+			{% endif %}
+
+			{%if object.VDE_EZE1_Generator %}
+			<tr title="Generatortyp für VKM"><th>{{ object.VDE_EZE1_GeneratorTextmarke }}:</th> <td> {{ object.VDE_EZE1_Generator }}</td><td>{{ object.VDE_EZE1_GeneratorOK }}</td></tr>
+			{% endif %}
+			<tr><th title="ID">ID:</th> <td> {{ object.id }}</td> </tr>
+			<th ><a href="{% url 'certification82:eze_update' object.id %}">Edit</a></th>
+			
+			{% if user.admin == True %}
+			<td class="alert alert-danger alert-dismissible"><a href="{% url 'certification82:eze_delete' object.id %}">Delete</a></td></tr>
+			<tr><th></th></tr>
+			{% endif %}
+		
+	{% elif object.ist_bestand == True %}
+		<tr id="ezename"><th ><h2>NEXT:</th> <td>EZE BESTAND INFORMATION</h2></td></tr>
+			<tr id="ezebname"><th >{{object.VDE_EZE_Typ_AltTextmarke}}:</th> <td>{{ object.eZeTyp }}</td></tr>
+			<tr><th>{{object.VDE_EZE_Bestand_ZahlTextmarke}}:</th> <td> {{ object.VDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>{{object.VDE_EZE_Herst_AltTextmarke}}:</th> <td> {{ object.eZeHersteller }}</td></tr>
+			<tr><th>{{ object.VDE_EZE_Typ_AltTextmarke }}:</th> <td> {{ object.eZeTyp }}</td></tr>
+			<tr><th>{{ object.VDE_EZE_Name_ALTTextmarke }}:</th> <td> {{ object.VDE_EZE_Name_ALT }}</td></tr>
+			<tr><th title="Bemessungsscheinleistung in MVA">{{ object.VDE_S_EZE_AltTextmarke }}:</th> <td> {{ object.VDE_S_EZE_Alt }}</td></tr>
+			<tr><th title="Bemessungswirkleistung">{{ object.VDE_P_EZE_ALTTextmarke }}:</th> <td> {{ object.VDE_P_EZE_ALT }}</td></tr>
+			<tr><th title="Inbetriebnahmedatum">{{ object.VDE_P_inbe_ALTTextmarke }}:</th> <td> {{ object.VDE_P_inbe_ALT }}</td></tr>
+			<th ><a href="{% url 'certification82:eze_update' object.id %}">Edit</a></th>
+			{% if user.admin == True %}
+			<td class="alert alert-danger alert-dismissible"><a href="{% url 'certification82:eze_delete' object.id %}">Delete</a></td></tr>
+			<tr><th></th></tr>
+			{% endif %}
+	{% endif %}
+		</table>
+{% else %}
+		<p>Es sind keine EZE verfügbar.</p>
+{% endif %}
+	
+{% endblock %}

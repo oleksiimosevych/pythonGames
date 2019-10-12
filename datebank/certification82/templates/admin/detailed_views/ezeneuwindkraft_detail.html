@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	NeuWindkraft detail
+{% endblock %}
+		
+{% block content %}
+{%if ezeneuwindkraft %}
+	<table border=2 class="table-hover">
+
+		<tr id="ezename"><th ><h2>NEXT:</th> <td>NEUE Windkrafts</h2></td></tr>
+			<tr id="ezename"><th >Neu Windkraft NAME:</th> <td>{{ ezeneuwindkraft.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezeneuwindkraft.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezeneuwindkraft.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezeneuwindkraft.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezeneuwindkraft.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezeneuwindkraft.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezeneuwindkraft.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezeneuwindkraft.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezeneuwindkraft.id }}</td> </tr>
+			<tr><th>NAME:</th> <td> {{ ezeneuwindkraft.name }}</td></tr>
+			
+		</table>
+	</h1>
+{% else %}
+		<p>No windkrafts are available.</p>
+{% endif %}
+	
+{% endblock %}

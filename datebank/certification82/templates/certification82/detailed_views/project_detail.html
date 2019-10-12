@@ -1,0 +1,128 @@
+
+{% extends "base.html" %}
+<!-- # detail which depends to the project id -->
+{% block title %}
+	Details index
+{% endblock %}
+{% block menu %}
+	<p>
+		<a href="{% url 'certification82:index' %}">Zurück |</a>
+		
+		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' user.projekt_nr %}">Neue WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezeneufotooftheprojectindex' user.projekt_nr  %}">Neue Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezeneugenoftheprojectindex' user.projekt_nr %}">Neue Generators |</a>
+		<a href="{% url 'certification82:ezebestwindoftheprojectindex' user.projekt_nr %}">Bestandene WINDKRAFTS |</a>
+		<a href="{% url 'certification82:ezebestfotooftheprojectindex' user.projekt_nr %}">Bestandene Fotovoltaics |</a>
+		<a href="{% url 'certification82:ezebestgenoftheprojectindex' user.projekt_nr %}">Bestandene Generators |</a>
+	</p>
+{% endblock %}
+
+{% block content %}
+
+	
+	<div class="card"> <div class="card-body">
+		<table border=2 class = "table-hover">
+		<p>Allgemeine Information zum Project: "{{ object.project_name }}"</p>
+		<table border=0 class="table-hover">
+		<h1>
+			<tr><th><h1>{{ object.Projekt_NrTexmarke }}:</th> <td><h1> {{ object.project_number }}</td></tr>
+			<tr><th><h1>{{ object.ProjekttitelTexmarke }}:</th> <td><h1> {{ object.project_name }}</td></tr>
+		</h1>
+		</table>
+		<span class='col-md-6 ezeneu_left '>
+			
+		<table border=0 class="table-hover">
+		
+		{% for betr in betreiber %}
+			<tr id="ezename"><th >Info Betreiber:</th> <td><b>{{ betr.Zert_Firm }}</b></td><td>OK</td></tr>
+			<tr id="ezename"><th >{{betr.EZA_Betreiber_NameTextmarke}}:</th> <td><b>{{ betr.name }}</b></td>
+			<td>{{ betr.nameOK }}</td></tr></tr>
+			<tr><th>{{ betr.EZA_Betreiber_AnspreTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_Anspre }}</td><td>{{ betr.EZA_Betreiber_AnspreOK }}</td></tr></tr>
+			<tr><th>{{ betr.EZA_Betreiber_StrNrTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_StrNr }}</td><td>{{ betr.EZA_Betreiber_StrNrOK}}</td></tr>
+			<tr><th>{{ betr.EZA_Betreiber_PlzOrtTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_PlzOrt }}</td><td>{{ betr.EZA_Betreiber_PlzOrtOK }}</td></tr></tr>
+			<tr><th>{{ betr.EZA_Betreiber_TelTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_Tel }}</td><td>{{ betr.EZA_Betreiber_TelOK }}</td></tr></tr>
+			<tr><th>{{ betr.EZA_Betreiber_MailTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_Mail }}</td><td>{{ betr.EZA_Betreiber_MailOK }}</td></tr></tr>
+			<tr><th>{{ betr.Anlagenzert_NrTextmarke }}:</th> <td> {{ betr.Anlagenzert_Nr }}</td>
+			<td>{{ betr.Anlagenzert_NrOK }}</td></tr></tr>
+			<tr><th>{{ betr.Projekt_NrTextmarke }}:</th> <td> {{ betr.Projekt_Nr }}</td>
+			<td>{{ betr.Projekt_NrOK }}</td></tr></tr>
+			<tr><th>{{ betr.ProjekttitelTextmarke }}:</th> <td> {{ betr.Projekttitel }}</td>
+			<td>{{ betr.ProjekttitelOK }}</td></tr></tr>
+			{% if user.admin == True %}
+			<tr><td><a href="{% url 'certification82:betreiberdetailview' betr.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+			{% endif %}
+		{%endfor%}
+			<br><tr><td><a href="{% url 'certification82:new_betreiber' %}">Neu Betreiber</a></td></tr>
+			
+		{% for eze in zertifikatsinhaber %}
+
+			<tr id="ezename"><th >Info Zertifikatsinhaber:</th> <td><b>{{ eze.Zert_Firm }}</b></td><td>OK</td></tr>
+			<tr id="ezename"><th >{{ eze.EZA_BezeichnungTextmarke }}:</th> <td>{{ eze.EZA_Bezeichnung }}<td>{{ eze.EZA_BezeichnungOK }}</td></tr>
+			</td></tr>
+			<tr><th>{{ eze.Zert_PartTextmarke }}:</th> <td> {{ eze.Zert_Part }}</td>
+			<td>{{ eze.Zert_PartOK }}</td></tr>
+			<tr><th>{{ eze.Zert_FirmTextmarke }}:</th> <td> {{ eze.Zert_Firm }}</td>
+			<td>{{ eze.Zert_FirmOK }}</td></tr>
+			<tr><th>{{ eze.Zert_NrTextmarke }}:</th> <td> {{ eze.Zert_Nr }}</td>
+			<td>{{ eze.Zert_NrOK }}</td></tr>
+			<tr><th>{{ eze.Zert_PLZTextmarke }}:</th> <td> {{ eze.Zert_PLZ }}</td>
+			<td>{{ eze.Zert_PLZOK }}</td></tr>
+			<tr><th>{{ eze.Zert_TelTextmarke }}:</th> <td> {{ eze.Zert_Tel }}</td>
+			<td>{{ eze.Zert_TelOK }}</td></tr></tr>
+			<tr><th>{{ eze.Zert_FaxTextmarke }}:</th> <td> {{ eze.Zert_Fax }}</td>
+			<td>{{ eze.Zert_FaxOK }}</td></tr>
+			<tr><th>{{ eze.Zert_MailTextmarke }}:</th> <td> {{ eze.Zert_Mail }}</td>
+			<td>{{ eze.Zert_MailOK }}</td></tr>
+			
+			<tr><th>{{ eze.Projekt_NrTextmarke }}:</th> <td> {{ eze.Projekt_Nr }}</td>
+			<td>{{ eze.Projekt_NrOK }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+			
+			<br><tr><td><a href="{% url 'certification82:new_zert' %}">Neu Zertifikatsinhaber</a></td></tr>
+			
+		{% for eze in netzbetreiber %}
+			<tr id="ezename"><th >Info Netzbetreiber:</th> <td><b>{{ eze.NB_Name }}</b></td><td>OK</td></tr>
+		
+			<tr id="ezename"><th >{{ eze.NB_AnsprechTextmarke }}:</th> <td>{{ eze.NB_Ansprech }}
+			<td>{{ eze.NB_AnsprechOK }}</td></tr>
+			</td></tr>
+			<tr><th>{{ eze.NB_NameTextmarke }}:</th> <td> {{ eze.NB_Name }}</td>
+			<td>{{ eze.NB_NameOK }}</td></tr>
+			<tr><th>{{ eze.NB_StrTextmarke }}:</th> <td> {{ eze.NB_Str }}</td>
+			<td>{{ eze.NB_StrOK }}</td></tr>
+			<tr><th>{{ eze.NB_PLZTextmarke }}:</th> <td> {{ eze.NB_PLZ }}</td>
+			<td>{{ eze.NB_PLZOK }}</td></tr>
+			<tr><th>{{ eze.NB_TelTextmarke }}:</th> <td> {{ eze.NB_Tel }}</td>
+			<td>{{ eze.NB_TelOK }}</td></tr>
+			<tr><th>{{ eze.NB_FaxTextmarke }}:</th> <td> {{ eze.NB_Fax }}</td>
+			<td>{{ eze.NB_FaxOK }}</td></tr></tr>
+			<tr><th>{{ eze.NB_MailTextmarke }}:</th> <td> {{ eze.NB_Mail }}</td>
+			<td>{{ eze.NB_MailOK }}</td></tr>
+			
+			<tr><th>{{ eze.Registriernummer_NBTextmarke }}:</th> <td> {{ eze.Registriernummer_NB }}</td><td>{{ eze.Registriernummer_NBOK }}</td></tr>
+			
+			<tr><th>{{ eze.Projekt_NrTextmarke }}:</th> <td> {{ eze.Projekt_Nr }}</td>
+			<td>{{ eze.Projekt_NrOK }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		
+
+
+			<tr><th></th></tr>
+		{%endfor%}
+			<br><tr><td><a href="{% url 'certification82:new_netzbetreiber' %}">Neu Netzbetreiber</a></td></tr>
+			{% if user.admin == True %}
+				<p>You are authenticated as {{ user }} - ADMINISTRATOR.</p>
+					{% for u in ProjectUser.objects.all %}
+						USER: {{u}}
+					{%endfor%}
+			<br><tr><td><a href="{% url 'certification82:new_projekt' %}">Neu Projekt</a></td></tr>
+			{%endif%}
+		</table>
+	</div></div>
+		</span>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	NeuWindkraft detail
+{% endblock %}
+		
+{% block content %}
+{%if transformator %}
+	<table border=2 class="table-hover">
+
+		<tr id="ezename"><th ><h2></th> <td>Transformator Details</h2></td></tr>
+			<tr id="ezename"><th >VDE_Trafo:</th> <td>{{ transformator.VDE_Trafo }}</td></tr>
+			<tr><th>Hersteller:</th> <td> {{ transformator.VDE_Trafohersteller }}</td></tr>
+			<tr><th>TrafoTyp :</th> <td> {{ transformator.VDE_Trafotyp }}</td></tr>
+			<tr><th>VDE_TrafoUeber:</th> <td> {{ transformator.VDE_TrafoUeber }}</td></tr>
+			<tr><th>VDE_TrafoOber:</th> <td> {{ transformator.VDE_TrafoOber }}</td></tr>
+			<tr><th>VDE_TrafoUnter:</th> <td> {{ transformator.VDE_TrafoUnter }}</td></tr>
+			<tr><th>VDE_Trafo_kurz:</th> <td> {{ transformator.VDE_Trafo_kurz }}</td></tr>
+			<tr><th>VDE_Trafo_P:</th> <td> {{ transformator.VDE_Trafo_P }}</td></tr>
+			<tr><th>ID:</th> <td> {{ transformator.id }}</td> </tr>
+			
+		</table>
+	</h1>
+{% else %}
+		<p>No transformators yet.</p>
+{% endif %}
+	
+{% endblock %}

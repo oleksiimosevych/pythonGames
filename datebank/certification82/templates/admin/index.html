@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Certification index
+{% endblock %}
+		{% block menu %}
+		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
+		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
+		<a href="{% url 'certification82:index'%}">EZE |</a>
+		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
+		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
+		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+		{% endblock %}
+
+	{% block content %}
+		<p class="text-center nav-li">
+			<a href="">Your access to the Project</a>
+		</p>
+{% if user.is_authenticated %}
+	<p>N:{{ user.projekt_nr }}</p>
+{% endif %}
+		{% if project_name_list %}
+			<h1>
+			{% for proj in project_name_list %}
+				{% if proj.project_number == user.projekt_nr %}
+					<div for = "link" class="jumbotron text-center">
+						<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
+						<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_number }}</a></p>
+					</div>
+				{% endif %}
+		{% endfor %}
+		</h1>
+		{% else %}
+			<p>No projects are available.</p>
+		{% endif %}
+	{% endblock %}

@@ -27,7 +27,7 @@
 	</div>
 
 		<p>Allgemeine Information zum Project: "{{ proj.project_name }}"</p>
-		<table border=0 class="table-hover">
+		<table border=0 class="table table-hover">
 		<h1>
 			<tr><th><h1>{{ proj.Projekt_NrTexmarke }}:</th> <td><h1> {{ proj.project_number }}</td></tr>
 			<tr><th><h1>{{ proj.ProjekttitelTexmarke }}:</th> <td><h1> {{ proj.project_name }}</td></tr>
@@ -36,7 +36,7 @@
 	{% endfor %}
 		<span class='col-md-6 ezeneu_left '>
 			
-		<table border=0 class="table-hover">
+		<table border=0 class="table table-hover">
 		
 		{% for betr in betreiber %}
 			<tr id="ezename"><th >Info Betreiber:</th> <td><b>{{ betr.Zert_Firm }}</b></td><td>OK</td></tr>
@@ -117,8 +117,13 @@
 			<tr><th></th></tr>
 		{%endfor%}
 			<br><tr><td><a href="{% url 'certification82:new_netzbetreiber' %}">Neu Netzbetreiber</a></td></tr>
+			{% if user.admin == True %}
+				<p>You are authenticated as {{ user }} - ADMINISTRATOR.
+					{% for u in ProjectUser.objects.all %}
+						USER: {{u}}
+					{%endfor%}
 			<br><tr><td><a href="{% url 'certification82:new_projekt' %}">Neu Projekt</a></td></tr>
-			
+			{%endif%}
 		</table>
 		</span>
 

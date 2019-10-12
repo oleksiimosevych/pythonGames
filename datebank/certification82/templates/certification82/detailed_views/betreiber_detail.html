@@ -18,7 +18,7 @@
 		 -->
 	</div>
 		<span class='col-md-6 ezeneu_left '>
-		<table border=2 class="table-hover">
+		<table border=2 class="table-hover table">
 			
 			<tr id="ezename"><th >{{object.EZA_Betreiber_NameTextmarke}}:</th> <td><b>{{ object.name }}</b></td></tr>
 			<tr><th>{{ object.EZA_Betreiber_AnspreTextmarke }}:</th> <td> {{ object.EZA_Betreiber_Anspre }}</td></tr>
@@ -32,6 +32,11 @@
 
 			<tr><th>ID:</th> <td> {{ object.id }}</td> </tr>
 
+			<tr><td><a href="{% url 'certification82:project_show' object.id %}">Edit</a>
+			{% if user.admin == True %}
+				<td for = 'del'><a name ='del' href="">Delete</a></td>
+			</td></tr>
+			{% endif %}
 			
 		</table>
 		<br>
@@ -41,7 +46,7 @@
 				{% if proj.project_Nr == object.project_Nr %}
 					<tr id="ezename"><th >{{object.name}} BELONGS TO</th> <td><b>NEXT PROJECTS:</b></td></tr>
 					<tr><th>NAME:</th> <td> {{ proj.project_name }}</td></tr>
-					<tr><td><a href="{% url 'certification82:project_show' proj.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+					<tr><td><a href="{% url 'certification82:project_show' proj.id %}">Edit</a>	<a href="">Edit</a>
 				{% endif %}
 
 			{%endfor%}

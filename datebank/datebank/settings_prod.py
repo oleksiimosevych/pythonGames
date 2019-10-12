@@ -8,10 +8,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #for MYSQL
         # 'ENGINE': 'django.db.backends.mysql',
-        'USER':'111',
-        'NAME':'111',
-        'PASSWORD':'@@@111',
-        'HOST':'111',
+        'USER':'',
+        'NAME':'',
+        'PASSWORD':'@@@',
+        'HOST':'',
  
     }
 }

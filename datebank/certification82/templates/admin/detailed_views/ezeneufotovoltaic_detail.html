@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	NeuFoto detail
+{% endblock %}
+		
+{% block content %}
+{%if ezeneufotovoltaic %}
+	<table border=2 class="table-hover">
+
+		<tr id="ezename"><th ><h2>NEXT:</th> <td>NEUE Fotovoltaics</h2></td></tr>
+			<tr id="ezename">
+				<th >{{ezeneufotovoltaic.VDE_EZE1_NameTextmarke}}:</th>
+				<td>{{ ezeneufotovoltaic.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ezeneufotovoltaic.VDE_EZE1_HerstTextmarke}} :</th> <td> {{ ezeneufotovoltaic.eZeHersteller }}</td></tr>
+			<tr><th>{{ezeneufotovoltaic.VDE_EZE1_TypTextmarke}}:</th> <td> {{ ezeneufotovoltaic.eZeTyp }}</td></tr>
+			<tr><th>{{ezeneufotovoltaic.VDE_EZE1_NameTextmarke}}:</th> <td> {{ ezeneufotovoltaic.vDE_EZE1_Name }}</td></tr>
+			<tr><th>{{ezeneufotovoltaic.VDE_EZE1_ZertNRTextmarke}}:</th> <td> {{ ezeneufotovoltaic.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>{{ezeneufotovoltaic.VDE_EZE1_STextmarke}}:</th> <td> {{ ezeneufotovoltaic.vDE_EZE1_S }}</td></tr>
+			<tr><th>{{ezeneufotovoltaic.VDE_EZE1_PTextmarke}}:</th> <td> {{ ezeneufotovoltaic.vDE_EZE1_P }}</td></tr>
+			<tr><th>{{ezeneufotovoltaic.VDE_Anzahl_EZE1Textmarke}}:</th> <td> {{ ezeneufotovoltaic.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezeneufotovoltaic.id }}</td> </tr>
+			<tr><th>NAME:</th> <td> {{ ezeneufotovoltaic.name }}</td></tr>
+			
+		</table>
+	</h1>
+{% else %}
+		<p>No fotovoltaics are available.</p>
+{% endif %}
+	
+{% endblock %}

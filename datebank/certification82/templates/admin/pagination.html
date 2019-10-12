@@ -1,0 +1,71 @@
+pagination.html
+{% load staticfiles %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
+<!-- {{latest_EzeNeu_list}} -->
+<div class="container">	
+	<div class="jumbotron text-center">
+		<h1>All Ezes of the Project "{{ ezen.project_name }}"</h1>
+	</div>
+		<span class='col-md-6 ezeneu_left '>
+		<h3>Eze Neues of the project:  "{{ ezen.project_name }}"</h3>
+		<table border=2 class="table-hover">
+		{% for eze in ezen.ezeneu_set.all %}
+			<tr id="ezename"><th >EZE NAME:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ eze.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ eze.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Motortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Motor }}</td></tr>
+			<tr><th>Generatortyp für VKM:</th> <td> {{ eze.vDE_EZE1_Generator }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+			<tr><th></th></tr>
+		{%endfor%}
+		</table>
+		</span>
+
+		<span class='col-md-6 ezebestand_right'>
+		<h3>Eze Bestand of the project:  "{{ ezen.project_name }}"</h3>
+		<table border=2 class = "table-hover">
+		{% for ezebest in ezen.ezebestand_set.all %}
+			<tr id="ezebname"><th >EZE Bestand NAME:</th> <td>{{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Anzahl Bestands-BHKW:</th> <td> {{ ezebest.vDE_EZE_Bestand_Zahl }}</td></tr>
+			<tr><th>Hersteller der EZE:</th> <td> {{ ezebest.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE:</th> <td> {{ ezebest.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezebest.vDE_EZE_Name_ALT }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezebest.vDE_S_EZE_Alt }}</td></tr>
+			<tr><th>Bemessungswirkleistung:</th> <td> {{ ezebest.vDE_P_EZE_ALT }}</td></tr>
+			<tr><th>Inbetriebnahmedatum:</th> <td> {{ ezebest.vDE_P_inbe_ALT }}</td></tr>
+			<tr><th></th></tr>
+			<tr><td><a href="{% url 'certification82:detail' ezebest.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+		{% endfor %}
+		</table>
+		</span>
+	{% if ezes.has_other_pages %}
+		<ul class="pagination">
+			{% if ezes.has_previous %}
+				<li><a href="?page={{ ezes.previous_page_number }}">&laquo;</a></li>
+			{% else %}
+				<li class="disabled"><span>&laquo;</span></li>
+			{% endif %}
+			{% for i in ezes.paginator.page_range %}
+				{% if ezes.number == i %}
+					<li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+				{% else %}
+					<li><a href="?page={{ i }}">{{ i }}</a></li>
+				{% endif %}
+			{% endfor %}
+			{% if ezes.has_next %}
+				<li><a href="?page={{ ezes.next_page_number }}">&raquo;</a></li>
+			{% else %}
+				<li class="disabled"><span>&raquo;</span></li>
+			{% endif %}
+		</ul>
+	{% endif %}
+	<br>
+</div>

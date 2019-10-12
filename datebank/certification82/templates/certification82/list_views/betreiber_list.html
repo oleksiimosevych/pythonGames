@@ -7,15 +7,40 @@
 		
 {% block content %}
 	{% if betreiber_name_list %}
+		{% if user.admin == False %}
 		<h1>
+			Information des Betreibers der Projekt  
+		</h1><h1>
+		{% elif user.admin == True %}
+			<div class="card"> <div class="card-body">
+			<table class="table"><tr><th>Betreiber</th><td>Projekt</td><td>Tittel</td><td>CRUD</td></tr>
+		{% endif %}
 		{% for item in betreiber_name_list %}
-		<!-- no more hardcoded href  appname:viewname-->
-		<div for = "link" class="jumbotron text-center">
-			<p><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">{{ item.name }}</a></p>
-		</div>
-	{% endfor %}
+				{% if item.Projekt_Nr == user.projekt_nr %}
+				<!-- no more hardcoded href  appname:viewname-->
+				<div for = "link" class="jumbotron text-center">
+					<p><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">{{ item.name }}</a></p>
+				</div>
+				
+				</h1>
+				{% elif user.admin == True %}
+				<!-- no more hardcoded href  appname:viewname-->
+				<tr>
+					<td><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">{{ item.name }}</a></td><td>{{ item.Projekt_Nr }}</td><td>{{ item.Projekttitel }}</td>
+					<th><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">View</a></th>
+					<th><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">Edit</a></th>
+					{% if user.admin == True %}
+					<th><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">Remove</a></th>
+					</tr>
+					{% endif %}
+				{% endif %}
+		{% endfor %}
+		{% if user.admin == True %}
+			</table></div></div>
+		{% endif %}
+
 	</h1>
 	{% else %}
-		<p>No documents are available.</p>
+		<p>Hier gibt es kein Betreiber</p>
 	{% endif %}
 {% endblock %}

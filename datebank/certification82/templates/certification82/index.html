@@ -3,30 +3,41 @@
 {% block title %}
 	Certification index
 {% endblock %}
-		{% block menu %}
-		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
 		<a href="{% url 'certification82:betreiberindex'%}">BETREIBER |</a>
-		<a href="{% url 'certification82:index'%}">EZE |</a>
-		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
-		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
-		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
-		{% endblock %}
-
+		
 	{% block content %}
+	{%if user.admin == True %}
 		<p class="text-center nav-li">
-			<a href="">Your access to the Project</a>
+			<a href="">Alle Projekte (nur für Administratoren)</a>
 		</p>
+	{% else %}
+		<p class="text-center nav-li">
+			<a href="">Ihr Zugang zum Projekt</a>
+		</p>
+	{% endif %}
 {% if user.is_authenticated %}
-	<p>N:{{ user.id }}</p>
-{%endif%}
+	<p>Projekt Nr:{{ user.projekt_nr }}</p>
+{% endif %}
 		{% if project_name_list %}
-			<h1>
+			
 			{% for proj in project_name_list %}
-			<!-- no more hardcoded href  appname:viewname-->
-			<div for = "link" class="jumbotron text-center">
-				<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
-				<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_number }}</a></p>
-			</div>
+				{%if user.admin == True %}
+					<table class="table">
+						<tr>
+							<td width="50%">Projekttittel: <b>{{ proj.project_name }}</b></td>
+							<td width="50%">Projektnummer: <b>{{ proj.project_number }}</b></td>
+							<td width="10%"><a name = "link" href="{% url 'certification82:detail' proj.id %}">View</a></td>
+							<td width="10%"><a name = "link" href="{% url 'certification82:project_update' proj.id %}">Edit</a></td>
+							<td width="10%"><a name = "link" href="{% url 'certification82:project_delete' proj.id %}">Delete</a></td>
+						</tr>
+					</table>
+				{% elif proj.project_number == user.projekt_nr %}
+			<h2>	<div for = "link" class="jumbotron text-center">
+						<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
+						<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_number }}</a></p>
+					</div>
+				{% endif %}
+				
 		{% endfor %}
 		</h1>
 		{% else %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	Best. Windkraft 
+{% endblock %}
+		
+{% block content %}
+	{% if bestwindkraft_name_list %}
+		<h1>
+		{% for item in bestwindkraft_name_list %}
+		<!-- no more hardcoded href  appname:viewname-->
+		<div for = "link" class="jumbotron text-center">
+			<p><a name = "link" href="{% url 'certification82:ezebestwinddetail' item.pk %}">{{ item.name }}</a></p>
+		</div>
+	{% endfor %}
+	</h1>
+	{% else %}
+		<p>No windkrafts are available.</p>
+	{% endif %}
+{% endblock %}

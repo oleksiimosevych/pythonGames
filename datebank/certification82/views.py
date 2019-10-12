@@ -4,6 +4,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404
 ###or HttpResponseRedirect
 from django.http import HttpResponse
+#lazy reverse
+from django.urls import reverse_lazy
 from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, \
 EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft,\
  EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Betreiber, User, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
@@ -11,9 +13,12 @@ from django.template import loader
 #add pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views import generic 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from django.contrib.auth import login, authenticate
-from .forms import BetreiberForm, NetzBetreiberForm, ZertifikatsinhaberForm, ProjectForm
+from .forms import BetreiberForm, NetzBetreiberForm,\
+ ZertifikatsinhaberForm, ProjectForm,\
+ NewEzeNeuForm, NewEzeBestForm, NewHerstellerForm, NewEzeTypForm
 	
 # Create your views here.
 # def index(request):
@@ -28,6 +33,68 @@ from .forms import BetreiberForm, NetzBetreiberForm, ZertifikatsinhaberForm, Pro
 	# return HttpResponse(project_Names+'\n\n<br> Neue Ezes: \n'+eze_Neus )
 #add more views
 ####USing GENERIC add at the top from django.views import generic from django.urls import reverse
+
+#//////101019///////////////////////////////////////////////////////////
+def new_eze_typ(request):
+	if request.method == 'POST':
+		form = NewEzeTypForm(request.POST)
+		if form.is_valid():
+			form.save()
+			typ_name = form.cleaned_data.get("typ_name")
+
+			ezetyp = form.save()
+			print ('\n\nnew EzeTyp created\n\n')
+			return redirect('certification82:new_eze_neu')
+	else:
+		form = NewEzeTypForm()
+	return render(request, 'new/ezetyp.html',{'form':form})
+#//////////////////////////////////////////////////////////////////
+#//////////////////10/10/19/////////added/////////////////////////
+def new_hersteller(request):
+	if request.method == 'POST':
+		form = NewHerstellerForm(request.POST)
+		if form.is_valid():
+			form.save()
+			hersteller_name = form.cleaned_data.get("hersteller_name")
+
+			ezehersteller = form.save()
+			print ('\n\nnew Hersteller created\n\n')
+			return redirect('certification82:new_eze_neu')
+	else:
+		form = NewHerstellerForm()
+	return render(request, 'new/hersteller.html',{'form':form})
+#//////////////////////////////////////////////////////////////////
+
+#NEN
+def new_eze_neu(request):
+	if request.method == 'POST':
+		form = NewEzeNeuForm(request.POST)
+		if form.is_valid():
+			form.save()
+			Zert_MailTextmarke = form.cleaned_data.get("Zert_Mail")
+
+			eze = form.save()
+			print ('\n\nnew EZE neu created\n\n')
+			return redirect('certification82:index')
+	else:
+		form = NewEzeNeuForm()
+	return render(request, 'new/eze.html',{'form':form})
+#NEB
+def new_eze_bestand(request):
+	if request.method == 'POST':
+		form = NewEzeBestForm(request.POST)
+		if form.is_valid():
+			form.save()
+			Zert_MailTextmarke = form.cleaned_data.get("Zert_Mail")
+
+			eze = form.save()
+			print ('\n\nnew Eze Bestand created\n\n')
+			return redirect('certification82:index')
+	else:
+		form = NewEzeBestForm()
+	return render(request, 'new/eze.html',{'form':form})
+
+#NP
 def new_projekt(request):
 	if request.method == 'POST':
 		form = ProjectForm(request.POST)
@@ -66,7 +133,7 @@ def new_projekt(request):
 
 	# form = BetreiberForm()
 	return render(request, 'new/projekt.html',{'form':form})
-
+#NZ
 def new_zert(request):
 	if request.method == 'POST':
 		form = ZertifikatsinhaberForm(request.POST)
@@ -108,7 +175,7 @@ def new_zert(request):
 
 	# form = BetreiberForm()
 	return render(request, 'new/zertifikatsinhaber.html',{'form':form})
-
+#NN
 def new_netzbetreiber(request):
 	if request.method == 'POST':
 		form = NetzBetreiberForm(request.POST)
@@ -147,7 +214,7 @@ def new_netzbetreiber(request):
 	# form = BetreiberForm()
 	return render(request, 'new/netzbetreiber.html',{'form':form})
 
-
+#NB
 def new_betreiber(request):
 	if request.method == 'POST':
 		form = BetreiberForm(request.POST)
@@ -186,7 +253,7 @@ def new_betreiber(request):
 
 	# form = BetreiberForm()
 	return render(request, 'new/betreiber.html',{'form':form})
-
+#A
 def allgeminfo(request, projekt_nr):
 	project = Project.objects.filter(project_number=projekt_nr)
 	# print(project)
@@ -219,24 +286,89 @@ def allgeminfo(request, projekt_nr):
 	print(a[1].Projekt_Nr)
 	netzbetreiber = Netzbetreiber.objects.filter(Projekt_Nr=projekt_nr)
 	print(netzbetreiber)
+	ezebestand = Eze.objects.filter(project=projekt_nr, ist_bestand=True)
+	ezeneu = Eze.objects.filter(project=projekt_nr, ist_bestand=False)
+	context={'ezebestand':ezebestand,'ezeneu':ezeneu,'betreiber' : betreiber, 'project' : project}
 
-	ezebestwindkraft = EzeBestWindkraft.objects.filter(project=projekt_nr)
-	ezeneuwind = EzeNeuWindkraft.objects.filter(project=projekt_nr)
-	
-	ezeneufotovoltaic = EzeNeuFotovoltaic.objects.filter(project=projekt_nr)
-	ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project=projekt_nr)
-	
-	ezeneugen = EzeNeuGenerator.objects.filter(project=projekt_nr)
-	ezebestgenerator = EzeBestGenerator.objects.filter(project=projekt_nr)
-	context = {'betreiber' : betreiber, 'project' : project, \
-	'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen,\
-	'zertifikatsinhaber':zertifikatsinhaber,'netzbetreiber':netzbetreiber,\
-	'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft,\
-	   'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
+	# ezebestwindkraft = EzeBestWindkraft.objects.filter(project=projekt_nr)
+	# ezeneuwind = EzeNeuWindkraft.objects.filter(project=projekt_nr)
+	# ezeneufotovoltaic = EzeNeuFotovoltaic.objects.filter(project=projekt_nr)
+	# ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project=projekt_nr)
+	# ezeneugen = EzeNeuGenerator.objects.filter(project=projekt_nr)
+	# ezebestgenerator = EzeBestGenerator.objects.filter(project=projekt_nr)
+	# context = {'betreiber' : betreiber, 'project' : project, \
+	# 'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen,\
+	# 'zertifikatsinhaber':zertifikatsinhaber,'netzbetreiber':netzbetreiber,\
+	# 'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft,\
+	#    'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
 	
 	return render(request, 'certification82/allgeminfo.html', context)
+#E
+class EzeCreate(CreateView):
+	model = Eze
+class EzeUpdate(UpdateView):
+	model = Eze
+	fields = [
+	\
+			'eZeHersteller','eZeHerstellerOK','VDE_EZE1_HerstTextmarke',\
+			'eZeTyp','eZeTypOK','VDE_EZE1_TypTextmarke','project',\
+			'vDE_EZE1_Name','vDE_EZE1_NameOK','VDE_EZE1_NameTextmarke',\
+			'vDE_EZE1_ZertNR','vDE_EZE1_ZertNROK','VDE_EZE1_ZertNRTextmarke',\
+			'vDE_EZE1_S','vDE_EZE1_SOK','VDE_EZE1_STextmarke',\
+			'vDE_EZE1_P','vDE_EZE1_POK','VDE_EZE1_PTextmarke',\
+			'vDE_Anzahl_EZE1','vDE_Anzahl_EZE1OK','VDE_Anzahl_EZE1Textmarke',\
+			'VDE_EZE1_Motor','VDE_EZE1_MotorOK','VDE_EZE1_MotorTextmarke',\
+			'VDE_EZE1_Generator','VDE_EZE1_GeneratorOK','VDE_EZE1_GeneratorTextmarke',\
+			'ist_bestand'
+	]
+	template_name_suffix = '_update_form'
+class EzeDelete(DeleteView):
+	model = Eze
+	success_url = reverse_lazy('certification82:index')
 
+class EzeDetailView(generic.DetailView):
+	model = Eze
+	template_name = 'certification82/detailed_views/eze_detail.html'
 
+#P
+class ProjectCreate(CreateView):
+	model = Project
+	fields = [
+	'project_name','project_number','project_deadline_date','is_done','access_for_user',
+	'access_for_moderator','access_for_admin','Projekt_NrTexmarke','ProjekttitelTexmarke','Projekt_DateTexmarke',
+	'Anlagenzert_NrTexmarke','netzbetreiberTextmarke','betreiberTextmarke','netzbetreiber','betreiber',
+	'zertifikatsinhaber','EZA_Betreiber_AnspreTextmarke','Zert_PartTextmarke','Registriernummer_NB','Registriernummer_NBTextmarke']
+class ProjectUpdate(UpdateView):
+	model = Project
+	fields = [
+	'project_name','project_number','project_deadline_date','is_done','access_for_user',
+	'access_for_moderator','access_for_admin','Projekt_NrTexmarke','ProjekttitelTexmarke','Projekt_DateTexmarke',
+	'Anlagenzert_NrTexmarke','netzbetreiberTextmarke','betreiberTextmarke','netzbetreiber','betreiber',
+	'zertifikatsinhaber','EZA_Betreiber_AnspreTextmarke','Zert_PartTextmarke','Registriernummer_NB','Registriernummer_NBTextmarke']
+
+	template_name_suffix = '_form'
+class ProjectDelete(DeleteView):
+	model = Project
+	success_url = reverse_lazy('certification82:index')
+	#delete is working tessted 11 10 19
+class ProjectDetailView(generic.DetailView):
+	model = Project
+	template_name = 'certification82/detailed_views/project_detail.html'
+
+class ProjectView(generic.ListView):
+	template_name = 'certification82/index.html'
+	context_object_name = 'project_name_list'
+
+	def get_queryset(self):
+		# user = get_object_or_404(User, pk=id)
+		"""Return the last five published questions."""
+		# return Project.objects.filter(project_number==user.projekt_Nr)[:5]
+
+		# user= get_object_or_404(Betreiber, betreiber_id=pk)
+		# return Project.objects.filter(project_number=user.projekt_nr)[:5]
+		return Project.objects.order_by('-project_number')[:5]
+
+#I
 class IndexView(generic.ListView):
 	template_name = 'certification82/index.html'
 	context_object_name = 'project_name_list'
@@ -348,6 +480,14 @@ class DocumentDetailView(generic.DetailView):
 	model = Document
 	template_name = 'certification82/detailed_views/Document_detail.html'
 
+class DocumentCreate(CreateView):
+	model = Document
+class DocumentUpdate(UpdateView):
+	model = Document
+class DocumentDelete(DeleteView):
+	model = Document
+
+
 
 # def betreiberindex(request):
 # 	allbetreibers = Betreiber.objects.all()
@@ -363,6 +503,12 @@ class BetreiberDetailView(generic.DetailView):
 	model = Betreiber
 	template_name = 'certification82/detailed_views/Betreiber_detail.html'
 
+class BetreiberCreate(CreateView):
+	model = Betreiber
+class BetreiberUpdate(UpdateView):
+	model = Betreiber
+class BetreiberDelete(DeleteView):
+	model = Betreiber
 
 
 def schutzindex(request):
@@ -376,6 +522,8 @@ def schutzindex(request):
 # 	context = {'alltransformators' : alltransformators }
 # 	#CHANGE IT!
 # 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+#!TRANSFORMATOR!
 class TransformatorIndexView(generic.ListView):
 	context_object_name = 'transformator_name_list'
 	template_name = 'certification82/list_views/Transformator_list.html'
@@ -384,7 +532,12 @@ class TransformatorIndexView(generic.ListView):
 class TransformatorDetailView(generic.DetailView):
 	model = Transformator
 	template_name = 'certification82/detailed_views/Transformator_detail.html'
-
+class TransformatorCreate(CreateView):
+	model = Transformator
+class TransformatorUpdate(UpdateView):
+	model = Transformator
+class TransformatorDelete(DeleteView):
+	model = Transformator
 
 def regelungindex(request):
 	allregelungs = Regelung.objects.all()
@@ -392,44 +545,6 @@ def regelungindex(request):
 	#CHANGE IT!
 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-# def ezebestwindindex(request):
-# 	allEBWi = EzeBestWindkraft.objects.all()
-# 	context = {'allEBWi' : allEBWi }
-# 	#CHANGE IT!
-# 	return render(request, 'certification82/ezeneuwindindex.html', context)
-
-# def ezeneufotoindex(request):
-# 	allENFi = EzeNeuFotovoltaic.objects.all()
-# 	context = {'allENFi' : allENFi }
-# 	#CHANGE IT!
-# 	return render(request, 'certification82/ezeneuwindindex.html', context)
-
-# def ezebestfotoindex(request):
-# 	allEBFi = EzeBestFotovoltaic.objects.all()
-# 	context = {'allEBFi' : allEBFi }
-# 	#CHANGE IT!
-# 	return render(request, 'certification82/ezeneuwindindex.html', context)
-
-# def ezeneugenindex(request):
-# 	allENGi = EzeNeuGenerator.objects.all()
-# 	context = {'allENGi' : allENGi }
-# 	#CHANGE IT!
-# 	return render(request, 'certification82/ezeneuwindindex.html', context)
-
-# def ezebestgenindex(request):
-# 	allEBGi = EzeBestGenerator.objects.all()
-# 	context = {'allEBGi' : allEBGi }
-# 	#CHANGE IT!
-# 	return render(request, 'certification82/ezeneuwindindex.html', context)
-
-
-# def ezetestindex(request):
-# 	allEBGi = EzeBestGenerator.objects.all()
-# 	context = {'allEBGi' : allEBGi }
-# 	#CHANGE IT!
-# 	return render(request, 'certification82/ezeneuwindindex.html', context)
-
-################################################################################
 
 
 #good
@@ -483,16 +598,18 @@ def ezebestgenoftheprojectindex(request, project_id):
 def detail(request, project_id):
 	# try:
 	ezen = get_object_or_404(Project, pk = project_id)
-	ezeneuwind = EzeNeuWindkraft.objects.filter(project_id=project_id)
-	ezeneugen = EzeNeuGenerator.objects.filter(project_id=project_id)
-	ezeneufotovoltaic = EzeNeuFotovoltaic.objects.filter(project_id=project_id)
-	ezebestwindkraft = EzeBestWindkraft.objects.filter(project_id=project_id)
-	ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project_id=project_id)
-	ezebestgenerator = EzeBestGenerator.objects.filter(project_id=project_id)
-	allneuezes = {'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic}
-	allbestezes = {'ezebestwindkraft': ezebestwindkraft, 'ezebestgenerator':ezebestgenerator, 'ezebestfotovoltaic': ezebestfotovoltaic}
-	# .filter(project_id=project_id)
-	context = {'allneuezes' : allneuezes, 'allbestezes' : allbestezes, 'ezen' : ezen, 'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft, 'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
+	eze = Eze.objects.filter(project_id=project_id)
+	context = { 'ezen':ezen, 'eze':eze }
+	# ezeneuwind = EzeNeuWindkraft.objects.filter(project_id=project_id)
+	# ezeneugen = EzeNeuGenerator.objects.filter(project_id=project_id)
+	# ezeneufotovoltaic = EzeNeuFotovoltaic.objects.filter(project_id=project_id)
+	# ezebestwindkraft = EzeBestWindkraft.objects.filter(project_id=project_id)
+	# ezebestfotovoltaic = EzeBestFotovoltaic.objects.filter(project_id=project_id)
+	# ezebestgenerator = EzeBestGenerator.objects.filter(project_id=project_id)
+	# allneuezes = {'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic}
+	# allbestezes = {'ezebestwindkraft': ezebestwindkraft, 'ezebestgenerator':ezebestgenerator, 'ezebestfotovoltaic': ezebestfotovoltaic}
+	# # .filter(project_id=project_id)
+	# context = {'allneuezes' : allneuezes, 'allbestezes' : allbestezes, 'ezen' : ezen, 'ezeneuwind': ezeneuwind, 'ezeneugen': ezeneugen, 'ezeneufotovoltaic':ezeneufotovoltaic, 'ezebestwindkraft': ezebestwindkraft, 'ezebestfotovoltaic': ezebestfotovoltaic, 'ezebestgenerator':ezebestgenerator }
 	# eze_neu_list = EzeNeu.objects.all()
 	# eze_best_list = EzeBestand.objects.all()
 	# eze_neu_wind_list = EzeNeuWindkraft.objects.all()
@@ -529,8 +646,8 @@ def project_show(request, project_id):
 	return render(request, 'certification82/project_show.html', context)
 
 def eze_neu_show(request, ezeneu_id):
-	ezeneu1 = get_object_or_404(EzeNeu, pk = ezeneu_id)
-	eze_neu_list = EzeNeu.objects.all()	
+	ezeneu1 = get_object_or_404(Eze, pk = id)
+	eze_neu_list = Eze.objects.all()	
 	return render(request, 'certification82/eze_neu_show.html', {'ezeneu1' :ezeneu1 })
 
 def eze_best_show(request, ezeneu_id):
@@ -559,3 +676,49 @@ def ezebestands(request):
 	eze_Bestands = ', '.join([e.vDE_EZE_Name_ALT for e in latest_EzeBestand_list])
 	# project_Names = ', '.join([p.project_name for p in project_name])
 	return HttpResponse('\n\n<br> Ezes Bestand: \n'+eze_Bestands )
+
+
+
+
+#####OLD
+
+
+
+# def ezebestwindindex(request):
+# 	allEBWi = EzeBestWindkraft.objects.all()
+# 	context = {'allEBWi' : allEBWi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+# def ezeneufotoindex(request):
+# 	allENFi = EzeNeuFotovoltaic.objects.all()
+# 	context = {'allENFi' : allENFi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+# def ezebestfotoindex(request):
+# 	allEBFi = EzeBestFotovoltaic.objects.all()
+# 	context = {'allEBFi' : allEBFi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+# def ezeneugenindex(request):
+# 	allENGi = EzeNeuGenerator.objects.all()
+# 	context = {'allENGi' : allENGi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+# def ezebestgenindex(request):
+# 	allEBGi = EzeBestGenerator.objects.all()
+# 	context = {'allEBGi' : allEBGi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+
+# def ezetestindex(request):
+# 	allEBGi = EzeBestGenerator.objects.all()
+# 	context = {'allEBGi' : allEBGi }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+################################################################################

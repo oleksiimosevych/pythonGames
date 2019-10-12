@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	Best. Foto details
+{% endblock %}
+		
+{% block content %}
+{%if document %}
+	<table border=2 class="table-hover">
+
+		<tr id="ezebname"><th >Document Name:</th> <td>{{ document.name }}</td></tr>
+		<tr ><th >proofed:</th> <td>{{ document.proofed }}</td></tr>
+		<tr ><th >comment:</th> <td>{{ document.comment }}</td></tr>
+		<tr ><th >upload directory:</th> <td>{{ document.upload }}</td></tr>
+		<tr><th></th></tr>
+	</table>
+	<br>
+	<p><button class="btn btn-primary" action="">download document "{{ document.name }}"</button></p>
+	</h1>
+{% else %}
+		<p>No Documents are available.</p>
+{% endif %}
+	
+{% endblock %}

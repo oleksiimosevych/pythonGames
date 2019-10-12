@@ -1,7 +1,9 @@
 from django import forms
+from decimal import Decimal
 # from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.models import User
-from .models import Betreiber, Netzbetreiber, Zertifikatsinhaber, Project
+from .models import Betreiber, Netzbetreiber, Zertifikatsinhaber, Project, Eze,\
+ EzeTyp,EzeHersteller
 #to add additional fields to user
 # class SignUpForm(UserCreationForm):
 # 	first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
@@ -13,9 +15,123 @@ from .models import Betreiber, Netzbetreiber, Zertifikatsinhaber, Project
 # 		fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
 # class Eze_neu_wind_form(forms.Form):
+class NewHerstellerForm(forms.ModelForm):
+	hersteller_name = forms.CharField(label='Hersteller der EZE--id', max_length=250)
+	class Meta:
+		model =EzeHersteller
+		fields = ('hersteller_name',)
+
+class NewEzeTypForm(forms.ModelForm):
+	typ_name = forms.CharField(label='Typ der EZE--id', max_length=250)
+	class Meta:
+		model =EzeTyp 
+		fields = ('typ_name',)	
+
+class NewEzeNeuForm(forms.ModelForm):
+	eZeHersteller = forms.ModelChoiceField(label='Hersteller der EZE--id', queryset=EzeHersteller.objects.all())
+	eZeHerstellerOK = forms.BooleanField(label='OK', required=False)
+	#vDE_EZE1_Typ_id
+	eZeTyp = forms.ModelChoiceField(queryset=EzeTyp.objects.all())
+	project = forms.ModelChoiceField(label='Projekt', queryset=Project.objects.all())
+	eZeTypOK = forms.BooleanField(label='OK', required=False)
+	#every eze belongs to project
+	
+	vDE_EZE1_NameOK = forms.BooleanField(label='OK', required=False)
+	vDE_EZE1_Name = forms.CharField(label='Bezeichnung der EZE', max_length=250)
+	vDE_EZE1_ZertNROK = forms.BooleanField(label='OK', required=False)
+	vDE_EZE1_ZertNR = forms.IntegerField(label='Einheitenzertifikat Nr.', required=False)	
+	vDE_EZE1_SOK = forms.BooleanField(label='OK', required=False)
+	vDE_EZE1_S = forms.DecimalField(label='Bemessungsscheinleistung in MVA', max_digits=20,decimal_places=4,initial=Decimal('0.0000'))
+	vDE_EZE1_POK = forms.BooleanField(label='OK', required=False)
+	vDE_EZE1_P = forms.DecimalField(label='Bemessungswirkleistung in MW', max_digits=20,decimal_places=4,initial=Decimal('0.0000'))
+	vDE_Anzahl_EZE1OK = forms.BooleanField(label='OK', required=False)
+	vDE_Anzahl_EZE1 = forms.IntegerField(label='Anzahl der EZE', initial=0)
+	VDE_EZE1_HerstTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_Herst")
+	VDE_EZE1_TypTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_Typ")
+	VDE_EZE1_NameTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_Name")
+	VDE_EZE1_ZertNRTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_ZertNR")
+	VDE_EZE1_STextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_S")
+	VDE_EZE1_PTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_P")
+	VDE_Anzahl_EZE1Textmarke = forms.CharField(max_length=100, initial="VDE_Anzahl_EZE1")
+	
+	VDE_EZE1_Motor = forms.CharField(help_text="Für Windkraft und Fotovaltaics leer lassen", max_length=100, required=False)
+	VDE_EZE1_Generator = forms.CharField(help_text="Für Windkraft und Fotovaltaics leer lassen", max_length=100, required=False)
+	VDE_EZE1_MotorTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_Motor", required=True)
+	VDE_EZE1_GeneratorTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_Generator", required=True)
+	VDE_EZE1_MotorOK = forms.BooleanField(label='OK', required=False)
+	VDE_EZE1_GeneratorOK = forms.BooleanField(label='OK', required=False)
+	
+
+	ist_bestand = forms.BooleanField(label='Bestand', required=False)
+
+
+	class Meta:
+		model =Eze
+		fields = (\
+			'eZeHersteller','eZeHerstellerOK','VDE_EZE1_HerstTextmarke',\
+			'eZeTyp','eZeTypOK','VDE_EZE1_TypTextmarke','project',\
+			'vDE_EZE1_Name','vDE_EZE1_NameOK','VDE_EZE1_NameTextmarke',\
+			'vDE_EZE1_ZertNR','vDE_EZE1_ZertNROK','VDE_EZE1_ZertNRTextmarke',\
+			'vDE_EZE1_S','vDE_EZE1_SOK','VDE_EZE1_STextmarke',\
+			'vDE_EZE1_P','vDE_EZE1_POK','VDE_EZE1_PTextmarke',\
+			'vDE_Anzahl_EZE1','vDE_Anzahl_EZE1OK','VDE_Anzahl_EZE1Textmarke',\
+			'VDE_EZE1_Motor','VDE_EZE1_MotorOK','VDE_EZE1_MotorTextmarke',\
+			'VDE_EZE1_Generator','VDE_EZE1_GeneratorOK','VDE_EZE1_GeneratorTextmarke',\
+			'ist_bestand')
+class NewEzeBestForm(forms.ModelForm):
+	eZeTypOK = forms.BooleanField(label='OK', required=False)
+	eZeTyp = forms.ModelChoiceField(label='Typ der EZE', queryset=EzeTyp.objects.all())
+	#every eze belongs to project
+	project = forms.ModelChoiceField(label='Projektname', queryset=Project.objects.all())
+	
+	VDE_EZE_Bestand_Zahl = forms.IntegerField(label='Anzahl Bestands-BHKW', initial=0, required = False)
+	#vDE_EZE_Herst_Alt_id = //added EZE to Hersteller 13 12
+	# EzeHersteller = forms.ForeignKey(EzeHersteller, on_delete=forms.CASCADE)
+	#vDE_EZE_Typ_Alt_id 
+	# EZeTyp = forms.ForeignKey(EzeTyp, on_delete=forms.CASCADE)
+	VDE_EZE_Name_ALT = forms.CharField(label='Bezeichnung der EZE', max_length=250, required = False)
+	VDE_S_EZE_Alt = forms.DecimalField(label='Bemessungsscheinleistung in MVA', max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required = False)
+	VDE_P_EZE_ALT = forms.DecimalField(label='Bemessungswirkleistung', max_digits=20,decimal_places=4,initial=Decimal('0.0000') , required = False)
+	#jahr
+	VDE_P_inbe_ALT = forms.IntegerField(label='Inbetriebnahmedatum', initial=2019, required = False)
+
+	VDE_EZE_Bestand_ZahlTextmarke = forms.CharField(max_length=100,  initial="VDE_EZE_Bestand_Zahl")
+	#but we still need textmarks
+	VDE_EZE_Herst_AltTextmarke = forms.CharField(max_length=100, initial="VDE_EZE_Herst_Alt" )
+	eZeHersteller = forms.ModelChoiceField(label='Hersteller der EZE--id', queryset=EzeHersteller.objects.all())
+	eZeHerstellerOK = forms.BooleanField(label='OK', required=False)
+	
+	VDE_EZE_Typ_AltTextmarke = forms.CharField(max_length=100, initial="VDE_EZE_Typ_Alt" )
+	VDE_EZE_Name_ALTTextmarke = forms.CharField(max_length=100, initial="VDE_EZE_Name_ALT" )
+	VDE_S_EZE_AltTextmarke = forms.CharField(max_length=100, initial="VDE_S_EZE_Alt" )
+	VDE_P_EZE_ALTTextmarke = forms.CharField(max_length=100, initial="VDE_P_EZE_ALT" )
+	VDE_P_inbe_ALTTextmarke = forms.CharField(max_length=100, initial="VDE_P_inbe_ALT" )
+	VDE_EZE_Bestand_ZahlOK = forms.BooleanField(label='OK', required=False)
+	#we do not need to double it. I want to optimize code. so.
+	# EZeHerstellerOK = forms.BooleanField(label='   ', default=False)
+	# EZeTypOK = forms.BooleanField(label='   ', default=False)
+	
+	VDE_EZE_Name_ALTOK = forms.BooleanField(label='OK', required=False)
+	VDE_S_EZE_AltOK = forms.BooleanField(label='OK', required=False)
+	VDE_P_EZE_ALTOK = forms.BooleanField(label='OK', required=False)
+	VDE_P_inbe_ALTOK = forms.BooleanField(label='OK', required=False)
+	ist_bestand = forms.BooleanField(label='Bestand', required=True, initial=True)
+
+
+	class Meta:
+		model =Eze
+		fields = ('VDE_EZE_Bestand_Zahl','VDE_EZE_Bestand_ZahlOK','VDE_EZE_Bestand_ZahlTextmarke',\
+		 'eZeHersteller', 'eZeHerstellerOK','VDE_EZE_Herst_AltTextmarke',\
+			'eZeTyp','eZeTypOK','VDE_EZE_Typ_AltTextmarke',\
+			'VDE_EZE_Name_ALT','VDE_EZE_Name_ALTOK','VDE_EZE_Name_ALTTextmarke',\
+			'VDE_S_EZE_Alt','VDE_S_EZE_AltOK','VDE_S_EZE_AltTextmarke',\
+			'VDE_P_EZE_ALT','VDE_P_EZE_ALTOK','VDE_P_EZE_ALTTextmarke',\
+			'VDE_P_inbe_ALT','VDE_P_inbe_ALTOK','VDE_P_inbe_ALTTextmarke',\
+			'ist_bestand','project')
+
 class ProjectForm(forms.ModelForm):
 	project_name = forms.CharField(max_length=250, required=True, label = 'Projekttitel') 
-	project_number = forms.IntegerField(initial=0, required=True)
+	project_number = forms.IntegerField(initial=int(245), required=True)
 	project_deadline_date = forms.DateField(required=True)
 	is_done = forms.BooleanField(required=False)
 	access_for_user = forms.BooleanField(required=False)
@@ -33,27 +149,6 @@ class ProjectForm(forms.ModelForm):
 	betreiber = forms.ModelChoiceField(queryset=Betreiber.objects.all())
 	zertifikatsinhaber = forms.ModelChoiceField(queryset=Zertifikatsinhaber.objects.all())
 
-	# /////////
-	# netzbetreiber = forms.ChoiceField(
-	# 	choices=[(x.id,x.NB_Ansprech) for x in Netzbetreiber.objects.all()]
-	# 	)
-	# betreiber = forms.ChoiceField(
-	# 	choices=[(x.id,x.name) for x in Betreiber.objects.all()]
-	# 	)
-	# zertifikatsinhaber = forms.ChoiceField(
-	# 	choices=[(x.id,x.EZA_Bezeichnung) for x in Zertifikatsinhaber.objects.all()]
-	# 	)
-
-	# def save(self, commit=True):
-	# 	instance = super().save(commit=False)
-	# 	proj_num = self.cleaned_data['project_id']
-	# 	instance.netzbetreiber = Netzbetreiber.objects.get(pk=proj_num)
-	# 	instance.betreiber = Betreiber.objects.get(pk=proj_num)
-	# 	instance.zertifikatsinhaber = Zertifikatsinhaber.objects.get(pk=proj_num)
-	# 	instance.save(commit)
-	# 	return instance
-	# ////////
-	
 	EZA_Betreiber_AnspreTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Anspre")
 	Zert_PartTextmarke = forms.CharField(max_length=100, initial="Zert_Part")
 
@@ -64,6 +159,9 @@ class ProjectForm(forms.ModelForm):
 		fields = ('project_name','project_number','project_deadline_date','is_done','access_for_user','access_for_moderator','access_for_admin','Projekt_NrTexmarke'\
 			,'ProjekttitelTexmarke','Projekt_DateTexmarke','Anlagenzert_NrTexmarke','netzbetreiberTextmarke','betreiberTextmarke','netzbetreiber','betreiber','zertifikatsinhaber'\
 			,'EZA_Betreiber_AnspreTextmarke','Zert_PartTextmarke','Registriernummer_NB','Registriernummer_NBTextmarke')
+		widgets = {
+		'project_deadline_date': forms.DateInput(attrs={'class':'datepicker'}),
+		}
 
 
 class ZertifikatsinhaberForm(forms.ModelForm):

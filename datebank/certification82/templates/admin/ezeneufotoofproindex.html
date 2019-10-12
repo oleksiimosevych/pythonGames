@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content%}
+<table border=2 class="table-hover">
+	<h1>All Neu Fotovoltaics of the Project "{{ project.project_name }}"</h1>
+	{% if items %}
+		{% for ezenw in items %}
+			<tr id="ezename"><th >Fotovoltaic Neu NAME:</th> <td>{{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Hersteller der EZE--id:</th> <td> {{ ezenw.eZeHersteller }}</td></tr>
+			<tr><th>Typ der EZE--id:</th> <td> {{ ezenw.eZeTyp }}</td></tr>
+			<tr><th>Bezeichnung der EZE:</th> <td> {{ ezenw.vDE_EZE1_Name }}</td></tr>
+			<tr><th>Einheitenzertifikat Nr.:</th> <td> {{ ezenw.vDE_EZE1_ZertNR }}</td></tr>
+			<tr><th>Bemessungsscheinleistung in MVA:</th> <td> {{ ezenw.vDE_EZE1_S }}</td></tr>
+			<tr><th>Bemessungswirkleistung in MW:</th> <td> {{ ezenw.vDE_EZE1_P }}</td></tr>
+			<tr><th>Anzahl der EZE:</th> <td> {{ ezenw.vDE_Anzahl_EZE1 }}</td></tr>
+			<tr><th>ID:</th> <td> {{ ezenw.id }}</td> </tr>
+			<tr><th>NAME:</th> <td> {{ ezenw.name }}</td></tr>
+			<tr><td><a href="{% url 'certification82:eze_neu_show' ezenw.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+			<tr><th></th></tr>
+		{%endfor%}
+	{% else %}
+			<tr id="ezename"><th >NO ITEMS</th> <td></td></tr>
+	{% endif %}	
+{% endblock %}

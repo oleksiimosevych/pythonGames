@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+	EZE löschen
+{% endblock %}
+{% block content %}
+<h1>Delete Project?</h1>
+<form  method="post">
+{% csrf_token %}
+Möchten Sie Projekt "{{ object }}" wirklich löschen?
+<input  type="submit"  value="Confirm"  />
+</form>
+{% endblock %}

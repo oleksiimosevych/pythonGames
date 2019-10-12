@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+<!-- # detail which depends to the project id -->
+
+{% block title %}
+	Details index
+{% endblock %}
+{% block content %}
+
+	<div class="jumbotron text-center">
+		<h2>Object "{{object.name}}" details: {{ object.project_name }}</h2> 	
+		<br>
+		<!-- <a href="{9% url 'certification82:ezeneuwindkraftsoftheprojectindex' ezen.id %}">Neue WINDKRAFTS |</a>
+		<a href="{9% url 'certification82:ezeneufotooftheprojectindex' ezen.id  %}">Neue Fotovoltaics |</a>
+		<a href="{9% url 'certification82:ezeneugenoftheprojectindex' ezen.id %}">Neue Generators |</a>
+		<a href="{9% url 'certification82:ezebestwindoftheprojectindex' ezen.id %}">Bestandene WINDKRAFTS |</a>
+		<a href="{9% url 'certification82:ezebestfotooftheprojectindex' ezen.id %}">Bestandene Fotovoltaics |</a>
+		<a href="{9% url 'certification82:ezebestgenoftheprojectindex' ezen.id %}">Bestandene Generators |</a>
+		 -->
+	</div>
+		<span class='col-md-6 ezeneu_left '>
+		<table border=2 class="table-hover">
+			
+			<tr id="ezename"><th >{{object.EZA_Betreiber_NameTextmarke}}:</th> <td><b>{{ object.name }}</b></td></tr>
+			<tr><th>{{ object.EZA_Betreiber_AnspreTextmarke }}:</th> <td> {{ object.EZA_Betreiber_Anspre }}</td></tr>
+			<tr><th>{{ object.EZA_Betreiber_StrNrTextmarke }}:</th> <td> {{ object.EZA_Betreiber_StrNr }}</td></tr>
+			<tr><th>{{ object.EZA_Betreiber_PlzOrtTextmarke }}:</th> <td> {{ object.EZA_Betreiber_PlzOrt }}</td></tr>
+			<tr><th>{{ object.EZA_Betreiber_TelTextmarke }}:</th> <td> {{ object.EZA_Betreiber_Tel }}</td></tr>
+			<tr><th>{{ object.EZA_Betreiber_MailTextmarke }}:</th> <td> {{ object.EZA_Betreiber_Mail }}</td></tr>
+			<tr><th>{{ object.Anlagenzert_NrTextmarke }}:</th> <td> {{ object.Anlagenzert_Nr }}</td></tr>
+			<tr><th>{{ object.Projekt_NrTextmarke }}:</th> <td> {{ object.Projekt_Nr }}</td></tr>
+			<tr><th>{{ object.ProjekttitelTextmarke }}:</th> <td> {{ object.Projekttitel }}</td></tr>
+
+			<tr><th>ID:</th> <td> {{ object.id }}</td> </tr>
+
+			
+		</table>
+		<br>
+		<table border=2 class="table-hover">
+		
+			{% for proj in project %}
+				{% if proj.project_Nr == object.project_Nr %}
+					<tr id="ezename"><th >{{object.name}} BELONGS TO</th> <td><b>NEXT PROJECTS:</b></td></tr>
+					<tr><th>NAME:</th> <td> {{ proj.project_name }}</td></tr>
+					<tr><td><a href="{% url 'certification82:project_show' proj.id %}">View</a>	<a href="">Edit</a>	<a href="">Delete</a></td></tr>
+				{% endif %}
+
+			{%endfor%}
+			
+		</table>
+		
+		</span>
+	<br>
+
+		
+	<br>	
+</div>
+
+{% endblock %}
