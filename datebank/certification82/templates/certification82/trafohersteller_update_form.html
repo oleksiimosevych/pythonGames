@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} TrafoHersteller aktualisieren {% endblock %}
+
+{% block content %}
+  <h2>TrafoHersteller aktualisieren</h2>
+
+  <form class = 'form' method="post">
+    {% csrf_token %}
+    <table class="table col-md-5" border="1">
+      {% for field in form %}
+      
+        <tr class="">
+          <th>{{ field.label_tag }}</th>
+        <td>{{ field }}</td>
+        <td>
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        </td>
+        <td>
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </td>
+      
+    {% endfor %}
+    </table>
+    <button type="submit" value="Update">TrafoHersteller aktualisieren</button>
+  </form>
+{% endblock %}

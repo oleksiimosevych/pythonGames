@@ -2,20 +2,30 @@
 
 
 {% block title %}
-	Certification index
+	Dokumente
 {% endblock %}
 		
 {% block content %}
 	{% if document_name_list %}
-		<h1>
+		<table class="table col-md-3">
 		{% for item in document_name_list %}
 		<!-- no more hardcoded href  appname:viewname-->
-		<div for = "link" class="jumbotron text-center">
-			<p><a name = "link" href="{% url 'certification82:documentdetailview' item.pk %}">{{ item.name }}</a></p>
-		</div>
+		<tr for = "link" class="">
+			<td><a name = "link" href="{% url 'certification82:documentdetailview' item.pk %}">{{ item.name }}</a></td>
+		<td>
+		<a class="alert bg-primary text-light " id = 'erst' href="{% url 'certification82:doc_update' item.pk %}">Aktualisieren: </a></td>
+			{% if user.admin == True %}
+			<td><a class="alert bg-primary text-light " id = 'del' href="{% url 'certification82:doc_delete' item.pk %}">Löschen: </a>
+			</td>
+			
+			{% endif %}
+		</tr>
 	{% endfor %}
-	</h1>
+	</table>
 	{% else %}
 		<p>No documents are available.</p>
 	{% endif %}
+	<a class="alert bg-primary text-light " id = 'erst' href="{% url 'certification82:upload_doc' %}">Erstellen: </a>
+	
+
 {% endblock %}

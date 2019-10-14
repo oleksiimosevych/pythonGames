@@ -15,12 +15,12 @@
 {% if user.is_authenticated %}
 
 		{% block menu %}
-		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
+		<a href="{% url 'certification82:documenteindex'%}">Dokumente |</a>
 		<a href="{% url 'certification82:allgeminfo' user.projekt_nr %}">Allgemeine Information |</a>
 		<a href="{% url 'certification82:index'%}">EZE |</a>
-		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
-		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
-		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
+		<!-- <a href="{3% url 'certification82:schutzindex'%}">SCHUTZ |</a> -->
+		<a href="{% url 'certification82:trafoindex'%}">Transformatoren |</a>
+		<!-- <a href="{3% url 'certification82:regelungindex'%}">REGELUNG |</a> -->
 		{% endblock %}
 	{% if user.admin != True %}
 		<p>Sie haben Zugriff auf die Projektnummer {{ user.projekt_nr }}!</p>
@@ -125,14 +125,14 @@
 				<a href="{% url 'certification82:ezebestwindindex'%}">Dokument</a>
 			</li>
 			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Trafo</a>
+				<a href="{% url 'certification82:new_trafo'%}">Trafo</a>
+			</li>
+			<!-- <li class="float_left list-group-item">
+				<a href="{4% url 'certification82:ezebestwindindex'%}">Schutz</a>
 			</li>
 			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Schutz</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Regelung</a>
-			</li>
+				<a href="{4% url 'certification82:ezebestwindindex'%}">Regelung</a>
+			</li> -->
 	</ul>	
 	</span>
 

@@ -5,10 +5,11 @@ from django.http import Http404
 ###or HttpResponseRedirect
 from django.http import HttpResponse
 #lazy reverse
+# from django.core.files import handle_uploaded_file
 from django.urls import reverse_lazy
 from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, \
 EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft,\
- EzeNeuFotovoltaic, Document, TrafoTyp, Transformator, Betreiber, User, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
+ EzeNeuFotovoltaic, Document, TrafoTyp, TrafoHersteller, Transformator, Betreiber, User, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
 from django.template import loader
 #add pagination
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -18,7 +19,8 @@ from django.urls import reverse
 from django.contrib.auth import login, authenticate
 from .forms import BetreiberForm, NetzBetreiberForm,\
  ZertifikatsinhaberForm, ProjectForm,\
- NewEzeNeuForm, NewEzeBestForm, NewHerstellerForm, NewEzeTypForm
+ NewEzeNeuForm, NewEzeBestForm, NewHerstellerForm, NewEzeTypForm, NewDocumentForm, NewTransformatorForm\
+ ,NewTrafoTypForm, NewTrafoHerstellerForm
 	
 # Create your views here.
 # def index(request):
@@ -33,6 +35,8 @@ from .forms import BetreiberForm, NetzBetreiberForm,\
 	# return HttpResponse(project_Names+'\n\n<br> Neue Ezes: \n'+eze_Neus )
 #add more views
 ####USing GENERIC add at the top from django.views import generic from django.urls import reverse
+
+
 
 #//////101019///////////////////////////////////////////////////////////
 def new_eze_typ(request):
@@ -66,15 +70,68 @@ def new_hersteller(request):
 #//////////////////////////////////////////////////////////////////
 
 #NEN
+# def handle_uploaded_file():
+
+
+def upload_doc(request):
+	if request.method == 'POST':
+		form = NewDocumentForm(request.POST, request.FILES)
+		if form.is_valid():
+			# handle_uploaded_file(request.FILES['file'])
+			form.save()
+			proofed=form.cleaned_data.get("proofed")
+			name=form.cleaned_data.get("name")
+			comment=form.cleaned_data.get("comment")
+			upload = form.cleaned_data.get("upload")
+			# upload = upload.url
+			document = form.save()
+			print ('\n\n new Document created\n\n')
+			return redirect('certification82:documenteindex')
+	else:
+		form = NewDocumentForm()
+	return render(request, 'new/upload_doc.html', locals())
+	
 def new_eze_neu(request):
 	if request.method == 'POST':
 		form = NewEzeNeuForm(request.POST)
 		if form.is_valid():
 			form.save()
-			Zert_MailTextmarke = form.cleaned_data.get("Zert_Mail")
+			eZeHersteller = form.cleaned_data.get("eZeHersteller")
+			eZeHerstellerOK = form.cleaned_data.get("eZeHerstellerOK")
+			eZeTyp = form.cleaned_data.get("eZeTyp")
+			project = form.cleaned_data.get("project")
+			eZeTypOK = form.cleaned_data.get("eZeTypOK")
+			
+			vDE_EZE1_NameOK = form.cleaned_data.get("vDE_EZE1_NameOK")
+			vDE_EZE1_Name = form.cleaned_data.get("vDE_EZE1_Name")
+			vDE_EZE1_ZertNROK = form.cleaned_data.get("vDE_EZE1_ZertNROK")
+			vDE_EZE1_ZertNR = form.cleaned_data.get("vDE_EZE1_ZertNR")	
+			vDE_EZE1_SOK = form.cleaned_data.get("vDE_EZE1_SOK")
+			vDE_EZE1_S = form.cleaned_data.get("vDE_EZE1_S")
+			vDE_EZE1_POK = form.cleaned_data.get("vDE_EZE1_POK")
+			vDE_EZE1_P = form.cleaned_data.get("vDE_EZE1_P")
+			vDE_Anzahl_EZE1OK =form.cleaned_data.get("vDE_Anzahl_EZE1OK")
+			vDE_Anzahl_EZE1 =form.cleaned_data.get("vDE_Anzahl_EZE1")
+			VDE_EZE1_HerstTextmarke = form.cleaned_data.get("VDE_EZE1_HerstTextmarke")
+			VDE_EZE1_TypTextmarke = form.cleaned_data.get("VDE_EZE1_TypTextmarke")
+			VDE_EZE1_NameTextmarke = form.cleaned_data.get("VDE_EZE1_NameTextmarke")
+			VDE_EZE1_ZertNRTextmarke = form.cleaned_data.get("VDE_EZE1_ZertNRTextmarke")
+			VDE_EZE1_STextmarke =form.cleaned_data.get("VDE_EZE1_STextmarke")
+			VDE_EZE1_PTextmarke = form.cleaned_data.get("VDE_EZE1_PTextmarke")
+			VDE_Anzahl_EZE1Textmarke =form.cleaned_data.get("VDE_Anzahl_EZE1Textmarke")
+			
+			VDE_EZE1_Motor = form.cleaned_data.get("VDE_EZE1_Motor")
+			VDE_EZE1_Generator = form.cleaned_data.get("VDE_EZE1_Generator")
+			VDE_EZE1_MotorTextmarke =form.cleaned_data.get("VDE_EZE1_MotorTextmarke")
+			VDE_EZE1_GeneratorTextmarke = form.cleaned_data.get("VDE_EZE1_GeneratorTextmarke")
+			VDE_EZE1_MotorOK = form.cleaned_data.get("VDE_EZE1_MotorOK")
+			VDE_EZE1_GeneratorOK = form.cleaned_data.get("VDE_EZE1_GeneratorOK")
+			
+
+			ist_bestand = form.cleaned_data.get("ist_bestand")
 
 			eze = form.save()
-			print ('\n\nnew EZE neu created\n\n')
+			print ('\n\n new EZE neu created\n\n')
 			return redirect('certification82:index')
 	else:
 		form = NewEzeNeuForm()
@@ -85,7 +142,30 @@ def new_eze_bestand(request):
 		form = NewEzeBestForm(request.POST)
 		if form.is_valid():
 			form.save()
-			Zert_MailTextmarke = form.cleaned_data.get("Zert_Mail")
+			Zert_MailTextmarke = form.cleaned_data.get("Zert_MailTextmarke")
+			eZeTypOK = form.cleaned_data.get("eZeTypOK")
+			eZeTyp = form.cleaned_data.get("eZeTyp")
+			project = form.cleaned_data.get("project")
+			VDE_EZE_Bestand_Zahl = form.cleaned_data.get("VDE_EZE_Bestand_Zahl")
+			VDE_EZE_Name_ALT =  form.cleaned_data.get("VDE_EZE_Name_ALT")
+			VDE_S_EZE_Alt = form.cleaned_data.get("VDE_S_EZE_Alt")
+			VDE_P_EZE_ALT = form.cleaned_data.get("VDE_P_EZE_ALT")
+			VDE_P_inbe_ALT = form.cleaned_data.get("VDE_P_inbe_ALT")
+			VDE_EZE_Bestand_ZahlTextmarke = form.cleaned_data.get("VDE_EZE_Bestand_ZahlTextmarke")
+			VDE_EZE_Herst_AltTextmarke = form.cleaned_data.get("VDE_EZE_Herst_AltTextmarke")
+			eZeHersteller = form.cleaned_data.get("eZeHersteller")
+			eZeHerstellerOK = form.cleaned_data.get("eZeHerstellerOK")
+			VDE_EZE_Typ_AltTextmarke = form.cleaned_data.get("Zert_Mail")
+			VDE_EZE_Name_ALTTextmarke = form.cleaned_data.get("Zert_Mail")
+			VDE_S_EZE_AltTextmarke = form.cleaned_data.get("Zert_Mail")
+			VDE_P_EZE_ALTTextmarke = form.cleaned_data.get("Zert_Mail")
+			VDE_P_inbe_ALTTextmarke = form.cleaned_data.get("Zert_Mail")
+			VDE_EZE_Bestand_ZahlOK = form.cleaned_data.get("Zert_Mail")
+			VDE_EZE_Name_ALTOK = form.cleaned_data.get("Zert_Mail")
+			VDE_S_EZE_AltOK = form.cleaned_data.get("Zert_Mail")
+			VDE_P_EZE_ALTOK = form.cleaned_data.get("Zert_Mail")
+			VDE_P_inbe_ALTOK = form.cleaned_data.get("Zert_Mail")
+			ist_bestand = form.cleaned_data.get("Zert_Mail")
 
 			eze = form.save()
 			print ('\n\nnew Eze Bestand created\n\n')
@@ -319,7 +399,7 @@ class EzeUpdate(UpdateView):
 			'vDE_Anzahl_EZE1','vDE_Anzahl_EZE1OK','VDE_Anzahl_EZE1Textmarke',\
 			'VDE_EZE1_Motor','VDE_EZE1_MotorOK','VDE_EZE1_MotorTextmarke',\
 			'VDE_EZE1_Generator','VDE_EZE1_GeneratorOK','VDE_EZE1_GeneratorTextmarke',\
-			'ist_bestand'
+			'ist_bestand','VDE_EZE_Bestand_Zahl', 'VDE_P_inbe_ALT'
 	]
 	template_name_suffix = '_update_form'
 class EzeDelete(DeleteView):
@@ -366,7 +446,7 @@ class ProjectView(generic.ListView):
 
 		# user= get_object_or_404(Betreiber, betreiber_id=pk)
 		# return Project.objects.filter(project_number=user.projekt_nr)[:5]
-		return Project.objects.order_by('-project_number')[:5]
+		return Project.objects.order_by('-project_number')[:500]
 
 #I
 class IndexView(generic.ListView):
@@ -379,8 +459,158 @@ class IndexView(generic.ListView):
 		# return Project.objects.filter(project_number==user.projekt_Nr)[:5]
 
 		# user= get_object_or_404(Betreiber, betreiber_id=pk)
-		# return Project.objects.filter(project_number=user.projekt_nr)[:5]
-		return Project.objects.order_by('-project_number')[:5]
+		# return Project.objects.filter(project_number=user.projekt_nr)[:500]
+		return Project.objects.order_by('-project_number')[:500]
+
+#!!!!!!!!
+#TH
+def new_trafohersteller(request):
+	if request.method == 'POST':
+		form = NewTrafoHerstellerForm(request.POST)
+		if form.is_valid():
+			form.save()
+			name = form.cleaned_data.get("name")
+			trafotyp = form.save()
+			print ('\n\nnew TrafoHersteller created\n\n')
+			return redirect('certification82:trafoindex')#trafotypindex
+	else:
+		form = NewTrafoHerstellerForm()
+	return render(request, 'new/trafohersteller.html',{'form':form})
+class TrafoHerstellerIndexView(generic.ListView):
+	context_object_name = 'trafohersteller_name_list'
+	template_name = 'certification82/list_views/TrafoHersteller_list.html'
+	def get_queryset(self):
+		return TrafoHersteller.objects.order_by('-name')[:500]
+class TrafoHerstellerDetailView(generic.DetailView):
+	model = TrafoHersteller
+	template_name = 'certification82/detailed_views/TrafoHersteller_detail.html'
+class TrafoHerstellerCreate(CreateView):
+	model = TrafoHersteller
+class TrafoHerstellerUpdate(UpdateView):
+	model = TrafoHersteller
+	fields = ('name', )
+	template_name_suffix = '_update_form'
+
+class TrafoHerstellerDelete(DeleteView):
+	model = TrafoHersteller
+	success_url = reverse_lazy('certification82:trafoherstelerindex')
+
+#TT
+def new_trafotyp(request):
+	if request.method == 'POST':
+		form = NewTrafoTypForm(request.POST)
+		if form.is_valid():
+			form.save()
+			name = form.cleaned_data.get("name")
+			trafotyp = form.save()
+			print ('\n\nnew Transformator typ created\n\n')
+			return redirect('certification82:trafoindex')#trafotypindex
+	else:
+		form = NewTrafoTypForm()
+	return render(request, 'new/trafotyp.html',{'form':form})
+class TrafoTypIndexView(generic.ListView):
+	context_object_name = 'trafotyp_name_list'
+	template_name = 'certification82/list_views/TrafoTyp_list.html'
+	def get_queryset(self):
+		return TrafoTyp.objects.order_by('-name')[:500]
+class TrafoTypDetailView(generic.DetailView):
+	model = TrafoTyp
+	template_name = 'certification82/detailed_views/TrafoTyp_detail.html'
+class TrafoTypCreate(CreateView):
+	model = TrafoTyp
+class TrafoTypUpdate(UpdateView):
+	model = TrafoTyp
+	fields = ('name', )
+	template_name_suffix = '_update_form'
+
+class TrafoTypDelete(DeleteView):
+	model = TrafoTyp
+	success_url = reverse_lazy('certification82:trafotypindex')
+#TR TRANSFORMATOR
+def new_trafo(request):
+	if request.method == 'POST':
+		form = NewTransformatorForm(request.POST)
+		if form.is_valid():
+			form.save()
+			
+			VDE_TrafoTextmarke = form.cleaned_data.get("VDE_TrafoTextmarke")
+			VDE_TrafoOK =form.cleaned_data.get("VDE_TrafoOK") 
+			VDE_Trafo =form.cleaned_data.get("VDE_Trafo")
+			
+			VDE_TrafoherstellerTextmarke =form.cleaned_data.get("VDE_TrafoherstellerTextmarke")
+			VDE_TrafoherstellerOK =form.cleaned_data.get("VDE_TrafoherstellerOK")
+			VDE_Trafohersteller = form.cleaned_data.get("VDE_Trafohersteller")
+			
+			VDE_TrafotypTextmarke =form.cleaned_data.get("VDE_TrafotypTextmarke")
+			VDE_TrafotypOK =form.cleaned_data.get("VDE_TrafotypOK")
+			VDE_Trafotyp = form.cleaned_data.get("VDE_Trafotyp")
+			
+			VDE_TrafoUeberTextmarke =form.cleaned_data.get("VDE_TrafoUeberTextmarke")
+			VDE_TrafoUeberOK = form.cleaned_data.get("VDE_TrafoUeberOK")
+			VDE_TrafoUeber = form.cleaned_data.get("VDE_TrafoUeber")
+			
+			VDE_TrafoOberTextmarke = form.cleaned_data.get("VDE_TrafoOberTextmarke")
+			VDE_TrafoOberOK = form.cleaned_data.get("VDE_TrafoOberOK")
+			VDE_TrafoOber = form.cleaned_data.get("VDE_TrafoOber")
+			
+			VDE_TrafoUnterTextmarke = form.cleaned_data.get("VDE_TrafoUnterTextmarke")
+			VDE_TrafoUnterOK = form.cleaned_data.get("VDE_TrafoUnterOK")
+			VDE_TrafoUnter = form.cleaned_data.get("VDE_TrafoUnter")
+			
+			VDE_Trafo_kurzTextmarke = form.cleaned_data.get("VDE_Trafo_kurzTextmarke")
+			VDE_Trafo_kurzOK = form.cleaned_data.get("VDE_Trafo_kurzOK")
+			VDE_Trafo_kurz = form.cleaned_data.get("VDE_Trafo_kurz")
+			
+			VDE_Trafo_PTextmarke = form.cleaned_data.get("VDE_Trafo_PTextmarke")
+			VDE_Trafo_POK = form.cleaned_data.get("VDE_Trafo_POK")
+			VDE_Trafo_P = form.cleaned_data.get("VDE_Trafo_P")
+			project = form.cleaned_data.get("project")
+
+			transformator = form.save()
+			print ('\n\nnew Transformator created\n\n')
+			return redirect('certification82:trafoindex')
+	else:
+		form = NewTransformatorForm()
+	return render(request, 'new/transformator.html',{'form':form})
+
+# def trafoindex(request):
+# 	alltransformators = Transformator.objects.all()
+# 	context = {'alltransformators' : alltransformators }
+# 	#CHANGE IT!
+# 	return render(request, 'certification82/ezeneuwindindex.html', context)
+
+#!TRANSFORMATOR!
+class TransformatorIndexView(generic.ListView):
+	context_object_name = 'transformator_name_list'
+	template_name = 'certification82/list_views/Transformator_list.html'
+	def get_queryset(self):
+		return Transformator.objects.order_by('-VDE_Trafo')[:500]
+class TransformatorDetailView(generic.DetailView):
+	model = Transformator
+	template_name = 'certification82/detailed_views/Transformator_detail.html'
+class TransformatorCreate(CreateView):
+	model = Transformator
+class TransformatorUpdate(UpdateView):
+	model = Transformator
+	fields = ('VDE_TrafoTextmarke','VDE_TrafoOK', 'VDE_Trafo',\
+		 'VDE_TrafoherstellerTextmarke','VDE_TrafoherstellerOK','VDE_Trafohersteller',\
+		 'VDE_TrafotypTextmarke','VDE_TrafotypOK','VDE_Trafotyp',\
+			'VDE_TrafoUeberTextmarke','VDE_TrafoUeberOK','VDE_TrafoUeber',\
+			'VDE_TrafoOberTextmarke','VDE_TrafoOberOK','VDE_TrafoOber',\
+			'VDE_TrafoUnterTextmarke','VDE_TrafoUnterOK','VDE_TrafoUnter',\
+			'VDE_Trafo_kurzTextmarke','VDE_Trafo_kurzOK','VDE_Trafo_kurz',\
+			'VDE_Trafo_PTextmarke','VDE_Trafo_POK','VDE_Trafo_P', 'project')
+	template_name_suffix = '_update_form'
+
+class TransformatorDelete(DeleteView):
+	model = Transformator
+	success_url = reverse_lazy('certification82:trafoindex')
+
+#####TRAFOEND
+
+
+
+
 #####new and best gener views of index
 #neuwind
 class NeuWindkraftIndexView(generic.ListView):
@@ -388,7 +618,7 @@ class NeuWindkraftIndexView(generic.ListView):
 	template_name = 'certification82/list_views/EzeNeuWindkraft_list.html'
 	context_object_name = 'neuwindkraft_name_list'
 	def get_queryset(self):
-		return EzeNeuWindkraft.objects.order_by('-name')[:5]
+		return EzeNeuWindkraft.objects.order_by('-name')[:500]
 class NeuWindkraftDetailView(generic.DetailView):
 	model = EzeNeuWindkraft
 	template_name = 'certification82/detailed_views/EzeNeuWindkraft_detail.html' #or ModelName_detail.html
@@ -397,7 +627,7 @@ class BestWindkraftIndexView(generic.ListView):
 	context_object_name = 'bestwindkraft_name_list'
 	template_name = 'certification82/list_views/EzeBestWindkraft_list.html'
 	def get_queryset(self):
-		return EzeBestWindkraft.objects.order_by('-name')[:5]
+		return EzeBestWindkraft.objects.order_by('-name')[:500]
 class BestWindkraftDetailView(generic.DetailView):
 	model = EzeBestWindkraft
 	template_name = 'certification82/detailed_views/EzeBestWindkraft_detail.html' #or ModelName_detail.html
@@ -407,7 +637,7 @@ class NeuFotovoltaicIndexView(generic.ListView):
 	template_name = 'certification82/list_views/EzeNeuFotovoltaic_list.html'
 
 	def get_queryset(self):
-		return EzeNeuFotovoltaic.objects.order_by('-name')[:5]
+		return EzeNeuFotovoltaic.objects.order_by('-name')[:500]
 class NeuFotovoltaicDetailView(generic.DetailView):
 	model = EzeNeuFotovoltaic
 	template_name = 'certification82/detailed_views/EzeNeuFotovoltaic_detail.html'
@@ -416,7 +646,7 @@ class BestFotovoltaicIndexView(generic.ListView):
 	context_object_name = 'bestfotovoltaic_name_list'
 	template_name = 'certification82/list_views/EzeBestFotovoltaic_list.html'
 	def get_queryset(self):
-		return EzeBestFotovoltaic.objects.order_by('-name')[:5]
+		return EzeBestFotovoltaic.objects.order_by('-name')[:500]
 class BestFotovoltaicDetailView(generic.DetailView):
 	model = EzeBestFotovoltaic
 	template_name = 'certification82/detailed_views/EzeBestFotovoltaic_detail.html'
@@ -426,7 +656,7 @@ class NeuGeneratorIndexView(generic.ListView):
 	template_name = 'certification82/list_views/EzeNeuGenerator_list.html'
 	def get_queryset(self):
 		"""Return the last a-z added generators."""
-		return EzeNeuGenerator.objects.order_by('-name')[:5]
+		return EzeNeuGenerator.objects.order_by('-name')[:500]
 class NeuGeneratorDetailView(generic.DetailView):
 	model = EzeNeuGenerator
 	template_name = 'certification82/detailed_views/EzeNeuGenerator_detail.html'
@@ -436,7 +666,7 @@ class BestGeneratorIndexView(generic.ListView):
 	context_object_name = 'bestgen_name_list'
 	template_name = 'certification82/list_views/EzeBestGenerator_list.html'
 	def get_queryset(self):
-		return EzeBestGenerator.objects.order_by('-name')[:5]
+		return EzeBestGenerator.objects.order_by('-name')[:500]
 class BestGeneratorDetailView(generic.DetailView):
 	model = EzeBestGenerator
 	template_name = 'certification82/detailed_views/EzeBestGenerator_detail.html'
@@ -475,7 +705,7 @@ class DocumentIndexView(generic.ListView):
 	context_object_name = 'document_name_list'
 	template_name = 'certification82/list_views/Document_list.html'
 	def get_queryset(self):
-		return Document.objects.order_by('-name')[:5]
+		return Document.objects.order_by('-name')[:500]
 class DocumentDetailView(generic.DetailView):
 	model = Document
 	template_name = 'certification82/detailed_views/Document_detail.html'
@@ -484,8 +714,13 @@ class DocumentCreate(CreateView):
 	model = Document
 class DocumentUpdate(UpdateView):
 	model = Document
+	fields = ['proofed','name','comment','upload']
+	template_name_suffix = '_update_form'
+
 class DocumentDelete(DeleteView):
 	model = Document
+	success_url = reverse_lazy('certification82:documenteindex')
+
 
 
 
@@ -498,7 +733,7 @@ class BetreiberIndexView(generic.ListView):
 	context_object_name = 'betreiber_name_list'
 	template_name = 'certification82/list_views/Betreiber_list.html'
 	def get_queryset(self):
-		return Betreiber.objects.order_by('-name')[:5]
+		return Betreiber.objects.order_by('-name')[:500]
 class BetreiberDetailView(generic.DetailView):
 	model = Betreiber
 	template_name = 'certification82/detailed_views/Betreiber_detail.html'
@@ -517,27 +752,7 @@ def schutzindex(request):
 	#CHANGE IT!
 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-# def trafoindex(request):
-# 	alltransformators = Transformator.objects.all()
-# 	context = {'alltransformators' : alltransformators }
-# 	#CHANGE IT!
-# 	return render(request, 'certification82/ezeneuwindindex.html', context)
 
-#!TRANSFORMATOR!
-class TransformatorIndexView(generic.ListView):
-	context_object_name = 'transformator_name_list'
-	template_name = 'certification82/list_views/Transformator_list.html'
-	def get_queryset(self):
-		return Transformator.objects.order_by('-VDE_Trafo')[:5]
-class TransformatorDetailView(generic.DetailView):
-	model = Transformator
-	template_name = 'certification82/detailed_views/Transformator_detail.html'
-class TransformatorCreate(CreateView):
-	model = Transformator
-class TransformatorUpdate(UpdateView):
-	model = Transformator
-class TransformatorDelete(DeleteView):
-	model = Transformator
 
 def regelungindex(request):
 	allregelungs = Regelung.objects.all()

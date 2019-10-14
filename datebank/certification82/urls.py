@@ -27,8 +27,14 @@ urlpatterns = [
         
     #D
     #DOCUMENTS ALL:
+    path('upload_pdf', views.upload_doc, name = 'upload_doc'),
+    
+    # path('new_document', views.new_document, name = 'new_document'),
     path('alldocs/', views.DocumentIndexView.as_view(), name='documenteindex'),
     path('doc/number/<int:pk>', views.DocumentDetailView.as_view(), name = 'documentdetailview'),
+    path('doc/update/<int:pk>', views.DocumentUpdate.as_view(), name='doc_update'),
+    path('doc/delete/<int:pk>', views.DocumentDelete.as_view(), name='doc_delete'),
+    
 
     path('neugen/number/<int:pk>', views.NeuGeneratorDetailView.as_view(), name = 'ezeneugendetail'),
     # the 'name' value as called by the {% url %} template tag the DETAIL of the spec proj use id
@@ -36,9 +42,11 @@ urlpatterns = [
     
     #E
     #eze
+    path('new_eze_bestand', views.new_eze_bestand, name = 'new_eze_bestand'),
+    path('new_eze_neu', views.new_eze_neu, name = 'new_eze_neu'),
     path('eze/number/<int:pk>', views.EzeDetailView.as_view(), name = 'ezedetailview'),
-    
     path('eze/update/<int:pk>', views.EzeUpdate.as_view(), name='eze_update'),
+    path('eze/update2/<int:pk>', views.EzeUpdate.as_view(), name='eze_update2'),
     path('eze/delete/<int:pk>', views.EzeDelete.as_view(), name='eze_delete'),
     path('<int:ezeneu_id>/show', views.eze_neu_show, name='eze_neu_show'),
     # path('ezebestdetails/<int:ezebest_id>/', views.eze_best_show, name='eze_best_show'),
@@ -47,8 +55,6 @@ urlpatterns = [
     #NETZBETREIBER HERE:
     path('new_netzbet', views.new_netzbetreiber,name = 'new_netzbetreiber'),
     
-    path('new_eze_bestand', views.new_eze_bestand, name = 'new_eze_bestand'),
-    path('new_eze_neu', views.new_eze_neu, name = 'new_eze_neu'),
     path('new_eze_typ', views.new_eze_typ, name = 'new_eze_typ'),
     path('new_hersteller', views.new_hersteller, name = 'new_hersteller'),
     
@@ -84,6 +90,28 @@ urlpatterns = [
     #RESULTS (about test voting) ex: /polls/5/results/
     path('<int:project_id>/results/', views.results, name='results'),
     
+    #T
+
+#T
+    path('trafoher/update/<int:pk>', views.TrafoHerstellerUpdate.as_view(), name='trafoher_update'),
+    path('trafoher/delete/<int:pk>', views.TrafoHerstellerDelete.as_view(), name='trafoher_delete'),
+    path('new_trafoher', views.new_trafohersteller,name = 'new_trafohersteller'),
+    path('trafoher/all', views.TrafoHerstellerIndexView.as_view(), name='trafoherstellerindex'),
+    path('trafoher/number/<int:pk>', views.TrafoHerstellerDetailView.as_view(), name = 'trafoherstellerdetailview'),
+    
+    path('trafotyp/update/<int:pk>', views.TrafoTypUpdate.as_view(), name='trafotyp_update'),
+    path('trafotyp/delete/<int:pk>', views.TrafoTypDelete.as_view(), name='trafotyp_delete'),
+    path('new_trafotyp', views.new_trafotyp,name = 'new_trafotyp'),
+    path('trafotyps/', views.TrafoTypIndexView.as_view(), name='trafotypindex'),
+    path('trafotyp/number/<int:pk>', views.TrafoTypDetailView.as_view(), name = 'trafotypdetailview'),
+    
+    path('trafo/update/<int:pk>', views.TransformatorUpdate.as_view(), name='trafo_update'),
+    path('trafo/delete/<int:pk>', views.TransformatorDelete.as_view(), name='trafo_delete'),
+    path('new_trafo', views.new_trafo,name = 'new_trafo'),
+    path('trafos/', views.TransformatorIndexView.as_view(), name='trafoindex'),
+    path('trafo/number/<int:pk>', views.TransformatorDetailView.as_view(), name = 'transformatordetailview'),
+    
+
     #V
     # ex: /polls/5/vote/
     path('<int:project_id>/vote/', views.vote, name='vote'),
@@ -102,8 +130,6 @@ urlpatterns = [
     path('schutz/', views.schutzindex, name='schutzindex'),
     # path('schutz/number/<int:pk>', views.SchutzDetailView.as_view(), name = 'documentdetailview'),
 
-    path('trafos/', views.TransformatorIndexView.as_view(), name='trafoindex'),
-    path('trafo/number/<int:pk>', views.TransformatorDetailView.as_view(), name = 'transformatordetailview'),
 
     path('regelungindex/', views.regelungindex, name='regelungindex'),
     # path('regel/number/<int:pk>', views.RegelungDetailView.as_view(), name = 'documentdetailview'),

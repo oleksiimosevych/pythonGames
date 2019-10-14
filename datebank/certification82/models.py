@@ -2,23 +2,26 @@ from django.db import models
 #for decimal
 from decimal import Decimal
 from django.urls import reverse
+from django.core.files.storage import FileSystemStorage
 
 from django.utils import timezone
 from django.contrib.auth.models import BaseUserManager, User, AbstractBaseUser
 from datebank import settings
-
+# fs = FileSystemStorage(location='/media/')
 # from django.contrib.auth.models import  AbstractBaseUser
 #please use only TAB not spaces...
-
+def user_directory_path(instance, filename):
+	# file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+	return 'name_{1}/%Y-%m-%d/'.format(filename)
 class User2(AbstractBaseUser):
 	pass
 #D
 class Document(models.Model):
-	proofed = models.BooleanField(default=False)
-	name = models.CharField(max_length=250)
-	comment = models.CharField(max_length=500)
+	proofed = models.BooleanField(default=False,  null=True)
+	name = models.CharField(max_length=250,  null=True)
+	comment = models.CharField(max_length=500,  null=True)
 	#file will be saved to MEDIA_ROOT/uploads/2019/11/30
-	upload = models.FileField(upload_to='uploads/%Y/%m/%d/')
+	upload = models.FileField()
 	def __str__(self):
 		return self.name
 	def was_published_recently(self):
@@ -314,8 +317,8 @@ class Eze(models.Model):
 	VDE_EZE1_PTextmarke = models.CharField(max_length=100, default="VDE_EZE1_P", unique=False)
 	VDE_Anzahl_EZE1Textmarke = models.CharField(max_length=100, default="VDE_Anzahl_EZE1", unique=False)
 	#for Generator
-	VDE_EZE1_Motor = models.CharField(max_length=100, unique=False, null=True)
-	VDE_EZE1_Generator = models.CharField(max_length=100, unique=False, null=True)
+	VDE_EZE1_Motor = models.CharField(max_length=100, unique=False, null=True, default='Keine Information')
+	VDE_EZE1_Generator = models.CharField(max_length=100, unique=False, null=True, default='Keine Information')
 	VDE_EZE1_MotorOK = models.BooleanField(default=False)
 	VDE_EZE1_GeneratorOK = models.BooleanField(default=False)
 	VDE_EZE1_MotorTextmarke = models.CharField(max_length=100, default="VDE_EZE1_Motor", unique=False)
@@ -365,14 +368,14 @@ class TrafoHersteller(models.Model):
 	def __str__(self):
 		return self.name
 	def get_absolute_url(self):
-		return reverse('certification82:trafoherstellerdetailview', kwargs={'pk': self.id})
+		return reverse('certification82:trafoherstellerdetailview', kwargs={'pk': self.pk})
 
 class TrafoTyp(models.Model):
 	name = models.CharField(max_length=250, default='No INFO')
 	def __str__(self):
 		return self.name
 	def get_absolute_url(self):
-		return reverse('certification82:trafotypdetailview', kwargs={'pk': self.id})
+		return reverse('certification82:trafotypdetailview', kwargs={'pk': self.pk})
 
 
 class Transformator(models.Model):
@@ -393,14 +396,14 @@ class Transformator(models.Model):
 	VDE_Trafo_POK = models.BooleanField(default=False)
 	VDE_Trafo_P = models.DecimalField(max_digits=20,decimal_places=4,default=Decimal('0.0000'))
 
-	VDE_TrafoTextmarke = models.CharField(max_length=250, default='VDE_Trafo', unique=True)
-	VDE_TrafoherstellerTextmarke = models.CharField(max_length=250, default='VDE_Trafohersteller', unique=True)
-	VDE_TrafotypTextmarke = models.CharField(max_length=250, default='VDE_Trafotyp', unique=True)
-	VDE_TrafoUeberTextmarke = models.CharField(max_length=250, default='VDE_TrafoUeber', unique=True)
-	VDE_TrafoOberTextmarke = models.CharField(max_length=250, default='VDE_TrafoOber', unique=True)
-	VDE_TrafoUnterTextmarke = models.CharField(max_length=250, default='VDE_TrafoUnter', unique=True)
-	VDE_Trafo_kurzTextmarke = models.CharField(max_length=250, default='VDE_Trafo_kurz', unique=True)
-	VDE_Trafo_PTextmarke = models.CharField(max_length=250, default='VDE_Trafo_P', unique=True)
+	VDE_TrafoTextmarke = models.CharField(max_length=250, default='VDE_Trafo', unique=False)
+	VDE_TrafoherstellerTextmarke = models.CharField(max_length=250, default='VDE_Trafohersteller', unique=False)
+	VDE_TrafotypTextmarke = models.CharField(max_length=250, default='VDE_Trafotyp', unique=False)
+	VDE_TrafoUeberTextmarke = models.CharField(max_length=250, default='VDE_TrafoUeber', unique=False)
+	VDE_TrafoOberTextmarke = models.CharField(max_length=250, default='VDE_TrafoOber', unique=False)
+	VDE_TrafoUnterTextmarke = models.CharField(max_length=250, default='VDE_TrafoUnter', unique=False)
+	VDE_Trafo_kurzTextmarke = models.CharField(max_length=250, default='VDE_Trafo_kurz', unique=False)
+	VDE_Trafo_PTextmarke = models.CharField(max_length=250, default='VDE_Trafo_P', unique=False)
 
 	project = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
 
@@ -408,7 +411,7 @@ class Transformator(models.Model):
 	def __str__(self):
 		return self.VDE_Trafo
 	def get_absolute_url(self):
-		return reverse('certification82:transformatordetailview', kwargs={'pk': self.id})
+		return reverse('certification82:transformatordetailview', kwargs={'pk': self.pk})
 
 
 

@@ -13,11 +13,20 @@
 		<tr ><th >proofed:</th> <td>{{ document.proofed }}</td></tr>
 		<tr ><th >comment:</th> <td>{{ document.comment }}</td></tr>
 		<tr ><th >upload directory:</th> <td>{{ document.upload }}</td></tr>
+		<tr ><th >dokument URL:</th> <td><a href="{{ document.upload.url }}">
+		<button class="btn btn" action="">Read/Download "{{ document.name }}"
+		</a>
+		</td></tr>
 		<tr><th></th></tr>
 	</table>
 	<br>
-	<p><button class="btn btn-primary" action="">download document "{{ document.name }}"</button></p>
 	</h1>
+	<a class="alert bg-primary text-light " id = 'erst' href="{% url 'certification82:doc_update' document.pk %}">Aktualisieren: </a>
+	{% if user.admin == True %}
+			<a class="alert bg-primary text-light " id = 'del' href="{% url 'certification82:doc_delete' document.pk %}">Löschen: </a>
+			<a class="alert bg-primary text-light " id = 'erst' href="{% url 'certification82:upload_doc' %}">Erstellen: </a>
+			
+	{% endif %}
 {% else %}
 		<p>No Documents are available.</p>
 {% endif %}

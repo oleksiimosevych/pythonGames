@@ -22,7 +22,7 @@
 		<table border=2 class="table-hover">
 			
 		{% for eze in ezeneufotovoltaic %}
-			<tr id="ezename"><th >Typ:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
+			<tr  class= "bg-secondary text-light"><th >Typ:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
 			<tr id="ezename"><th >{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td>{{ eze.vDE_EZE1_Name }}</td></tr>
 			<tr><th>{{ eze.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ eze.eZeHersteller }}</td></tr>
 			<tr><th>{{ eze.VDE_EZE1_TypTextmarke }}:</th> <td> {{ eze.eZeTyp }}</td></tr>

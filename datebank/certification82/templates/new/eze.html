@@ -5,29 +5,34 @@
 {% block content %}
     <h2>+1 EZE</h2>
     {% if user.admin == True %}
-    <p>
+    <table class="table col-md-5" border="1">
       Kein Herrsteller, Typ oder Projekt? Bitte, hinzufügen:
       <a href="{% url 'certification82:new_hersteller' %}">Herrsteller  +1 |</a>
       <a href="{% url 'certification82:new_eze_typ' %}">Typ   +1 |</a>
       <a href="{% url 'certification82:new_projekt' %}">Projekt  +1 |</a>
-    </p>
+    <form method="post">
     {% endif %}
-    <form method="post" class="form-group">
-      <div class="form-group">
     {% csrf_token %}
-
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
+        
+      {% for field in form %}
+      
+        <tr class="">
+          <th>{{ field.label_tag }}</th>
+        <td>{{ field }}</td>
+        <td>
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
         {% endif %}
+        </td>
+        <td>
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
-      </p>
-    {% endfor %}
+        </td>
+      
+      {% endfor %}
+    </table>
+    <!-- {6% endfor %} -->
   </div>
     <button class='btn btn-success' type="submit">+1 EZE hinzufügen</button>
   </form>

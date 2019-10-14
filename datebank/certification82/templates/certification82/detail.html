@@ -9,85 +9,345 @@
 	<div class="jumbotron text-center">
 		<h5>All EZEs of the Project</h5> <br> <h5>"{{ ezen.project_name }}"</h5>
 		<br>
-		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' ezen.id %}">Neue WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezeneufotooftheprojectindex' ezen.id  %}">Neue Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezeneugenoftheprojectindex' ezen.id %}">Neue Generators |</a>
-		<a href="{% url 'certification82:ezebestwindoftheprojectindex' ezen.id %}">Bestandene WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezebestfotooftheprojectindex' ezen.id %}">Bestandene Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezebestgenoftheprojectindex' ezen.id %}">Bestandene Generators |</a>
 		
 	</div>
-		<span class='col-md-6 ezeneu_left'>
+		<span class='card col-md-6 ezeneu_left'>
 		<li class="list-group-item ">EZE Neu</li>
-		<table border=2 class="table table-hover">
-
+		
 		{% for eze in eze %}
 		{% if eze.ist_bestand != True %}
-			
-			<tr class="bg-warning" id="ezename"><th>Typ:</th> <td><b>{{ eze.eZeTyp }}</b></td></tr>
-			<tr><th>{{ eze.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ eze.eZeHersteller }}</td></tr>
-			<tr><th>{{ eze.VDE_EZE1_TypTextmarke }}:</th> <td> {{ eze.eZeTyp }}</td></tr>
-			<tr><th>{{ eze.VDE_EZE1_NameTextmarke }}:</th> <td> {{ eze.vDE_EZE1_Name }}</td></tr>
-			<tr><th>{{ eze.VDE_EZE1_ZertNRTextmarke }}:</th> <td> {{ eze.vDE_EZE1_ZertNR }}</td></tr>
-			{% if eze.VDE_EZE1_Motor %}
-			<tr><th>{{ eze.VDE_EZE1_MotorTextmarke }}:</th> <td> {{ eze.VDE_EZE1_Motor }}</td></tr>{% endif %}
-			{% if eze.VDE_EZE1_Generator %}
-			<tr><th>{{ eze.VDE_EZE1_GeneratorTextmarke }}:</th> <td> {{ eze.VDE_EZE1_Generator }}</td></tr>
-			{% endif %}
-			<tr><th>{{ eze.VDE_EZE1_STextmarke }}:</th> <td> {{ eze.vDE_EZE1_S }}</td></tr>
-			<tr><th>{{ eze.VDE_EZE1_PTextmarke }}:</th> <td> {{ eze.vDE_EZE1_P }}</td></tr>
-			<tr><th>{{ eze.VDE_Anzahl_EZE1Textmarke }}:</th> <td> {{ eze.vDE_Anzahl_EZE1 }}</td></tr>
-			{% if eze.name %}
-			<tr><th>NAME:</th> <td> {{ eze.name }}</td></tr>
-			{% endif %}
-			<tr><th>ID:</th> <td> {{ eze.id }}</td> </tr>
+		<table border=2 class="col-md-3 table table-hover clear_both" >
+	
+			<tr class= "thead-light">
+				{% if user.admin == True %}
+				<th>Textmarke:</th>
+				{% endif %}
+				<th>Erklärung</th>
+				<th>Information</b></th>
+				<th>OK</th>
+			</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_HerstTextmarke }}:</th>
+				{% endif %}
+				<th>Hersteller der EZE</th>
+			 <td> {{ eze.eZeHersteller }}</td>
+			 {% if eze.eZeHerstellerOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ eze.eZeHerstellerOK }}</td></tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_TypTextmarke }}:</th>
+				{% endif %}
+				<th>Typ der EZE</th>
+				 <td> {{ eze.eZeTyp }}</td>
+				 {% if eze.eZeTypOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				  {{ eze.eZeTypOK }}</td></tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_NameTextmarke }}:</th>
+				{% endif %}
+				<th>Bezeichnung der EZE</th>
+				 <td> {{ eze.vDE_EZE1_Name }}</td>
+				 {% if eze.vDE_EZE1_NameOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ eze.vDE_EZE1_NameOK }}</td></tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_ZertNRTextmarke }}:</th>
+				{% endif %}
+				<th>Einheiten-zertifikat Nr.</th>
+				 <td> {{ eze.vDE_EZE1_ZertNR }}</td>
+				 {% if eze.vDE_EZE1_ZertNROK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ eze.vDE_EZE1_ZertNROK }}</td></tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_MotorTextmarke }}:</th>
+				{% endif %}
+				<th>Motortyp für VKM</th>
+				 <td> {{ eze.VDE_EZE1_Motor }}</td>
+				 {% if eze.VDE_EZE1_MotorOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ eze.VDE_EZE1_MotorOK }}</td>
+				</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_GeneratorTextmarke }}:</th>
+				{% endif %}
+				<th>Generatortyp für VKM</th>
+				 <td> {{ eze.VDE_EZE1_Generator }}</td>
+				 {% if eze.VDE_EZE1_GeneratorOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ eze.VDE_EZE1_GeneratorOK }}</td>
+				</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_STextmarke }}:</th>
+				{% endif %}
+				<th>Bemessungs-scheinleistung in MVA</th>
+				 <td> {{ eze.vDE_EZE1_S }}</td>
+				 {% if eze.vDE_EZE1_SOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ eze.vDE_EZE1_SOK }}</td>
+				</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_EZE1_PTextmarke }}:</th>
+				{% endif %}
+				<th>Bemessungs-wirkleistung in MW</th>
+				 <td> {{ eze.vDE_EZE1_P }}</td>
+				 {% if eze.vDE_EZE1_POK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				  {{ eze.vDE_EZE1_POK }}</td></tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ eze.VDE_Anzahl_EZE1Textmarke }}:</th>
+				{% endif %}
+				<th>Anzahl der EZE</th>
+			 <td> {{ eze.vDE_Anzahl_EZE1 }}</td>
+			 {% if eze.vDE_Anzahl_EZE1OK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ eze.vDE_Anzahl_EZE1OK }}</td></tr>
+				 <tr>
+				{% if user.admin == True %}
+				<th>{{eze.VDE_EZE_Bestand_ZahlTextmarke}}:</th>
+				{% endif %}
+				<td>Anzahl Bestands-BHKW</td>
+				 <td> {{ eze.VDE_EZE_Bestand_Zahl }}</td>
+				 {% if eze.VDE_EZE_Bestand_ZahlOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				{{ eze.VDE_EZE_Bestand_ZahlOK }}</td>
+			</tr>
+
+				 <tr>
+				{% if user.admin == True %}
+				<th title="Inbetriebnahmedatum">{{ eze.VDE_P_inbe_ALTTextmarke }}:</th>
+				{% endif %}
+				<td>Inbetrieb-nahmedatum</td>
+				 <td> {{ eze.VDE_P_inbe_ALT }}</td>
+			{% if eze.VDE_P_inbe_ALTOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				{{ eze.VDE_P_inbe_ALTOK }}</td>
+			</tr>
+			<tr><th>ID:</th> <td> {{ eze.id }}</td><td></td><td></td> </tr>
 			</table>
 			<div class="alert btn-group" role="group" aria-label="Basic example">
-				<button type="button" class="btn btn-primary"><a href="{% url 'certification82:ezedetailview' eze.id %}"><d class='text-light'>View<d/></a></button>
-  				<button type="button" class="btn btn"><a href="{% url 'certification82:eze_update' eze.id %}"><d class='text-dark'>Edit<d/></a></button>
+				<button type="button" class="btn btn"><a href="{% url 'certification82:eze_update' eze.id %}"><d class='text-dark'>Edit<d/></a></button>
  
 				{% if user.admin == True %}
-				<button type="button" class="btn btn-danger"><a href="{% url 'certification82:eze_delete' eze.id %}"><d class='text-light'>Delete<d/></a></button>
+				<button type="button" class="btn btn-primary"><a href="{% url 'certification82:ezedetailview' eze.id %}"><d class='text-light'>View<d/></a></button>
+  				<button type="button" class="btn btn-danger"><a href="{% url 'certification82:eze_delete' eze.id %}"><d class='text-light'>Delete<d/></a></button>
 
 				{% endif %}
 			</div>
 		{% endif %}
 		{% endfor %}
+		{% if user.admin == True %}
 		<br><button class="container bg-success btn"><a href="{% url 'certification82:new_eze_neu' %}"><d class='text-light'>+1 EZE: Neu<d/></a></button>
-		
+		{% endif %}		
 		</span>
-
-		<span class='col-md-6 ezebestand_right'>
+<vr>
+		<span class='col-md-6 ezebestand_right clear_right'>
 		<li class="list-group-item ">EZE Bestand</li>
-		<table border=2 class = "table table-hover">
 		
 			<!-- here was eze besnad all togather using set function -->
 			
 		{% for ezebestwind in eze %}
 		{% if ezebestwind.ist_bestand == True %}
-		
-			<tr class="bg-warning"><th >{{ezebestwind.VDE_EZE_Typ_AltTextmarke}}:</th> <td>{{ ezebestwind.eZeTyp }}</td></tr>
-			<tr><th>{{ezebestwind.VDE_EZE_Bestand_ZahlTextmarke}}:</th> <td> {{ ezebestwind.VDE_EZE_Bestand_Zahl }}</td></tr>
-			<tr><th>{{ezebestwind.VDE_EZE_Herst_AltTextmarke}}:</th> <td> {{ ezebestwind.eZeHersteller }}</td></tr>
-			<tr><th>{{ ezebestwind.VDE_EZE_Typ_AltTextmarke }}:</th> <td> {{ ezebestwind.eZeTyp }}</td></tr>
-			<tr><th>{{ ezebestwind.VDE_EZE_Name_ALTTextmarke }}:</th> <td> {{ ezebestwind.VDE_EZE_Name_ALT }}</td></tr>
-			<tr><th title="Bemessungsscheinleistung in MVA">{{ ezebestwind.VDE_S_EZE_AltTextmarke }}:</th> <td> {{ ezebestwind.VDE_S_EZE_Alt }}</td></tr>
-			<tr><th title="Bemessungswirkleistung">{{ ezebestwind.VDE_P_EZE_ALTTextmarke }}:</th> <td> {{ ezebestwind.VDE_P_EZE_ALT }}</td></tr>
-			<tr><th title="Inbetriebnahmedatum">{{ ezebestwind.VDE_P_inbe_ALTTextmarke }}:</th> <td> {{ ezebestwind.VDE_P_inbe_ALT }}</td></tr>
-			</table>	
+		<table border=2 class = "col-md-2 table table-hover">
+			<tr class= "thead-light">
+				{% if user.admin == True %}
+				<th >Textmarke</th>
+				{% endif %}
+
+				<th>Erklärung</th><th>Information</th><th>OK</th>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ezebestwind.VDE_EZE_Herst_AltTextmarke}}:</th>
+				{% endif %}
+				<td>Hersteller der EZE</td>
+				 <td> {{ ezebestwind.eZeHersteller }}</td>
+				{% if ezebestwind.eZeHerstellerOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				{{ ezebestwind.eZeHerstellerOK }}</td>
+			</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_EZE_Typ_AltTextmarke }}:</th>
+				{% endif %} 
+				<td>Typ der EZE</td>
+				<td> {{ ezebestwind.eZeTyp }}</td>{% if ezebestwind.eZeTypOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				{{ ezebestwind.eZeTypOK }}</td>
+			</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_EZE_Name_ALTTextmarke }}:</th>
+				{% endif %}
+				<td>Bezeichnung der EZE</td>
+				 <td> {{ ezebestwind.vDE_EZE1_Name }}</td>
+				{% if ezebestwind.vDE_EZE1_NameOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				{{ ezebestwind.vDE_EZE1_NameOK }}</td>
+			</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_EZE1_ZertNRTextmarke }}:</th>
+				{% endif %}
+				<th>Einheiten-zertifikat Nr.</th>
+				 <td> {{ ezebestwind.vDE_EZE1_ZertNR }}</td>
+				 {% if ezebestwind.vDE_EZE1_ZertNROK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ ezebestwind.vDE_EZE1_ZertNROK }}</td></tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_EZE1_MotorTextmarke }}:</th>
+				{% endif %}
+				<th>Motortyp für VKM</th>
+				 <td> {{ ezebestwind.VDE_EZE1_Motor }}</td>
+				 {% if ezebestwind.VDE_EZE1_MotorOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ ezebestwind.VDE_EZE1_MotorOK }}</td>
+				</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_EZE1_GeneratorTextmarke }}:</th>
+				{% endif %}
+				<th>Generatortyp für VKM</th>
+				 <td> {{ ezebestwind.VDE_EZE1_Generator }}</td>
+				 {% if ezebestwind.VDE_EZE1_GeneratorOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ ezebestwind.VDE_EZE1_GeneratorOK }}</td>
+				</tr>
+			
+			
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_S_EZE_AltTextmarke }}:</th>
+				{% endif %}
+				<th>Bemessungs-scheinleistung in MVA</th>
+				 <td> {{ ezebestwind.vDE_EZE1_S }}</td>
+				 {% if ezebestwind.vDE_EZE1_SOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ ezebestwind.vDE_EZE1_SOK }}</td>
+				</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_P_EZE_ALTTextmarke }}:</th>
+				{% endif %}
+				<th>Bemessungs-wirkleistung in MW</th>
+				 <td> {{ ezebestwind.vDE_EZE1_P }}</td>
+				 {% if ezebestwind.vDE_EZE1_POK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				  {{ ezebestwind.vDE_EZE1_POK }}</td></tr>
+				  <tr>
+				{% if user.admin == True %}
+				<th>{{ ezebestwind.VDE_Anzahl_EZE1Textmarke }}:</th>
+				{% endif %}
+				<th>Anzahl der EZE</th>
+			 <td> {{ ezebestwind.vDE_Anzahl_EZE1 }}</td>
+			 {% if ezebestwind.vDE_Anzahl_EZE1OK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %} {{ ezebestwind.vDE_Anzahl_EZE1OK }}</td></tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ezebestwind.VDE_EZE_Bestand_ZahlTextmarke}}:</th>
+				{% endif %}
+				<td>Anzahl Bestands-BHKW</td>
+				 <td> {{ ezebestwind.VDE_EZE_Bestand_Zahl }}</td>
+				 {% if ezebestwind.VDE_EZE_Bestand_ZahlOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				{{ ezebestwind.VDE_EZE_Bestand_ZahlOK }}</td>
+			</tr>
+
+
+			<tr>
+				{% if user.admin == True %}
+				<th title="Inbetriebnahmedatum">{{ ezebestwind.VDE_P_inbe_ALTTextmarke }}:</th>
+				{% endif %}
+				<td>Inbetrieb-nahmedatum</td>
+				 <td> {{ ezebestwind.VDE_P_inbe_ALT }}</td>
+			{% if ezebestwind.VDE_P_inbe_ALTOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td>
+				 {% endif %}
+				{{ ezebestwind.VDE_P_inbe_ALTOK }}</td>
+			</tr>
+			<tr><th>ID:</th> <td> {{ ezebestwind.id }}</td><td></td><td></td> </tr>
+			
+
+
+			</table>
+
 			<div class="alert btn-group" role="group" aria-label="Basic example">
-				<button type="button" class="btn btn-primary"><a href="{% url 'certification82:ezedetailview' ezebestwind.id %}"><d class='text-light'>View<d/></a>
-				</button>
-  				<button type="button" class="btn btn"><a href="{% url 'certification82:eze_update' ezebestwind.id %}"><d class='text-dark'>Edit<d/></a></button>
+				<button type="button" class="btn btn"><a href="{% url 'certification82:eze_update2' ezebestwind.id %}"><d class='text-dark'>Edit<d/></a></button>
  
 				{% if user.admin == True %}
-				<button type="button" class="btn btn-danger"><a href="{% url 'certification82:eze_delete' ezebestwind.id %}"><d class='text-light'>Delete<d/></a></button>
+				<button type="button" class="btn btn-primary"><a href="{% url 'certification82:ezedetailview' ezebestwind.id %}"><d class='text-light'>View<d/></a>
+				</button>
+  				<button type="button" class="btn btn-danger"><a href="{% url 'certification82:eze_delete' ezebestwind.id %}"><d class='text-light'>Delete<d/></a></button>
 
 				{% endif %}
 			</div>
 		{% endif %}
 		{% endfor %}
+		{% if user.admin == True %}
 		<br><button class="container bg-success btn alert"><a href="{% url 'certification82:new_eze_bestand' %}"><d class='text-light'>+1 EZE: Bestand<d/></a></button>
+		{% endif %}
 		
 </div>
 

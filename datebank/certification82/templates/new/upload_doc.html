@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} Project Update {% endblock %}
+
+{% block content %}
+
+<html>
+    <head>File Uploads</head>
+    <body>
+        <form enctype="multipart/form-data" action="" method="post"> <!-- Do not forget to add: enctype="multipart/form-data" -->
+            {% csrf_token %}
+            <table class="table">
+            	{{ form }}
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+	EZE löschen
+{% endblock %}
+{% block content %}
+
+<h1>Dokument löschen?</h1>
+<form  method="post" class="form">
+{% csrf_token %}
+Möchten Sie dieses Dokument wirklich löschen?
+<input class="alert bg-danger text-light" type="submit"  value="Submit"  />
+</form>
+{% endblock %}

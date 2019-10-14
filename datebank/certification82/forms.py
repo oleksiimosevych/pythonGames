@@ -1,9 +1,10 @@
 from django import forms
 from decimal import Decimal
+# from .forms import UploadFileForm
 # from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.models import User
 from .models import Betreiber, Netzbetreiber, Zertifikatsinhaber, Project, Eze,\
- EzeTyp,EzeHersteller
+ EzeTyp,EzeHersteller, Document, Transformator, TrafoHersteller, TrafoTyp
 #to add additional fields to user
 # class SignUpForm(UserCreationForm):
 # 	first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
@@ -15,6 +16,79 @@ from .models import Betreiber, Netzbetreiber, Zertifikatsinhaber, Project, Eze,\
 # 		fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
 
 # class Eze_neu_wind_form(forms.Form):
+
+class NewTrafoHerstellerForm(forms.ModelForm):
+	name = forms.CharField(label='Hersteller des Transformators', max_length=250)
+	class Meta:
+		model =TrafoHersteller
+		fields = ('name',)
+
+class NewTrafoTypForm(forms.ModelForm):
+	name = forms.CharField(label='Typ des Transformators', max_length=250)
+	class Meta:
+		model =TrafoTyp 
+		fields = ('name',)	
+
+class NewTransformatorForm(forms.ModelForm):
+	VDE_TrafoTextmarke = forms.CharField(max_length=250, initial='VDE_Trafo', required=False)
+	VDE_TrafoOK = forms.BooleanField(initial=False, required=False)
+	VDE_Trafo = forms.CharField(max_length=250, initial='No INFO', required=False)
+	
+	VDE_TrafoherstellerTextmarke = forms.CharField(max_length=250, initial='VDE_Trafohersteller', required=False)
+	VDE_TrafoherstellerOK = forms.BooleanField(initial=False, required=False)
+	VDE_Trafohersteller = forms.ModelChoiceField(queryset=TrafoHersteller.objects.all(), label='Hersteller', required=False)
+	
+	VDE_TrafotypTextmarke = forms.CharField(max_length=250, initial='VDE_Trafotyp', required=False)
+	VDE_TrafotypOK = forms.BooleanField(initial=False, required=False)
+	VDE_Trafotyp = forms.ModelChoiceField(label='Typ des Transformators', queryset=TrafoTyp.objects.all())
+	
+
+	VDE_TrafoUeberTextmarke = forms.CharField(max_length=250, initial='VDE_TrafoUeber', required=False)
+	VDE_TrafoUeberOK = forms.BooleanField(initial=False, required=False)
+	VDE_TrafoUeber = forms.CharField(max_length=250, initial='No INFO', required=False)
+	
+	VDE_TrafoOberTextmarke = forms.CharField(max_length=250, initial='VDE_TrafoOber', required=False)
+	VDE_TrafoOberOK = forms.BooleanField(initial=False, required=False)
+	VDE_TrafoOber = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+	
+	VDE_TrafoUnterTextmarke = forms.CharField(max_length=250, initial='VDE_TrafoUnter', required=False)
+	VDE_TrafoUnterOK = forms.BooleanField(initial=False, required=False)
+	VDE_TrafoUnter = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+	
+	VDE_Trafo_kurzTextmarke = forms.CharField(max_length=250, initial='VDE_Trafo_kurz', required=False)
+	VDE_Trafo_kurzOK = forms.BooleanField(initial=False, required=False)
+	VDE_Trafo_kurz = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+	
+	VDE_Trafo_PTextmarke = forms.CharField(max_length=250, initial='VDE_Trafo_P', required=False)
+	VDE_Trafo_POK = forms.BooleanField(initial=False, required=False)
+	VDE_Trafo_P = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+
+	project = forms.ModelChoiceField(label='Projekt', queryset=Project.objects.all())
+	class Meta:
+		model =Transformator
+		fields = ('VDE_TrafoTextmarke','VDE_TrafoOK', 'VDE_Trafo',\
+		 'VDE_TrafoherstellerTextmarke','VDE_TrafoherstellerOK','VDE_Trafohersteller',\
+		 'VDE_TrafotypTextmarke','VDE_TrafotypOK','VDE_Trafotyp',\
+			'VDE_TrafoUeberTextmarke','VDE_TrafoUeberOK','VDE_TrafoUeber',\
+			'VDE_TrafoOberTextmarke','VDE_TrafoOberOK','VDE_TrafoOber',\
+			'VDE_TrafoUnterTextmarke','VDE_TrafoUnterOK','VDE_TrafoUnter',\
+			'VDE_Trafo_kurzTextmarke','VDE_Trafo_kurzOK','VDE_Trafo_kurz',\
+			'VDE_Trafo_PTextmarke','VDE_Trafo_POK','VDE_Trafo_P', 'project')
+
+class DateInput(forms.DateInput):
+	input_type = 'date'
+
+
+class NewDocumentForm(forms.ModelForm):
+	proofed = forms.BooleanField(label='Ist geprüft', initial=False, required=False)
+	name = forms.CharField(label='Name', max_length=250)
+	comment =forms.CharField(label='Commentieren', max_length=250, widget=forms.Textarea) 
+	upload = forms.FileField()
+	# file = forms.FileField()
+	class Meta:
+		model =Document
+		fields = ('name','comment', 'upload', 'proofed')
+
 class NewHerstellerForm(forms.ModelForm):
 	hersteller_name = forms.CharField(label='Hersteller der EZE--id', max_length=250)
 	class Meta:
@@ -54,8 +128,8 @@ class NewEzeNeuForm(forms.ModelForm):
 	VDE_EZE1_PTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_P")
 	VDE_Anzahl_EZE1Textmarke = forms.CharField(max_length=100, initial="VDE_Anzahl_EZE1")
 	
-	VDE_EZE1_Motor = forms.CharField(help_text="Für Windkraft und Fotovaltaics leer lassen", max_length=100, required=False)
-	VDE_EZE1_Generator = forms.CharField(help_text="Für Windkraft und Fotovaltaics leer lassen", max_length=100, required=False)
+	VDE_EZE1_Motor = forms.CharField(help_text="Für Windkraft und Fotovaltaics leer lassen", max_length=100, required=False, initial='Keine Information')
+	VDE_EZE1_Generator = forms.CharField(help_text="Für Windkraft und Fotovaltaics leer lassen", max_length=100, required=False, initial='Keine Information')
 	VDE_EZE1_MotorTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_Motor", required=True)
 	VDE_EZE1_GeneratorTextmarke = forms.CharField(max_length=100, initial="VDE_EZE1_Generator", required=True)
 	VDE_EZE1_MotorOK = forms.BooleanField(label='OK', required=False)
@@ -132,7 +206,7 @@ class NewEzeBestForm(forms.ModelForm):
 class ProjectForm(forms.ModelForm):
 	project_name = forms.CharField(max_length=250, required=True, label = 'Projekttitel') 
 	project_number = forms.IntegerField(initial=int(245), required=True)
-	project_deadline_date = forms.DateField(required=True)
+	project_deadline_date = forms.DateField(required=True, widget = DateInput)
 	is_done = forms.BooleanField(required=False)
 	access_for_user = forms.BooleanField(required=False)
 	access_for_moderator = forms.BooleanField(required=False)

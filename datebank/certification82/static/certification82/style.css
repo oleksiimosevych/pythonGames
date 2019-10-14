@@ -1,3 +1,10 @@
+table{
+	background-color: red !important;
+}
+#table_caption{
+	background-color: #e9ecef;
+}
+
 #id_username, #id_password{
 	width: 100%;
 }

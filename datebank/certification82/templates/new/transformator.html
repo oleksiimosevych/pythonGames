@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}+1 Transformator{% endblock %}
+
+{% block content %}
+  <h2>+1 Transformator</h2>
+  {% if user.admin == True %}
+    <table class="table col-md-5" border="1">
+      Kein TrafoHerrsteller, TrafoTyp oder Projekt? Bitte, hinzufügen:
+      <a href="{% url 'certification82:new_trafohersteller' %}">TrafoHerrsteller +1 |</a>
+      <a href="{% url 'certification82:new_trafotyp' %}">TrafoTyp +1 |</a>
+      <a href="{% url 'certification82:new_projekt' %}">Projekt +1 |</a>
+    <form method="post">
+    {% endif %}
+  <form method="post">
+    {% csrf_token %}
+        <table class="table col-md-5" border="1">
+      {% for field in form %}
+      
+        <tr class="">
+          <th>{{ field.label_tag }}</th>
+        <td>{{ field }}</td>
+        <td>
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        </td>
+        <td>
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </td>
+      
+    {% endfor %}
+    </table>
+    <button type="submit" value="Save">+1 Transformator hinzufügen</button>
+  </form>
+{% endblock %}

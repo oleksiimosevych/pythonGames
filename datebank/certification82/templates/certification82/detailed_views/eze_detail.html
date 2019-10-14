@@ -9,7 +9,7 @@
 {%if object %}
 	<table border=2 class="table table-hover">
 	{% if object.ist_bestand != True %}
-		<tr id="ezename"><th ><h2>NEXT:</th> <td>NEU EZE INFORMATION</td><td>OK</h2></td></tr>
+		<tr class= "bg-secondary text-light"><th ><h2>NEXT:</th> <td>NEU EZE INFORMATION</td><td>OK</h2></td></tr>
 			<tr title="Neu Windkraft NAME" id="ezename"><th >{{object.VDE_EZE1_NameTextmarke}}:</th> <td>{{ object.vDE_EZE1_Name }}</td><td>{{ object.vDE_EZE1_NameOK }}</td></tr>
 			<tr title="Hersteller der EZE--id"><th>{{ object.VDE_EZE1_HerstTextmarke }}:</th> <td> {{ object.eZeHersteller }}</td><td>{{ object.eZeHerstellerOK }}</td></tr>
 			<tr title="Typ der EZE--id"><th>{{ object.VDE_EZE1_TypTextmarke }}:</th> <td> {{ object.eZeTyp }}</td><td>{{ object.eZeTypOK }}</td></tr>

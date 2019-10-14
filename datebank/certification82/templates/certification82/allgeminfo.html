@@ -3,18 +3,7 @@
 {% block title %}
 	Details index
 {% endblock %}
-{% block menu %}
-	<p>
-		<a href="{% url 'certification82:index' %}">Zurück |</a>
-		
-		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' user.projekt_nr %}">Neue WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezeneufotooftheprojectindex' user.projekt_nr  %}">Neue Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezeneugenoftheprojectindex' user.projekt_nr %}">Neue Generators |</a>
-		<a href="{% url 'certification82:ezebestwindoftheprojectindex' user.projekt_nr %}">Bestandene WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezebestfotooftheprojectindex' user.projekt_nr %}">Bestandene Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezebestgenoftheprojectindex' user.projekt_nr %}">Bestandene Generators |</a>
-	</p>
-{% endblock %}
+
 
 {% block content %}
 
@@ -29,8 +18,8 @@
 		<p>Allgemeine Information zum Project: "{{ proj.project_name }}"</p>
 		<table border=0 class="table table-hover">
 		<h1>
-			<tr><th><h1>{{ proj.Projekt_NrTexmarke }}:</th> <td><h1> {{ proj.project_number }}</td></tr>
-			<tr><th><h1>{{ proj.ProjekttitelTexmarke }}:</th> <td><h1> {{ proj.project_name }}</td></tr>
+			<!-- <tr><th>{3{ #proj.Projekt_NrTexmarke }}:</th> <td> {3{ proj.project_number }}</td></tr> -->
+			<!-- <tr><th>{3{ #proj.ProjekttitelTexmarke }}:</th> <td> {3{ proj.project_name }}</td></tr> -->
 		</h1>
 		</table>
 	{% endfor %}
