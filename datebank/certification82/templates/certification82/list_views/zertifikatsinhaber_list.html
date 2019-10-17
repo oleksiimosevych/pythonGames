@@ -6,7 +6,7 @@
 {% endblock %}
 		
 {% block content %}
-	{% if netzbetreiber_name_list %}
+	{% if zertifikatsinhaber_name_list %}
 		{% if user.admin == False %}
 		<h1>
 			Information des NetzBetreibers der Projekt  
@@ -22,15 +22,15 @@
 						<th></th>
 						<th>Lesen</th>
 						<th>Aktuakisieren</th>
-						<th>Loschen</th>
+						<th>Löschen</th>
 						{% endif %}
 					</tr>
 		{% endif %}
-		{% for item in netzbetreiber_name_list %}
+		{% for item in zertifikatsinhaber_name_list %}
 				{% if item.Projekt_Nr == user.projekt_nr %}
 				<!-- no more hardcoded href  appname:viewname-->
 				<div for = "link" class="jumbotron text-center">
-					<p><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">{{ item.NB_Ansprech }}</a></p>
+					<p><a name = "link" href="{% url 'certification82:zertifikatsinhaberdetailview' item.pk %}">{{ item.Zert_Part }}</a></p>
 				</div>
 				
 				</h1>
@@ -38,11 +38,11 @@
 				<!-- no more hardcoded href  appname:viewname-->
 
 				<tr>
-					<td><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">{{ item.NB_Ansprech }}</a></td><td>{{ item.Projekt_Nr }}</td><td>{{ item.Projekttitel }}</td>
-					<th><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">Aussehen</a></th>
-					<th><a name = "link" href="{% url 'certification82:netzbet_update' item.pk %}">Aktualisieren</a></th>
+					<td><a name = "link" href="{% url 'certification82:zertifikatsinhaberdetailview' item.pk %}">{{ item.Zert_Part }}</a></td><td>{{ item.Projekt_Nr }}</td><td></td>
+					<th><a name = "link" href="{% url 'certification82:zertifikatsinhaberdetailview' item.pk %}">Aussehen</a></th>
+					<th><a name = "link" href="{% url 'certification82:zert_update' item.pk %}">Aktualisieren</a></th>
 					{% if user.admin == True %}
-					<th><a name = "link" href="{% url 'certification82:netzbet_delete' item.pk %}">Löschen</a></th>
+					<th><a name = "link" href="{% url 'certification82:zert_delete' item.pk %}">Löschen</a></th>
 					</tr>
 					{% endif %}
 				{% endif %}
@@ -53,6 +53,6 @@
 
 	</h1>
 	{% else %}
-		<p>Hier gibt es kein NetzBetreiber</p>
+		<p>Hier gibt es kein Zertifikatsinhaber</p>
 	{% endif %}
 {% endblock %}

@@ -48,12 +48,21 @@ urlpatterns = [
     path('eze/number/<int:pk>', views.EzeDetailView.as_view(), name = 'ezedetailview'),
     path('eze/update/<int:pk>', views.EzeUpdate.as_view(), name='eze_update'),
     path('ezes/', views.EzeIndexView.as_view(), name='ezeindex'),
-    
     # path('eze/update2/<int:pk>', views.EzeUpdate.as_view(), name='eze_update2'),
     path('eze/delete/<int:pk>', views.EzeDelete.as_view(), name='eze_delete'),
     path('<int:ezeneu_id>/show', views.eze_neu_show, name='eze_neu_show'),
     # path('ezebestdetails/<int:ezebest_id>/', views.eze_best_show, name='eze_best_show'),
 
+    #EZETYP
+    
+    path('ezetyp/number/<int:pk>', views.EzeTypDetailView.as_view(), name = 'ezetypdetailview'),
+    path('ezetyp/update/<int:pk>', views.EzeTypUpdate.as_view(), name='ezetyp_update'),
+    path('ezetyps/', views.EzeTypIndexView.as_view(), name='ezetypindex'),
+    path('ezetyp/delete/<int:pk>', views.EzeTypDelete.as_view(), name='ezetyp_delete'),
+    
+    path('new_eze_typ', views.new_eze_typ, name = 'new_eze_typ'),
+    
+    
     #N
     #NETZBETREIBER HERE:
     path('netzbet/number/<int:pk>', views.NetzbetreiberDetailView.as_view(), name = 'netzbetreiberdetailview'),
@@ -63,8 +72,6 @@ urlpatterns = [
     # path('eze/update2/<int:pk>', views.EzeUpdate.as_view(), name='eze_update2'),
     path('netzbet/delete/<int:pk>', views.NetzbetreiberDelete.as_view(), name='netzbet_delete'),
     
-
-    path('new_eze_typ', views.new_eze_typ, name = 'new_eze_typ'),
     path('new_hersteller', views.new_hersteller, name = 'new_hersteller'),
     
     path('neuwind/all', views.NeuWindkraftIndexView.as_view(), name='ezeneuwindindex'),

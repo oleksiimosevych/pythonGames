@@ -29,39 +29,39 @@ class NewTrafoTypForm(forms.ModelForm):
 		model =TrafoTyp 
 		fields = ('name',)	
 
-class NewTransformatorForm(forms.ModelForm):
+class TransformatorForm(forms.ModelForm):
 	VDE_TrafoTextmarke = forms.CharField(max_length=250, initial='VDE_Trafo', required=False)
 	VDE_TrafoOK = forms.BooleanField(initial=False, required=False)
-	VDE_Trafo = forms.CharField(max_length=250, initial='No INFO', required=False)
+	VDE_Trafo = forms.CharField(label = 'Transformator',max_length=250, initial='No INFO', required=False)
 	
 	VDE_TrafoherstellerTextmarke = forms.CharField(max_length=250, initial='VDE_Trafohersteller', required=False)
 	VDE_TrafoherstellerOK = forms.BooleanField(initial=False, required=False)
-	VDE_Trafohersteller = forms.CharField(max_length=250, initial='Hersteller 1 ', required=False)
+	VDE_Trafohersteller = forms.CharField(label = 'Transformatorhersteller',max_length=250, initial='Hersteller 1 ', required=False)
 	
 	VDE_TrafotypTextmarke = forms.CharField(max_length=250, initial='VDE_Trafotyp', required=False)
 	VDE_TrafotypOK = forms.BooleanField(initial=False, required=False)
-	VDE_Trafotyp = forms.CharField(max_length=250, initial='TYP1', required=False)
+	VDE_Trafotyp = forms.CharField(label = 'Transformatortyp',max_length=250, initial='TYP1', required=False)
 	
 
 	VDE_TrafoUeberTextmarke = forms.CharField(max_length=250, initial='VDE_TrafoUeber', required=False)
 	VDE_TrafoUeberOK = forms.BooleanField(initial=False, required=False)
-	VDE_TrafoUeber = forms.CharField(max_length=250, initial='No INFO', required=False)
+	VDE_TrafoUeber = forms.CharField(label = 'Transformator Übersetzungsverhältnis',max_length=250, initial='No INFO', required=False)
 	
 	VDE_TrafoOberTextmarke = forms.CharField(max_length=250, initial='VDE_TrafoOber', required=False)
 	VDE_TrafoOberOK = forms.BooleanField(initial=False, required=False)
-	VDE_TrafoOber = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+	VDE_TrafoOber = forms.DecimalField(label = 'Transformator Oberspannung in kV',max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
 	
 	VDE_TrafoUnterTextmarke = forms.CharField(max_length=250, initial='VDE_TrafoUnter', required=False)
 	VDE_TrafoUnterOK = forms.BooleanField(initial=False, required=False)
-	VDE_TrafoUnter = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+	VDE_TrafoUnter = forms.DecimalField(label = 'Transformator Unterspannung in kV', max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
 	
 	VDE_Trafo_kurzTextmarke = forms.CharField(max_length=250, initial='VDE_Trafo_kurz', required=False)
 	VDE_Trafo_kurzOK = forms.BooleanField(initial=False, required=False)
-	VDE_Trafo_kurz = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+	VDE_Trafo_kurz = forms.DecimalField(label = 'Transformator rel. Kurzschluss in %', max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
 	
-	VDE_Trafo_PTextmarke = forms.CharField(max_length=250, initial='VDE_Trafo_P', required=False)
+	VDE_Trafo_PTextmarke = forms.CharField(label='Transformatordaten in kVA', max_length=250, initial='VDE_Trafo_P', required=False)
 	VDE_Trafo_POK = forms.BooleanField(initial=False, required=False)
-	VDE_Trafo_P = forms.DecimalField(max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
+	VDE_Trafo_P = forms.DecimalField(label='Projekt', max_digits=20,decimal_places=4,initial=Decimal('0.0000'), required=False)
 
 	project = forms.ModelChoiceField(label='Projekt', queryset=Project.objects.all())
 	class Meta:
@@ -105,7 +105,8 @@ class NewEzeTypForm(forms.ModelForm):
 		fields = ('typ_name',)	
 
 class NewEzeNeuForm(forms.ModelForm):
-	eZeHersteller = forms.ModelChoiceField(label='Hersteller der EZE--id', queryset=EzeHersteller.objects.all())
+	# eZeHersteller = forms.ModelChoiceField(label='Hersteller der EZE--id', queryset=EzeHersteller.objects.all())
+	eZeHersteller = forms.CharField(label='Hersteller', max_length=250)
 	eZeHerstellerOK = forms.BooleanField(label='OK', required=False)
 	#vDE_EZE1_Typ_id
 	eZeTyp = forms.ModelChoiceField(queryset=EzeTyp.objects.all())
@@ -140,7 +141,13 @@ class NewEzeNeuForm(forms.ModelForm):
 	
 
 	ist_bestand = forms.BooleanField(label='Bestand', required=False)
-
+	VDE_EZE_Bestand_Zahl = forms.IntegerField(label='Anzahl Bestands-BHKW', initial=0, required = False)
+	VDE_P_inbe_ALT = forms.IntegerField(label='Inbetriebnahmedatum', initial=2019, required = False)
+	VDE_P_inbe_ALTTextmarke = forms.CharField(max_length=100, initial="VDE_P_inbe_ALT" )
+	VDE_EZE_Bestand_ZahlTextmarke = forms.CharField(max_length=100,  initial="VDE_EZE_Bestand_Zahl")
+	VDE_P_inbe_ALTOK = forms.BooleanField(label='OK', required=False)
+	VDE_EZE_Bestand_ZahlOK = forms.BooleanField(label='OK', required=False)
+	
 
 	class Meta:
 		model =Eze
@@ -154,7 +161,10 @@ class NewEzeNeuForm(forms.ModelForm):
 			'vDE_Anzahl_EZE1','vDE_Anzahl_EZE1OK','VDE_Anzahl_EZE1Textmarke',\
 			'VDE_EZE1_Motor','VDE_EZE1_MotorOK','VDE_EZE1_MotorTextmarke',\
 			'VDE_EZE1_Generator','VDE_EZE1_GeneratorOK','VDE_EZE1_GeneratorTextmarke',\
-			'ist_bestand')
+			'ist_bestand',\
+			 'VDE_EZE_Bestand_ZahlTextmarke','VDE_P_inbe_ALTTextmarke',\
+			 'VDE_P_inbe_ALTOK','VDE_EZE_Bestand_ZahlOK'
+			 )
 class NewEzeBestForm(forms.ModelForm):
 	eZeTypOK = forms.BooleanField(label='OK', required=False)
 	eZeTyp = forms.ModelChoiceField(label='Typ der EZE', queryset=EzeTyp.objects.all())
@@ -172,7 +182,6 @@ class NewEzeBestForm(forms.ModelForm):
 	#jahr
 	VDE_P_inbe_ALT = forms.IntegerField(label='Inbetriebnahmedatum', initial=2019, required = False)
 
-	VDE_EZE_Bestand_ZahlTextmarke = forms.CharField(max_length=100,  initial="VDE_EZE_Bestand_Zahl")
 	#but we still need textmarks
 	VDE_EZE_Herst_AltTextmarke = forms.CharField(max_length=100, initial="VDE_EZE_Herst_Alt" )
 	eZeHersteller = forms.ModelChoiceField(label='Hersteller der EZE--id', queryset=EzeHersteller.objects.all())
@@ -184,6 +193,7 @@ class NewEzeBestForm(forms.ModelForm):
 	VDE_P_EZE_ALTTextmarke = forms.CharField(max_length=100, initial="VDE_P_EZE_ALT" )
 	VDE_P_inbe_ALTTextmarke = forms.CharField(max_length=100, initial="VDE_P_inbe_ALT" )
 	VDE_EZE_Bestand_ZahlOK = forms.BooleanField(label='OK', required=False)
+	VDE_EZE_Bestand_ZahlTextmarke = forms.CharField(max_length=100,  initial="VDE_EZE_Bestand_Zahl")
 	#we do not need to double it. I want to optimize code. so.
 	# EZeHerstellerOK = forms.BooleanField(label='   ', default=False)
 	# EZeTypOK = forms.BooleanField(label='   ', default=False)
@@ -332,18 +342,18 @@ class BetreiberForm(forms.ModelForm):
 	Projekt_Nr = forms.IntegerField(initial='10000001')
 	Projekttitel = forms.CharField(max_length=250, required=True, help_text='Field is required for registration.')
 	
-	Projekt_NrTextmarke = forms.CharField(help_text='Textmarks.', max_length=100, initial="Projekt_Nr", required=True)
-	ProjekttitelTextmarke = forms.CharField(max_length=100, initial="Projekttitel", required=True)
-	EZA_Betreiber_AnspreTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Anspre", required=True)
-	EZA_Betreiber_NameTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Name", required=True)
-	EZA_Betreiber_StrNrTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_StrNr", required=True)
-	EZA_Betreiber_PlzOrtTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_PlzOrt", required=True)
-	EZA_Betreiber_TelTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Tel", required=True)
-	EZA_Betreiber_MailTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Mail", required=True)
-	Anlagenzert_NrTextmarke = forms.CharField(max_length=100, initial="Anlagenzert_Nr", required=True)
-	login = forms.CharField(max_length=100, initial="name_firma_123", required=True)
-	password1 = forms.CharField(widget=forms.PasswordInput)
-	password2 = forms.CharField(widget=forms.PasswordInput)
+	Projekt_NrTextmarke = forms.CharField(help_text='Textmarks.', max_length=100, initial="Projekt_Nr", required=False)
+	ProjekttitelTextmarke = forms.CharField(max_length=100, initial="Projekttitel", required=False)
+	EZA_Betreiber_AnspreTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Anspre", required=False)
+	EZA_Betreiber_NameTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Name", required=False)
+	EZA_Betreiber_StrNrTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_StrNr", required=False)
+	EZA_Betreiber_PlzOrtTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_PlzOrt", required=False)
+	EZA_Betreiber_TelTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Tel", required=False)
+	EZA_Betreiber_MailTextmarke = forms.CharField(max_length=100, initial="EZA_Betreiber_Mail", required=False)
+	Anlagenzert_NrTextmarke = forms.CharField(max_length=100, initial="Anlagenzert_Nr", required=False)
+	# login = forms.CharField(max_length=100, initial="name_firma_123", required=True)
+	# password1 = forms.CharField(widget=forms.PasswordInput)
+	# password2 = forms.CharField(widget=forms.PasswordInput)
 	nameOK = forms.BooleanField(required=False)
 	EZA_Betreiber_AnspreOK = forms.BooleanField(required=False)
 	EZA_Betreiber_StrNrOK = forms.BooleanField(required=False)
@@ -357,9 +367,12 @@ class BetreiberForm(forms.ModelForm):
 
 	class Meta:
 		model = Betreiber
-		fields = ('login', 'name', 'EZA_Betreiber_Anspre', 'Projekt_Nr',\
+		fields = ('name','nameOK', 'EZA_Betreiber_Anspre', 'Projekt_Nr',\
 			'Projekttitel', 'EZA_Betreiber_Mail', 'EZA_Betreiber_StrNr',\
 		 'EZA_Betreiber_PlzOrt', 'EZA_Betreiber_Tel', 'Anlagenzert_Nr', \
-		 'password1', 'password2', 'EZA_Betreiber_AnspreOK', 'EZA_Betreiber_StrNrOK',\
+		 'EZA_Betreiber_AnspreOK', 'EZA_Betreiber_StrNrOK',\
 		 'EZA_Betreiber_PlzOrtOK','EZA_Betreiber_TelOK','EZA_Betreiber_MailOK',\
-		 'Anlagenzert_NrOK','Projekt_NrOK','ProjekttitelOK')
+		 'Anlagenzert_NrOK','Projekt_NrOK','ProjekttitelOK',\
+		 'Projekt_NrTextmarke','ProjekttitelTextmarke','EZA_Betreiber_AnspreTextmarke','EZA_Betreiber_NameTextmarke',\
+		 'EZA_Betreiber_StrNrTextmarke','EZA_Betreiber_PlzOrtTextmarke','EZA_Betreiber_TelTextmarke','EZA_Betreiber_MailTextmarke',\
+		 'Anlagenzert_NrTextmarke')

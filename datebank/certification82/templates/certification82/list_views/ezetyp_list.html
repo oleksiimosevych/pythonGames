@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	Certification index
+{% endblock %}
+		
+{% block content %}
+	{% if ezetyp_name_list %}
+		<table class="table col-md-3">
+		<tr for = "link">
+			<th>Typ Name</th>
+			<th>Aktualisieren</th>
+			<th>Löschen</th>
+		</tr>
+		{% for item in ezetyp_name_list %}
+		<!-- no more hardcoded href  appname:viewname-->
+
+		<tr for = "link" class="">
+			<td><a name = "link" href="{% url 'certification82:ezetypdetailview' item.pk %}">{{ item.typ_name }}</a></td>
+			<td>
+		<a class="text-secondary" id = 'erst' href="{% url 'certification82:ezetyp_update' item.pk %}">Aktualisieren </a></td>
+			{% if user.admin == True %}
+			<td><a class="text-danger " id = 'del' href="{% url 'certification82:ezetyp_delete' item.pk %}">Löschen </a>
+			</td>
+			{% endif %}
+		</tr>
+	{% endfor %}
+	</table>
+	{% else %}
+		<p>No EzeTyps are available.</p>
+	{% endif %}
+	<a class="alert bg-primary text-light " id = 'erst' href="{% url 'certification82:new_eze_typ' %}">Erstellen: </a>
+	
+{% endblock %}

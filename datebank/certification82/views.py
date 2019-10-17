@@ -8,7 +8,7 @@ from django.http import HttpResponse
 # from django.core.files import handle_uploaded_file
 from django.urls import reverse_lazy
 from .models import EzeNeu, EzeBestand, Project, EzeBestGenerator, \
-EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft,\
+EzeBestFotovoltaic, EzeBestWindkraft, Eze, EzeNeuGenerator, EzeNeuWindkraft, EzeTyp, \
  EzeNeuFotovoltaic, Document, TrafoTyp, TrafoHersteller, Transformator, Betreiber, User, Zertifikatsinhaber, Netzbetreiber#, Schutz, Regelung
 from django.template import loader
 #add pagination
@@ -19,7 +19,7 @@ from django.urls import reverse
 from django.contrib.auth import login, authenticate
 from .forms import BetreiberForm, NetzBetreiberForm,\
  ZertifikatsinhaberForm, ProjectForm,\
- NewEzeNeuForm, NewEzeBestForm, NewHerstellerForm, NewEzeTypForm, NewDocumentForm, NewTransformatorForm\
+ NewEzeNeuForm, NewEzeBestForm, NewHerstellerForm, NewEzeTypForm, NewDocumentForm, TransformatorForm\
  ,NewTrafoTypForm, NewTrafoHerstellerForm
 	
 # Create your views here.
@@ -391,9 +391,10 @@ class EzeIndexView(generic.ListView):
 	context_object_name = 'eze_name_list'
 	template_name = 'certification82/list_views/eze_list.html'
 	def get_queryset(self):
-		return Eze.objects.order_by('vDE_EZE1_Name')[:500]
+		return Eze.objects.order_by('-eZeTyp')[:500]
 class EzeUpdate(UpdateView):
 	model = Eze
+	# form = NewEzeNeuForm(model)
 	fields = [
 	\
 			'eZeHersteller','eZeHerstellerOK','VDE_EZE1_HerstTextmarke',\
@@ -405,7 +406,9 @@ class EzeUpdate(UpdateView):
 			'vDE_Anzahl_EZE1','vDE_Anzahl_EZE1OK','VDE_Anzahl_EZE1Textmarke',\
 			'VDE_EZE1_Motor','VDE_EZE1_MotorOK','VDE_EZE1_MotorTextmarke',\
 			'VDE_EZE1_Generator','VDE_EZE1_GeneratorOK','VDE_EZE1_GeneratorTextmarke',\
-			'ist_bestand','VDE_EZE_Bestand_Zahl', 'VDE_P_inbe_ALT'
+			'ist_bestand','VDE_EZE_Bestand_Zahl', 'VDE_P_inbe_ALT',\
+			'VDE_EZE_Bestand_ZahlTextmarke','VDE_P_inbe_ALTTextmarke',\
+			 'VDE_P_inbe_ALTOK','VDE_EZE_Bestand_ZahlOK'\
 	]
 	template_name_suffix = '_update_form'
 class EzeDelete(DeleteView):
@@ -416,6 +419,27 @@ class EzeDetailView(generic.DetailView):
 	model = Eze
 	template_name = 'certification82/detailed_views/eze_detail.html'
 
+#ET
+class EzeTypCreate(CreateView):
+	model = EzeTyp
+class EzeTypIndexView(generic.ListView):
+	context_object_name = 'ezetyp_name_list'
+	template_name = 'certification82/list_views/ezetyp_list.html'
+	def get_queryset(self):
+		return EzeTyp.objects.order_by('-typ_name')[:500]
+class EzeTypUpdate(UpdateView):
+	model = EzeTyp
+	fields = ('typ_name', )
+	template_name_suffix = '_update_form'
+class EzeTypDelete(DeleteView):
+	model = EzeTyp
+	success_url = reverse_lazy('certification82:ezetypindex')
+
+class EzeTypDetailView(generic.DetailView):
+	model = EzeTyp
+	template_name = 'certification82/detailed_views/ezetyp_detail.html'
+
+
 #Z
 # ZertifikatsinhaberUpdate
 # ZertifikatsinhaberDelete
@@ -423,7 +447,7 @@ class ZertifikatsinhaberIndexView(generic.ListView):
 	context_object_name = 'zertifikatsinhaber_name_list'
 	template_name = 'certification82/list_views/zertifikatsinhaber_list.html'
 	def get_queryset(self):
-		return Zertifikatsinhaber.objects.order_by('name')[:500]
+		return Zertifikatsinhaber.objects.order_by('Zert_Part')[:500]
 class ZertifikatsinhaberDetailView(generic.DetailView):
 	model = Zertifikatsinhaber
 	template_name = 'certification82/detailed_views/Zertifikatsinhaber_detail.html'
@@ -443,7 +467,7 @@ class ZertifikatsinhaberUpdate(UpdateView):
 	# success_url = reverse_lazy('certification82:zertifikatsinhaberindex')
 class ZertifikatsinhaberDelete(DeleteView):
 	model = Zertifikatsinhaber
-	success_url = reverse_lazy('certification82:zertifikatsinhaberindex')
+	success_url = reverse_lazy('certification82:zertifikatsinhaberindexview')
 
 class ZertifikatsinhaberDetailView(generic.DetailView):
 	model = Zertifikatsinhaber
@@ -568,11 +592,11 @@ class TrafoTypDelete(DeleteView):
 #TR TRANSFORMATOR
 def new_trafo(request):
 	if request.method == 'POST':
-		form = NewTransformatorForm(request.POST)
+		form = TransformatorForm(request.POST)
 		if form.is_valid():
 			form.save()
 			
-			VDE_TrafoTextmarke = form.cleaned_data.get("VDE_TrafoTextmarke")
+			VDE_TrafoTextmarke = form.cleaned_data.get("VDE_TrafoTextmarke", label='AAAA')
 			VDE_TrafoOK =form.cleaned_data.get("VDE_TrafoOK") 
 			VDE_Trafo =form.cleaned_data.get("VDE_Trafo")
 			
@@ -609,7 +633,7 @@ def new_trafo(request):
 			print ('\n\nnew Transformator created\n\n')
 			return redirect('certification82:trafoindex')
 	else:
-		form = NewTransformatorForm()
+		form = TransformatorForm()
 	return render(request, 'new/transformator.html',{'form':form})
 
 # def trafoindex(request):
@@ -782,13 +806,16 @@ class BetreiberCreate(CreateView):
 class BetreiberUpdate(UpdateView):
 	model = Betreiber
 	fields = [
-	'login', 'name', 'EZA_Betreiber_Anspre', 'Projekt_Nr',\
+	'name', 'nameOK','EZA_Betreiber_Anspre', 'Projekt_Nr',\
 			'Projekttitel', 'EZA_Betreiber_Mail', 'EZA_Betreiber_StrNr',\
 		 'EZA_Betreiber_PlzOrt', 'EZA_Betreiber_Tel', 'Anlagenzert_Nr', \
-		 'password1', 'password2', 'EZA_Betreiber_AnspreOK', 'EZA_Betreiber_StrNrOK',\
+		 'EZA_Betreiber_AnspreOK', 'EZA_Betreiber_StrNrOK',\
 		 'EZA_Betreiber_PlzOrtOK','EZA_Betreiber_TelOK','EZA_Betreiber_MailOK',\
-		 'Anlagenzert_NrOK','Projekt_NrOK','ProjekttitelOK'
+		 'Anlagenzert_NrOK','Projekt_NrOK','ProjekttitelOK','Projekt_NrTextmarke','ProjekttitelTextmarke','EZA_Betreiber_AnspreTextmarke',\
+		 'EZA_Betreiber_StrNrTextmarke','EZA_Betreiber_PlzOrtTextmarke','EZA_Betreiber_TelTextmarke','EZA_Betreiber_MailTextmarke',\
+		 'Anlagenzert_NrTextmarke'\
 	]
+	template_name_suffix = '_update_form'
 class BetreiberDelete(DeleteView):
 	model = Betreiber
 	success_url = reverse_lazy('certification82:betreiberindex')
@@ -809,11 +836,12 @@ class NetzbetreiberUpdate(UpdateView):
 	fields = ['Projekt_Nr','NB_AnsprechOK','NB_Ansprech','NB_NameOK','NB_Name','NB_StrOK','NB_Str','NB_PLZOK','NB_PLZ'\
 			,'NB_TelOK','NB_Tel','NB_FaxOK','NB_Fax','NB_MailOK','NB_Mail','Registriernummer_NB','NB_AnsprechTextmarke'\
 			,'NB_NameTextmarke','NB_StrTextmarke','NB_PLZTextmarke','NB_TelTextmarke','NB_FaxTextmarke'\
-			,'NB_MailTextmarke','Registriernummer_NBTextmarke',\
+			,'NB_MailTextmarke','Registriernummer_NBTextmarke','Registriernummer_NBOK',\
 			'Projekt_NrOK','Projekt_NrTextmarke']
 	# template_name_suffix = '_update_form'
 class NetzbetreiberDelete(DeleteView):
 	model = Netzbetreiber
+	success_url = reverse_lazy('certification82:netzbetreiberindex')
 
 
 def schutzindex(request):

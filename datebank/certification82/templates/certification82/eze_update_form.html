@@ -7,19 +7,154 @@
 
   <form class = 'form' method="post">
     {% csrf_token %}
+    
+    <table border=0 class="table table-hover">
+    
+      <tr class= "thead-light">
+        {% if user.admin == True %}
+        <th>Textmarke (for Administrator)</th>
+        {% endif %}
+        <th>Erklärung</th>
+        <th>Information</th>
+        <th>OK</th>
+      </tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_HerstTextmarke }}</th>
+        <th>Hersteller der EZE</th>
+       <td> {{ form.eZeHersteller }}</td>
+       {% if object.eZeHerstellerOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %} {{ form.eZeHerstellerOK }}</td></tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_TypTextmarke }}</th>
+        <th>Typ der EZE</th>
+         <td> {{ form.eZeTyp }}</td>
+         {% if object.eZeTypOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+          {{ form.eZeTypOK }}</td></tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_NameTextmarke }}</th>
+        <th>Bezeichnung der EZE</th>
+         <td> {{ form.vDE_EZE1_Name }}</td>
+         {% if object.vDE_EZE1_NameOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %} {{ form.vDE_EZE1_NameOK }}</td></tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_ZertNRTextmarke }}</th>
+        <th>Einheiten-zertifikat Nr.</th>
+         <td> {{ form.vDE_EZE1_ZertNR }}</td>
+         {% if object.vDE_EZE1_ZertNROK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %} {{ form.vDE_EZE1_ZertNROK }}</td></tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_MotorTextmarke }}</th>
+        <th>Motortyp für VKM</th>
+         <td> {{ form.VDE_EZE1_Motor }}</td>
+         {% if object.VDE_EZE1_MotorOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %} {{ form.VDE_EZE1_MotorOK }}</td>
+        </tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_GeneratorTextmarke }}</th>
+        <th>Generatortyp für VKM</th>
+         <td> {{ form.VDE_EZE1_Generator }}</td>
+         {% if object.VDE_EZE1_GeneratorOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %} {{ form.VDE_EZE1_GeneratorOK }}</td>
+        </tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_STextmarke }}</th>
+        <th>Bemessungs-scheinleistung in MVA</th>
+         <td> {{ form.vDE_EZE1_S }}</td>
+         {% if object.vDE_EZE1_SOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %} {{ form.vDE_EZE1_SOK }}</td>
+        </tr>
+      <tr>
+        <th>{{ form.VDE_EZE1_PTextmarke }}</th>
+        <th>Bemessungs-wirkleistung in MW</th>
+         <td> {{ form.vDE_EZE1_P }}</td>
+         {% if object.vDE_EZE1_POK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+          {{ form.vDE_EZE1_POK }}</td></tr>
+      <tr>
+        <th>{{ form.VDE_Anzahl_EZE1Textmarke }}</th>
+        <th>Anzahl der EZE</th>
+       <td> {{ form.vDE_Anzahl_EZE1 }}</td>
+       {% if object.vDE_Anzahl_EZE1OK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %} {{ form.vDE_Anzahl_EZE1OK }}</td></tr>
+         <tr>
+        <th>{{ form.VDE_EZE_Bestand_ZahlTextmarke }}</th>
+        <th>Anzahl Bestands-BHKW</th>
+         <td> {{ form.VDE_EZE_Bestand_Zahl }}</td>
+         {% if object.VDE_EZE_Bestand_ZahlOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+        {{ form.VDE_EZE_Bestand_ZahlOK }}</td>
+      </tr>
+
+         <tr>
+        <th title="Inbetriebnahmedatum">{{ form.VDE_P_inbe_ALTTextmarke }}</th>
+        <th>Inbetrieb-nahmedatum</th>
+         <td> {{ form.VDE_P_inbe_ALT }}</td>
+      {% if object.VDE_P_inbe_ALTOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+        {{ form.VDE_P_inbe_ALTOK }}</td>
+      </tr>
+       <tr>
+        <!-- {2% if user.admin == True %}
+        <th title="Projekt">{2{ form.projectTextmarke }}</th>
+        {2% endif %} -->
+        <th>Projekt</th>
+         <td> {{ form.project }}</td>
+      <!-- {2% if object.projectOK == True %}
+         <td class="bg-success">
+         {2% else %}
+         <td class="bg-danger">
+         {2% endif %}
+        {2{ form.projectOK }}</td> -->
+      </tr>
+      <tr><th>ID</th> <td> {{ form.id }}</td><td></td><td></td> </tr>
+      </table>
+
+
+
     <table class="table col-md-5" border="1">
       {% for field in form %}
-      
-        <tr class="">
-          <th>{{ field.label_tag }}</th>
-        <td>{{ field }}</td>
-        <td>
+        {% for error in field.errors %}
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
         {% endif %}
         </td>
-        <td>
-        {% for error in field.errors %}
+        <tr class="">
+          <th>{{ field.label_tag }}</th>
+        <td>{{ field }}</td>
           <p style="color: red">{{ error }}</p>
         {% endfor %}
         </td>

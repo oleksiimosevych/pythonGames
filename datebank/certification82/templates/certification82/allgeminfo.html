@@ -26,151 +26,213 @@
 		<table border=0 class="table table-hover col-md-6">
 		
 		{% for betr in betreiber %}
-			{%if user.admin == True %}
-			<tr class= "thead-light"><th >Info Betreiber für Admin:</th> <th>{{ betr.Zert_Firm }}</th><th>OK</th></tr>
-			<tr ><th >{{betr.EZA_Betreiber_NameTextmarke}}:</th> <td><b>{{ betr.name }}</b></td>
-			<td>{{ betr.nameOK }}</td></tr></tr>
-			<tr><th>{{ betr.EZA_Betreiber_AnspreTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_Anspre }}</td><td>{{ betr.EZA_Betreiber_AnspreOK }}</td></tr></tr>
-			<tr><th>{{ betr.EZA_Betreiber_StrNrTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_StrNr }}</td><td>{{ betr.EZA_Betreiber_StrNrOK}}</td></tr>
-			<tr><th>{{ betr.EZA_Betreiber_PlzOrtTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_PlzOrt }}</td><td>{{ betr.EZA_Betreiber_PlzOrtOK }}</td></tr></tr>
-			<tr><th>{{ betr.EZA_Betreiber_TelTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_Tel }}</td><td>{{ betr.EZA_Betreiber_TelOK }}</td></tr></tr>
-			<tr><th>{{ betr.EZA_Betreiber_MailTextmarke }}:</th> <td> {{ betr.EZA_Betreiber_Mail }}</td><td>{{ betr.EZA_Betreiber_MailOK }}</td></tr></tr>
-			<tr><th>{{ betr.Anlagenzert_NrTextmarke }}:</th> <td> {{ betr.Anlagenzert_Nr }}</td>
-			<td>{{ betr.Anlagenzert_NrOK }}</td></tr></tr>
-			<tr><th>{{ betr.Projekt_NrTextmarke }}:</th> <td> {{ betr.Projekt_Nr }}</td>
-			<td>{{ betr.Projekt_NrOK }}</td></tr></tr>
-			<tr><th>{{ betr.ProjekttitelTextmarke }}:</th> <td> {{ betr.Projekttitel }}</td>
-			<td>{{ betr.ProjekttitelOK }}</td></tr></tr>
-			<tr><td><!-- <a href="{% url 'certification82:betreiberdetailview' betr.id %}">View</a> -->	<a href="{% url 'certification82:betreiber_update' betr.id %}">Aktualisieren</a>	<!-- <a href="">Delete</a>--></td></tr>
-			<tr><th></th></tr>
-			{% endif %}
-
+			
+			{% with betr as object %}
 			<tr class= "thead-light">
-				<th >Info Betreiber:</th> <th>{{ betr.Zert_Firm }}</th><th>OK</th>
+				<th >Info Betreiber:</th> <th>{{ object.Zert_Firm }}</th><th>OK</th>
 				{% if user.admin == True %}
 				<th>Textmarke</th></tr>
 				{% endif %}
-			<tr ><th >Ansprechpartner:</th> <td><b>{{ betr.name }}</b></td>
-			{% if betr.nameOK == True %}
+			<tr ><th >Ansprechpartner:</th> <td><b>{{ object.name }}</b></td>
+			{% if object.nameOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
-			{{ betr.nameOK }}</td></tr></tr>
-			<tr><th>EZA-Betreiber:</th> <td> {{ betr.EZA_Betreiber_Anspre }}</td>
+			{{ object.nameOK }}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_AnspreTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>EZA-Betreiber:</th> <td> {{ object.EZA_Betreiber_Anspre }}</td>
 
-				{% if betr.EZA_Betreiber_AnspreOK == True %}
+				{% if object.EZA_Betreiber_AnspreOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
-				 {% endif %}{{ betr.EZA_Betreiber_AnspreOK }}</td></tr></tr>
-			<tr><th>Str, HausNr.:</th> <td> {{ betr.EZA_Betreiber_StrNr }}</td>
-			{% if betr.EZA_Betreiber_StrNrOK == True %}
+				 {% endif %}{{ object.EZA_Betreiber_AnspreOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_AnspreTextmarke }}</td>
+			{% endif %}</tr>
+				</tr>
+			<tr><th>Str, HausNr.:</th> <td> {{ object.EZA_Betreiber_StrNr }}</td>
+			{% if object.EZA_Betreiber_StrNrOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
-			{{ betr.EZA_Betreiber_StrNrOK}}</td></tr>
-			<tr><th>PLZ, Ort:</th> <td> {{ betr.EZA_Betreiber_PlzOrt }}</td>
+			{{ object.EZA_Betreiber_StrNrOK}}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_StrNrTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>PLZ, Ort:</th> <td> {{ object.EZA_Betreiber_PlzOrt }}</td>
 
-			{% if betr.EZA_Betreiber_PlzOrtOK == True %}
+			{% if object.EZA_Betreiber_PlzOrtOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
-			{{ betr.EZA_Betreiber_PlzOrtOK }}</td></tr></tr>
-			<tr><th>Telefon:</th> <td> {{ betr.EZA_Betreiber_Tel }}</td>
+			{{ object.EZA_Betreiber_PlzOrtOK }}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_PlzOrtTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Telefon:</th> <td> {{ object.EZA_Betreiber_Tel }}</td>
 
-			{% if betr.EZA_Betreiber_TelOK == True %}
+			{% if object.EZA_Betreiber_TelOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
-			{{ betr.EZA_Betreiber_TelOK }}</td></tr></tr>
-			<tr><th>E-Mail:</th> <td> {{ betr.EZA_Betreiber_Mail }}</td>
-			{% if betr.EZA_Betreiber_MailOK == True %}
+			{{ object.EZA_Betreiber_TelOK }}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_TelTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>E-Mail:</th> <td> {{ object.EZA_Betreiber_Mail }}</td>
+			{% if object.EZA_Betreiber_MailOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
-			{{ betr.EZA_Betreiber_MailOK }}</td></tr></tr>
-			<tr><th>Anlagenzertifikat Nummer:</th> <td> {{ betr.Anlagenzert_Nr }}</td>
-			{% if betr.Anlagenzert_NrOK == True %}
+			{{ object.EZA_Betreiber_MailOK }}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_MailTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Anlagenzertifikat Nummer:</th> <td> {{ object.Anlagenzert_Nr }}</td>
+			{% if object.Anlagenzert_NrOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
-				 {% endif %}{{ betr.Anlagenzert_NrOK }}</td></tr></tr>
-			<tr><th>Projektnummer:</th> <td> {{ betr.Projekt_Nr }}</td>
-			{% if betr.Projekt_NrOK == True %}
+				 {% endif %}{{ object.Anlagenzert_NrOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.Anlagenzert_NrTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Projektnummer:</th> <td> {{ object.Projekt_Nr }}</td>
+			{% if object.Projekt_NrOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
-				 {% endif %}{{ betr.Projekt_NrOK }}</td></tr></tr>
-			<tr><th>{{ betr.ProjekttitelTextmarke }}:</th> <td> {{ betr.Projekttitel }}</td>
-			{% if betr.ProjekttitelOK == True %}
+				 {% endif %}{{ object.Projekt_NrOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.Projekt_NrTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Projekttittel:</th> <td> {{ object.Projekttitel }}</td>
+			{% if object.ProjekttitelOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
-				 {% endif %}{{ betr.ProjekttitelOK }}</td></tr></tr>
-			<tr><td><!-- <a href="{% url 'certification82:betreiberdetailview' betr.id %}">View</a> -->	<a href="{% url 'certification82:betreiber_update' betr.id %}">Aktualisieren</a>	<!-- <a href="">Delete</a>--></td></tr>
+				 {% endif %}{{ object.ProjekttitelOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.ProjekttitelTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><td><!-- <a href="{% url 'certification82:betreiberdetailview' object.id %}">View</a> -->	<a href="{% url 'certification82:betreiber_update' object.id %}">Aktualisieren</a>	 </td>
+				<td><a href="{% url 'certification82:betreiber_delete' object.id %}">Löschen</a>
+			</td></tr>
 			<tr><th></th></tr>
+			{% endwith %}
+			
 
 		{%endfor%}
 			<br><tr><td><a href="{% url 'certification82:new_betreiber' %}">Neu Betreiber</a></td></tr>
 			
 		{% for zert in zertifikatsinhaber %}
 
-			<tr class= "thead-light"><th >Info Zertifikatsinhaber:</th> <th>{{ zert.Zert_Firm }}</th><th>OK</th></tr>
-			<tr ><th >{{ zert.EZA_BezeichnungTextmarke }}:</th> <td>{{ zert.EZA_Bezeichnung }}
+			<tr class= "thead-light">
+				{% if user.admin == True %}
+					<th>Textmarke</th>
+				{% endif %}
+				<th >Info Zertifikatsinhaber:</th> <th>{{ zert.Zert_Firm }}</th><th>OK</th></tr>
+			<tr >
+				{% if user.admin == True %}
+				<th >{{ zert.EZA_BezeichnungTextmarke }}:</th>
+				{% endif %}
+				<th >{{ zert.EZA_BezeichnungText }}:</th>
+				<td>{{ zert.EZA_Bezeichnung }}
+				
 				{% if zert.EZA_BezeichnungOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}{{ zert.EZA_BezeichnungOK }}</td></tr>
 			</td></tr>
-			<tr><th>{{ zert.Zert_PartTextmarke }}:</th> <td> {{ zert.Zert_Part }}</td>
+			<tr>
+				{% if user.admin == True %}
+				<th >{{ zert.Zert_PartTextmarke }}:</th>
+				{% endif %}
+				
+				<th>{{ zert.Zert_PartText }}:</th> <td> {{ zert.Zert_Part }}</td>
 			{% if zert.Zert_PartOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ zert.Zert_PartOK }}</td></tr>
-			<tr><th>{{ zert.Zert_FirmTextmarke }}:</th> <td> {{ zert.Zert_Firm }}</td>
+			<tr>
+				{% if user.admin == True %}
+				<th >{{ zert.Zert_FirmTextmarke }}:</th>
+				{% endif %}
+				
+				<th>{{ zert.Zert_FirmText }}:</th> <td> {{ zert.Zert_Firm }}</td>
 			{% if zert.Zert_FirmOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ zert.Zert_FirmOK }}</td></tr>
-			<tr><th>{{ zert.Zert_NrTextmarke }}:</th> <td> {{ zert.Zert_Nr }}</td>
+			<tr>
+				{% if user.admin == True %}
+				<th >{{ zert.Zert_NrTextmarke }}:</th>
+				{% endif %}
+				
+				<th>{{ zert.Zert_NrText }}:</th> <td> {{ zert.Zert_Nr }}</td>
 			{% if zert.Zert_NrOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ zert.Zert_NrOK }}</td></tr>
-			<tr><th>{{ zert.Zert_PLZTextmarke }}:</th> <td> {{ zert.Zert_PLZ }}</td>
+			<tr>
+				{% if user.admin == True %}
+				<th >{{ zert.Zert_PLZTextmarke }}:</th>
+				{% endif %}
+				<th>{{ zert.Zert_PLZText }}:</th> <td> {{ zert.Zert_PLZ }}</td>
 			{% if zert.Zert_PLZOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ zert.Zert_PLZOK }}</td></tr>
-			<tr><th>{{ zert.Zert_TelTextmarke }}:</th> <td> {{ zert.Zert_Tel }}</td>
+			<tr>
+				{% if user.admin == True %}
+				<th >{{ zert.Zert_TelTextmarke }}:</th>
+				{% endif %}
+				<th>{{ zert.Zert_TelText }}:</th> <td> {{ zert.Zert_Tel }}</td>
 			{% if zert.Zert_TelOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ zert.Zert_TelOK }}</td></tr></tr>
-			<tr><th>{{ zert.Zert_FaxTextmarke }}:</th> <td> {{ zert.Zert_Fax }}</td>
+			<tr>{% if user.admin == True %}
+				<th >{{ zert.Zert_FaxTextmarke }}:</th>
+				{% endif %}
+				<th>{{ zert.Zert_FaxText }}:</th> <td> {{ zert.Zert_Fax }}</td>
 			{% if zert.Zert_FaxOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ zert.Zert_FaxOK }}</td></tr>
-			<tr><th>{{ zert.Zert_MailTextmarke }}:</th> <td> {{ zert.Zert_Mail }}</td>
+			<tr>{% if user.admin == True %}
+				<th >{{ zert.Zert_MailTextmarke }}:</th>
+				{% endif %}
+				<th>{{ zert.Zert_MailText }}:</th> <td> {{ zert.Zert_Mail }}</td>
 			{% if zert.Zert_MailOK == True %}
 				 <td class="bg-success">
 				 {% else %}
@@ -178,7 +240,10 @@
 				 {% endif %}
 			{{ zert.Zert_MailOK }}</td></tr>
 			
-			<tr><th>{{ zert.Projekt_NrTextmarke }}:</th> <td> {{ zert.Projekt_Nr }}</td>
+			<tr>{% if user.admin == True %}
+				<th >{{ zert.Projekt_NrTextmarke }}:</th>
+				{% endif %}
+				<th>{{ zert.Projekt_NrText }}:</th> <td> {{ zert.Projekt_Nr }}</td>
 			{% if zert.Projekt_NrOK == True %}
 				 <td class="bg-success">
 				 {% else %}
@@ -191,77 +256,111 @@
 		{%endfor%}
 			
 		{% for eze in netzbetreiber %}
-			<tr class= "thead-light"><th >Info Netzbetreiber:</th> <th>{{ eze.NB_Name }}</th><th>OK</th></tr>
+			<tr class= "thead-light">
+				{% if user.admin == True %}
+					<th>Textmarke</th>
+				{% endif %}
+				<th >Info Netzbetreiber:</th> <th>{{ eze.NB_Name }}</th><th>OK</th></tr>
 		
-			<tr><th >{{ eze.NB_AnsprechTextmarke }}:</th> <td>{{ eze.NB_Ansprech }}
-			{% if zert.NB_AnsprechOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_AnsprechTextmarke }}:</th>
+				{% endif %}
+				<th >{{ eze.NB_AnsprechText }}:</th> <td>{{ eze.NB_Ansprech }}
+			{% if eze.NB_AnsprechOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.NB_AnsprechOK }}</td></tr>
 			</td></tr>
-			<tr><th>{{ eze.NB_NameTextmarke }}:</th> <td> {{ eze.NB_Name }}</td>
-			{% if zert.NB_NameOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_NameTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_NameText }}:</th> <td> {{ eze.NB_Name }}</td>
+			{% if eze.NB_NameOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.NB_NameOK }}</td></tr>
-			<tr><th>{{ eze.NB_StrTextmarke }}:</th> <td> {{ eze.NB_Str }}</td>
-			{% if zert.NB_StrOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_StrTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_StrText }}:</th> <td> {{ eze.NB_Str }}</td>
+			{% if eze.NB_StrOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.NB_StrOK }}</td></tr>
-			<tr><th>{{ eze.NB_PLZTextmarke }}:</th> <td> {{ eze.NB_PLZ }}</td>
-			{% if zert.NB_PLZOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_PLZTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_PLZText }}:</th> <td> {{ eze.NB_PLZ }}</td>
+			{% if eze.NB_PLZOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.NB_PLZOK }}</td></tr>
-			<tr><th>{{ eze.NB_TelTextmarke }}:</th> <td> {{ eze.NB_Tel }}</td>
-			{% if zert.NB_TelOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_TelTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_TelText }}:</th> <td> {{ eze.NB_Tel }}</td>
+			{% if eze.NB_TelOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.NB_TelOK }}</td></tr>
-			<tr><th>{{ eze.NB_FaxTextmarke }}:</th> <td> {{ eze.NB_Fax }}</td>
-			{% if zert.NB_FaxOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_FaxTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_FaxText }}:</th> <td> {{ eze.NB_Fax }}</td>
+			{% if eze.NB_FaxOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.NB_FaxOK }}</td></tr></tr>
-			<tr><th>{{ eze.NB_MailTextmarke }}:</th> <td> {{ eze.NB_Mail }}</td>
-			{% if zert.NB_MailOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_MailTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_MailText }}:</th> <td> {{ eze.NB_Mail }}</td>
+			{% if eze.NB_MailOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.NB_MailOK }}</td></tr>
 			
-			<tr><th>{{ eze.Registriernummer_NBTextmarke }}:</th> 
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.Registriernummer_NBTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.Registriernummer_NBText }}:</th> 
 				<td>{{eze.Registriernummer_NB }}</td>
-			{% if zert.Registriernummer_NBOK == True %}
+			{% if eze.Registriernummer_NBOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.Registriernummer_NBOK }}</td></tr>
 			
-			<tr><th>{{ eze.Projekt_NrTextmarke }}:</th> <td> {{ eze.Projekt_Nr }}</td>
-			{% if zert.Projekt_NrOK == True %}
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.Projekt_NrTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.Projekt_NrText }}:</th> <td> {{ eze.Projekt_Nr }}</td>
+			{% if eze.Projekt_NrOK == True %}
 				 <td class="bg-success">
 				 {% else %}
 				 <td class="bg-danger">
 				 {% endif %}
 			{{ eze.Projekt_NrOK }}</td></tr>
-			<tr><td><a href="{% url 'certification82:eze_neu_show' eze.id %}">View</a>	<a href="">Aktualisieren</a>	<a href="">Delete</a></td></tr>
-			<tr><th></th></tr>
+			<tr><td><a href="{% url 'certification82:netzbet_update' eze.id %}">Aktualisieren</a></td>
+			</tr>
+				
+			<!-- <a href="">Delete</a></td></tr> -->
+			<!-- <tr><th></th></tr> -->
 		
 
 

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %} Betreiber aktualisieren {% endblock %}
+{% block title %} EZETyp aktualisieren {% endblock %}
 
 {% block content %}
-  <h2>Betreiber Aktualisieren</h2>
+  <h2>Aktualisieren Sie Typ der EZE </h2>
 
   <form class = 'form' method="post">
     {% csrf_token %}
@@ -26,6 +26,6 @@
       
     {% endfor %}
     </table>
-    <button class ='btn btn-primary' type="submit" value="Update">Betreiber aktualisieren</button>
+    <button class ='btn btn-primary' type="submit" value="Update">EZETyp aktualisieren</button>
   </form>
 {% endblock %}

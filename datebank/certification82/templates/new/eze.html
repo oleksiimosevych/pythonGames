@@ -6,8 +6,8 @@
     <h2>+1 EZE</h2>
     {% if user.admin == True %}
     <table class="table col-md-5" border="1">
-      Kein Herrsteller, Typ oder Projekt? Bitte, hinzufügen:
-      <a href="{% url 'certification82:new_hersteller' %}">Herrsteller  +1 |</a>
+      Kein Typ oder Projekt? Bitte, hinzufügen:
+      <!-- <a href="{1% url 'certification82:new_hersteller' %}">Herrsteller  +1 |</a> -->
       <a href="{% url 'certification82:new_eze_typ' %}">Typ   +1 |</a>
       <a href="{% url 'certification82:new_projekt' %}">Projekt  +1 |</a>
     <form method="post">

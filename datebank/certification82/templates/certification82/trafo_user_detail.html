@@ -9,17 +9,17 @@
 	<div class="card text-center">
 {% for proj in ezen %}
 	{% if proj.project_number == user.projekt_nr %}
-	<h5>Projekt "{{ proj.project_name }}". EZE.</h5>
+	<h5>Projekt "{{ proj.project_name }}". Transformatoren.</h5>
 	<br>
 	</div>
-	<span class='card col-md-6 ezeneu_left'>
-		<li class="list-group-item ">EZE Neu</li>
+	<span class='card col-md-8 ezeneu_left'>
+		<li class="list-group-item col-md-9">Transformatoren</li>
 		
 			<!-- <h1>proj.project_number == user.projekt_nr {4{ proj.project_number }} ID {{ proj.id }}</h1> -->
 		
 		{% for eze in eze %}
 			{% if eze.project_id == proj.id %}
-				<table border=0 class="col-md-5 table table-hover clear_both" >
+				<table border=0 class="col-md-6 table table-hover clear_both" >
 				<tr class= "thead-light">
 					{% if user.admin == True %}
 					<th>Textmarke:</th>

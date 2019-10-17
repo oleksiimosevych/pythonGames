@@ -46,6 +46,17 @@ class Netzbetreiber(models.Model):
 	Registriernummer_NBOK=models.BooleanField(default=False)
 	Projekt_NrTextmarke = models.CharField(max_length=100, default="Projekt_Nr", unique=False)
 	
+	Registriernummer_NBText = models.CharField(max_length=250, default='Registrier Nummer NB')
+	NB_AnsprechText = models.CharField(max_length=250, default='Netzbetreiber')
+	NB_NameText = models.CharField(max_length=250, default='Ansprechpartner NB')
+	NB_StrText = models.CharField(max_length=250, default='Straße')
+	NB_PLZText = models.CharField(max_length=250, default='PLZ, Ort')
+	NB_TelText = models.CharField(max_length=250, default='Telefon')
+	NB_FaxText = models.CharField(max_length=250, default='Fax')
+	NB_MailText = models.CharField(max_length=250, default='E-Mail')
+
+	Projekt_NrText = models.CharField(max_length=100, default="Projektnummer", unique=False)
+	
 	def __str__(self):
 		return self.NB_Ansprech
 	def get_absolute_url(self):
@@ -83,10 +94,10 @@ class Betreiber(models.Model):
 	Projekttitel = models.CharField(max_length=250, default=' ')
 	Projekt_NrTextmarke = models.CharField(max_length=100, default="Projekt_Nr", unique=False)
 	ProjekttitelTextmarke = models.CharField(max_length=100, default="Projekttitel", unique=False)
-	password1 = models.CharField(max_length=100 , default="f234dgthind2356")
-	password2 = models.CharField(max_length=100, default="f234dgthind2356")
-	login = models.CharField(max_length=100, unique=True, default="name123fdds44")
-	# user = models.OneToOneField(User, on_delete = models.CASCADE, default="", null=True)
+	# password1 = models.CharField(max_length=100 , default="f234dgthind2356")
+	# password2 = models.CharField(max_length=100, default="f234dgthind2356")
+	# login = models.CharField(max_length=100, unique=True, default="name123fdds44")
+	# # user = models.OneToOneField(User, on_delete = models.CASCADE, default="", null=True)
 	projectuser = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE, default="", null=True)
 	def __str__(self):
 		return self.name
@@ -211,6 +222,18 @@ class Zertifikatsinhaber(models.Model):
 	Projekt_Nr = models.BigIntegerField(default=0, unique=False)
 	Projekt_NrOK=models.BooleanField(default=False)
 	Projekt_NrTextmarke = models.CharField(max_length=100, default="Projekt_Nr", unique=False)
+	
+	Projekt_NrText = models.CharField(max_length=100, default="Projektnummer", unique=False)
+	EZA_BezeichnungText = models.CharField(max_length=100, default="Parkbezeichnung")
+	Zert_PartText = models.CharField(max_length=100, default="Firma")
+	Zert_FirmText = models.CharField(max_length=100, default="Ansprechpartner")
+	Zert_NrText = models.CharField(max_length=100, default="Str, HausNr.")
+	Zert_PLZText = models.CharField(max_length=100, default="PLZ, Ort")
+	Zert_TelText = models.CharField(max_length=100, default="Telefon")
+	Zert_FaxText = models.CharField(max_length=100, default="Fax")
+	Zert_MailText = models.CharField(max_length=100, default="E-Mail")
+		
+
 	def __str__(self):
 		return self.EZA_Bezeichnung
 	def get_absolute_url(self):
@@ -299,8 +322,9 @@ class EzeTyp(models.Model):
 class Eze(models.Model):
 	#vDE_EZE1_Herst_id
 	eZeHerstellerOK = models.BooleanField(default=False)
-	eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE, default=None)
+	# eZeHersteller = models.ForeignKey(EzeHersteller, on_delete=models.CASCADE, default=None)
 	#vDE_EZE1_Typ_id
+	eZeHersteller = models.CharField(max_length=250, default= "N/A") 
 	eZeTypOK = models.BooleanField(default=False)
 	eZeTyp = models.ForeignKey(EzeTyp, on_delete=models.CASCADE, default=1)
 	#every eze belongs to project

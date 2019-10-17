@@ -6,11 +6,127 @@
   <h2>Zertifikatsinhaber aktualisieren </h2>
 
   <form class = 'form' method="post">
+    <!-- do not forget to put it before A table!! before to post data and dont forget to do every update inside of FORM!!! tag -->
     {% csrf_token %}
+    {% with form as zert %}
+      <table class="table">
+      <tr class= "thead-light">
+          <th>Textmarke (Administration)</th>
+        <th >Info Zertifikatsinhaber</th> <th>{{ object.Zert_Firm }}</th><th>OK</th></tr>
+      <tr >
+        <th >{{ zert.EZA_BezeichnungTextmarke }}</th>
+        <th >{{ object.EZA_BezeichnungText }}</th>
+        <td>{{ zert.EZA_Bezeichnung }}
+        
+        {% if object.EZA_BezeichnungOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}{{ zert.EZA_BezeichnungOK }}</td></tr>
+      </td></tr>
+      <tr>
+        <th >{{ zert.Zert_PartTextmarke }}</th>
+        
+        <th>{{ object.Zert_PartText }}</th> <td> {{ zert.Zert_Part }}</td>
+      {% if object.Zert_PartOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Zert_PartOK }}</td></tr>
+      <tr>
+        <th >{{ zert.Zert_FirmTextmarke }}</th>
+        
+        <th>{{ object.Zert_FirmText }}</th> <td> {{ zert.Zert_Firm }}</td>
+      {% if object.Zert_FirmOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Zert_FirmOK }}</td></tr>
+      <tr>
+        <th >{{ zert.Zert_NrTextmarke }}</th>
+        
+        <th>{{ object.Zert_NrText }}</th> <td> {{ zert.Zert_Nr }}</td>
+      {% if object.Zert_NrOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Zert_NrOK }}</td></tr>
+      <tr>
+        <th >{{ zert.Zert_PLZTextmarke }}</th>
+        <th>{{ object.Zert_PLZText }}</th> <td> {{ zert.Zert_PLZ }}</td>
+      {% if object.Zert_PLZOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Zert_PLZOK }}</td></tr>
+      <tr>
+        <th >{{ zert.Zert_TelTextmarke }}</th>
+        <th>{{ object.Zert_TelText }}</th> <td> {{ zert.Zert_Tel }}</td>
+      {% if object.Zert_TelOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Zert_TelOK }}</td></tr></tr>
+      <tr><th >{{ zert.Zert_FaxTextmarke }}</th>
+        <th>{{ object.Zert_FaxText }}</th> <td> {{ zert.Zert_Fax }}</td>
+      {% if object.Zert_FaxOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Zert_FaxOK }}</td></tr>
+      <tr><th >{{ zert.Zert_MailTextmarke }}</th>
+        <th>{{ object.Zert_MailText }}</th> <td> {{ zert.Zert_Mail }}</td>
+      {% if object.Zert_MailOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Zert_MailOK }}</td></tr>
+      
+      <tr><th >{{ zert.Projekt_NrTextmarke }}</th>
+        <th>{{ object.Projekt_NrText }}</th> <td> {{ zert.Projekt_Nr }}</td>
+      {% if object.Projekt_NrOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ zert.Projekt_NrOK }}</td></tr>
+
+      {% endwith %}
+     </table> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <table class="table col-md-5" border="1">
       {% for field in form %}
       
-        <tr class="">
+        
+        {% for error in field.errors %}
+          <tr class="">
           <th>{{ field.label_tag }}</th>
         <td>{{ field }}</td>
         <td>
@@ -19,7 +135,6 @@
         {% endif %}
         </td>
         <td>
-        {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
         </td>

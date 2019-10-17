@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	EZE detail
+{% endblock %}
+		
+{% block content %}
+{%if object %}
+	<table border=0 class="table table-hover">
+		
+			<tr class= "thead-light">
+				{% if user.admin == True %}
+				<th>Textmarke:</th>
+				{% endif %}
+				<th>Name</th>
+				<th>Info</th>
+				<th>OK</th>
+			</tr>
+			<tr>
+				{% if user.admin == True %}
+				<th>{{ object.typ_nameTextmarke }}:</th>
+				{% endif %}
+				<th>Typ der EZE</th>
+			 <td> {{ object.typ_name }}</td>
+			 {% if object.typ_nameOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %} {{ object.typ_nameOK }}</td></tr>
+			
+			<tr><th>ID:</th> <td> {{ object.id }}</td><td></td><td></td> </tr>
+			</table>
+			<div class="alert btn-group" role="group" aria-label="Basic example">
+				<button type="button" class="btn btn"><a href="{% url 'certification82:ezetyp_update' object.id %}"><d class='text-dark'>Edit<d/></a></button>
+ 
+				{% if user.admin == True %}
+				
+  				<button type="button" class="btn btn-danger"><a href="{% url 'certification82:ezetyp_delete' object.id %}"><d class='text-light'>Delete<d/></a></button>
+
+				{% endif %}
+			</div>
+		{% if user.admin == True %}
+		<br><button class=" bg-success btn"><a href="{% url 'certification82:new_eze_typ' %}"><d class='text-light'>+1 EZE: Neu<d/></a></button>
+		{% endif %}		
+		
+	
+		</table>
+{% else %}
+		<p>Es sind keine EZE verfügbar.</p>
+{% endif %}
+	
+{% endblock %}

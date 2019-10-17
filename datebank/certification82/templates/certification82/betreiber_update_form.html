@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %} Betreiber aktualisieren {% endblock %}
+
+{% block content %}
+  <h2>Betreiber Aktualisieren</h2>
+  <form class = 'form' method="post">
+  
+  <table border=0 class="table table-hover table">
+       {% csrf_token %}
+      <tr class= "thead-light">
+        <th >Info Betreiber:</th> <th>{{ form.Zert_Firm }}</th><th>OK</th>
+        <th>Textmarke</th></tr>
+        
+      <tr ><th >Ansprechpartner:</th> <td><b>{{ form.name }}</b></td>
+      {% if object.nameOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ form.nameOK }}</td>
+      <!-- <td>{k{ form.nameTextmarke }}</td> -->
+      <td>{{ form.EZA_Betreiber_AnspreTextmarke }}</td>
+    </tr>
+      <tr><th>EZA-Betreiber:</th> <td> {{ form.EZA_Betreiber_Anspre }}</td>
+
+        {% if object.EZA_Betreiber_AnspreOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}{{ form.EZA_Betreiber_AnspreOK }}</td>
+      <td>{{ form.EZA_Betreiber_AnspreTextmarke }}</td>
+    </tr>
+        </tr>
+      <tr><th>Str, HausNr.:</th> <td> {{ form.EZA_Betreiber_StrNr }}</td>
+      {% if object.EZA_Betreiber_StrNrOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ form.EZA_Betreiber_StrNrOK}}</td>
+      <td>{{ form.EZA_Betreiber_StrNrTextmarke }}</td>
+    </tr>
+      <tr><th>PLZ, Ort:</th> <td> {{ form.EZA_Betreiber_PlzOrt }}</td>
+
+      {% if object.EZA_Betreiber_PlzOrtOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ form.EZA_Betreiber_PlzOrtOK }}</td>
+      <td>{{ form.EZA_Betreiber_PlzOrtTextmarke }}</td>
+    </tr>
+      <tr><th>Telefon:</th> <td> {{ form.EZA_Betreiber_Tel }}</td>
+
+      {% if object.EZA_Betreiber_TelOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ form.EZA_Betreiber_TelOK }}</td>
+      <td>{{ form.EZA_Betreiber_TelTextmarke }}</td>
+    </tr>
+      <tr><th>E-Mail:</th> <td> {{ form.EZA_Betreiber_Mail }}</td>
+      {% if object.EZA_Betreiber_MailOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ form.EZA_Betreiber_MailOK }}</td>
+      <td>{{ form.EZA_Betreiber_MailTextmarke }}</td>
+    </tr>
+      <tr><th>Anlagenzertifikat Nummer:</th> <td> {{ form.Anlagenzert_Nr }}</td>
+      {% if object.Anlagenzert_NrOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}{{ form.Anlagenzert_NrOK }}</td>
+      <td>{{ form.Anlagenzert_NrTextmarke }}</td>
+    </tr>
+      <tr><th>Projektnummer:</th> <td> {{ form.Projekt_Nr }}</td>
+      {% if object.Projekt_NrOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}{{ form.Projekt_NrOK }}</td>
+      <td>{{ form.Projekt_NrTextmarke }}</td>
+    </tr>
+      <tr><th>Projekttittel:</th> <td> {{ form.Projekttitel }}</td>
+      {% if object.ProjekttitelOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}{{ form.ProjekttitelOK }}</td>
+      <td>{{ form.ProjekttitelTextmarke }}</td>
+    </tr>
+      
+    </table>
+
+
+   
+    <table class="table col-md-5" border="1">
+      {% for field in form %}
+        {% for error in field.errors %}
+        <td>
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        </td>
+        <tr class="">
+          <th>{{ field.label_tag }}</th>
+        <td>{{ field }}</td>
+        <td>
+        
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </td>
+      
+    {% endfor %}
+    </table>
+    <button class ='btn btn-primary' type="submit" value="Update">Betreiber aktualisieren</button>
+  </form>
+{% endblock %}

@@ -8,8 +8,113 @@
   <form class = 'form' method="post">
     {% csrf_token %}
     <table class="table col-md-5" border="0">
+      {% with form as eze %}
+      <tr class= "thead-light">
+          <th>Textmarke (Für Administrator)</th>
+        <th >Info Netzbetreiber</th> <th>{{ object.NB_Name }}</th><th>OK</th></tr>
+    
+      <tr><th >{{ eze.NB_AnsprechTextmarke }}</th>
+        <th >{{ eze.NB_AnsprechText }}</th> <td>{{ eze.NB_Ansprech }}
+      {% if object.NB_AnsprechOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.NB_AnsprechOK }}</td></tr>
+      </td></tr>
+      <tr>
+        <th >{{ eze.NB_NameTextmarke }}</th>
+        <th>{{ eze.NB_NameText }}</th> <td> {{ eze.NB_Name }}</td>
+      {% if object.NB_NameOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.NB_NameOK }}</td></tr>
+      <tr>
+        <th >{{ eze.NB_StrTextmarke }}</th>
+        <th>{{ eze.NB_StrText }}</th> <td> {{ eze.NB_Str }}</td>
+      {% if object.NB_StrOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.NB_StrOK }}</td></tr>
+      <tr><th >{{ eze.NB_PLZTextmarke }}</th>
+        <th>{{ eze.NB_PLZText }}</th> <td> {{ eze.NB_PLZ }}</td>
+      {% if object.NB_PLZOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.NB_PLZOK }}</td></tr>
+      <tr>
+        <th >{{ eze.NB_TelTextmarke }}</th>
+        <th>{{ eze.NB_TelText }}</th> <td> {{ eze.NB_Tel }}</td>
+      {% if object.NB_TelOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.NB_TelOK }}</td></tr>
+      <tr>
+        <th >{{ eze.NB_FaxTextmarke }}</th>
+        <th>{{ eze.NB_FaxText }}</th> <td> {{ eze.NB_Fax }}</td>
+      {% if object.NB_FaxOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.NB_FaxOK }}</td></tr></tr>
+      <tr>
+        <th >{{ eze.NB_MailTextmarke }}</th>
+        <th>{{ eze.NB_MailText }}</th> <td> {{ eze.NB_Mail }}</td>
+      {% if object.NB_MailOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.NB_MailOK }}</td></tr>
+      
+      <tr><th >{{ eze.Registriernummer_NBTextmarke }}</th>
+        <th>{{ eze.Registriernummer_NBText }}</th> 
+        <td>{{eze.Registriernummer_NB }}</td>
+      {% if object.Registriernummer_NBOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.Registriernummer_NBOK }}</td></tr>
+      
+      <tr>
+        <th >{{ eze.Projekt_NrTextmarke }}</th>
+        <th>{{ eze.Projekt_NrText }}</th> <td> {{ eze.Projekt_Nr }}</td>
+      {% if object.Projekt_NrOK == True %}
+         <td class="bg-success">
+         {% else %}
+         <td class="bg-danger">
+         {% endif %}
+      {{ eze.Projekt_NrOK }}</td></tr>
+      {% endwith %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {% for field in form %}
       
+        
+        {% for error in field.errors %}
         <tr class="">
           <th>{{ field.label_tag }}</th>
         <td>{{ field }}</td>
@@ -19,7 +124,6 @@
         {% endif %}
         </td>
         <td>
-        {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
         </td>

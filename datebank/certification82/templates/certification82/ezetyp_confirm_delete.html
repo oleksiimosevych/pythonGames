@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}
+	EZETyp löschen
+{% endblock %}
+{% block content %}
+
+<h1>EzeTyp löschen?</h1>
+<form  method="post" class="form">
+{% csrf_token %}
+Möchten Sie dieses Typ der EZE wirklich löschen?
+<input class="alert bg-danger text-light" type="submit"  value="Submit"  />
+</form>
+{% endblock %}

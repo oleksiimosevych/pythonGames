@@ -13,112 +13,110 @@
 	</div>
 		<span class='col-md-6 ezeneu_left '>
 		<table border=2 class = "col-md-2 table table-hover">
-					<tr class= "thead-light">
-						{% if user.admin == True %}
-						<th >Textmarke</th>
-						{% endif %}
-
-						<th>Erklärung</th><th>Information</th><th>OK</th>
-					<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.NB_AnsprechTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.NB_Ansprech }}</td>
-					 {% if object.NB_AnsprechOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.NB_AnsprechOK }}</td>
-					</tr>
-					<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.NB_NameTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.NB_Name }}</td>
-					 {% if object.NB_NameOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.NB_NameOK }}</td>
-					</tr>
-					<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.NB_StrTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.NB_Str }}</td>
-					 {% if object.NB_StrOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.NB_StrOK }}</td>
-					</tr>
-					<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.NB_PLZTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.NB_PLZ }}</td>
-					 {% if object.NB_PLZOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.NB_PLZOK }}</td>
-					</tr>
-					<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.NB_TelTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.NB_Tel }}</td>
-					 {% if object.NB_TelOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.NB_TelOK }}</td>
-					</tr>
-					<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.NB_FaxTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.NB_Fax }}</td>
-					 {% if object.NB_FaxOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.NB_FaxOK }}</td>
-					</tr>
-					<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.NB_MailTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.NB_Mail }}</td>
-					 {% if object.NB_MailOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.NB_MailOK }}</td>
-					</tr>
-										<tr>			
-					{% if user.admin == True %}
-					<th>{{ object.Registriernummer_NBTextmarke }}:</th>
-					{% endif %}
-					<th>Bemessungs-scheinleistung in MVA</th>
-					 <td> {{ object.Registriernummer_NB }}</td>
-					 {% if object.Registriernummer_NBOK == True %}
-					 <td class="bg-success">
-					 {% else %}
-					 <td>
-					 {% endif %} {{ object.Registriernummer_NBOK }}</td>
-					</tr>
-
-			<tr><th>ID:</th> <td> {{ object.id }}</td><td></td><td></td> </tr>
+		{% with object as eze %}
+			<tr class= "thead-light">
+				{% if user.admin == True %}
+					<th>Textmarke</th>
+				{% endif %}
+				<th >Info Netzbetreiber:</th> <th>{{ eze.NB_Name }}</th><th>OK</th></tr>
+		
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_AnsprechTextmarke }}:</th>
+				{% endif %}
+				<th >{{ eze.NB_AnsprechText }}:</th> <td>{{ eze.NB_Ansprech }}
+			{% if eze.NB_AnsprechOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.NB_AnsprechOK }}</td></tr>
+			</td></tr>
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_NameTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_NameText }}:</th> <td> {{ eze.NB_Name }}</td>
+			{% if eze.NB_NameOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.NB_NameOK }}</td></tr>
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_StrTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_StrText }}:</th> <td> {{ eze.NB_Str }}</td>
+			{% if eze.NB_StrOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.NB_StrOK }}</td></tr>
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_PLZTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_PLZText }}:</th> <td> {{ eze.NB_PLZ }}</td>
+			{% if eze.NB_PLZOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.NB_PLZOK }}</td></tr>
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_TelTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_TelText }}:</th> <td> {{ eze.NB_Tel }}</td>
+			{% if eze.NB_TelOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.NB_TelOK }}</td></tr>
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_FaxTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_FaxText }}:</th> <td> {{ eze.NB_Fax }}</td>
+			{% if eze.NB_FaxOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.NB_FaxOK }}</td></tr></tr>
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.NB_MailTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.NB_MailText }}:</th> <td> {{ eze.NB_Mail }}</td>
+			{% if eze.NB_MailOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.NB_MailOK }}</td></tr>
 			
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.Registriernummer_NBTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.Registriernummer_NBText }}:</th> 
+				<td>{{eze.Registriernummer_NB }}</td>
+			{% if eze.Registriernummer_NBOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.Registriernummer_NBOK }}</td></tr>
 			
+			<tr>{% if user.admin == True %}
+				<th >{{ eze.Projekt_NrTextmarke }}:</th>
+				{% endif %}
+				<th>{{ eze.Projekt_NrText }}:</th> <td> {{ eze.Projekt_Nr }}</td>
+			{% if eze.Projekt_NrOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ eze.Projekt_NrOK }}</td></tr>
+			<a href="">Aktualisieren</a>	
+
+		{% endwith %}
 		</table>
 		<div class="alert btn-group" role="group" aria-label="Basic example">
 				<button type="button" class="btn btn"><a href="{% url 'certification82:netzbet_update' object.id %}"><d class='text-dark'>Edit<d/></a></button>

@@ -12,9 +12,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #for MYSQL
         # 'ENGINE': 'django.db.backends.mysql',
-        'USER':'',
-        'NAME':'',
-        'PASSWORD':'',
+        'USER':'postgres',
+        'NAME':'db1',
+        'PASSWORD':'@@@userSuperGHTfds666',
         'HOST':'localhost',
  
     }

@@ -10,6 +10,9 @@
 		<table class="table col-md-3">
 		<tr for = "link">
 			<th>EZE</th>
+			<th>Typ</th>
+			<th>EZE ist bestand?</th>
+
 			<th>Projekt</th>
 			<th>Aktualisieren</th>
 			<th>Löschen</th>
@@ -19,7 +22,13 @@
 
 		<tr for = "link" class="">
 			<td><a name = "link" href="{% url 'certification82:ezedetailview' item.pk %}">{{ item.vDE_EZE1_Name }}</a></td>
-			
+			<td>{{ item.eZeTyp }}</td>
+			{% if item.ist_bestand == True %}
+			<td class="bg-success text-light">
+			{% else %}
+			<td class="bg-danger">
+			{% endif %}
+			{{ item.ist_bestand }}</td>
 			<td><a name = "link" href="{% url 'certification82:projectdetailview' item.project_id %}">{{ item.project }}</a></td>
 			<td>
 

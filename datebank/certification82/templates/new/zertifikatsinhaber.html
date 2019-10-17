@@ -1,23 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Zertifikatsinhaber{% endblock %}
+{% block title %}Add Projekt{% endblock %}
 
 {% block content %}
-  <h2>Add Zertifikatsinhaber</h2>
+  <h2>Add Projekt</h2>
   <form method="post">
     {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
+        <table class="table col-md-5" border=0>
+      {% for field in form %}
+      
+        <tr class="">
+          <th>{{ field.label_tag }}</th>
+        <td>{{ field }}</td>
+        <td>
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
         {% endif %}
+        </td>
+        <td>
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
-      </p>
-    {% endfor %}
+        </td>
+      
+      {% endfor %}
+    </table>
     <button class='btn btn-success' type="submit">+1 Zertifikatsinhaber hinzufügen</button>
   </form>
 {% endblock %}

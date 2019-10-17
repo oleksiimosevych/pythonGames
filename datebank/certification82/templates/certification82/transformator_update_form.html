@@ -7,12 +7,129 @@
 
   <form class = 'form' method="post">
     {% csrf_token %}
-    <table class="table col-md-5" border="1">
-      {% for field in form %}
+    
+    <table border=0 class="col-md-5 table table-hover clear_both" >
+        <tr class= "thead-light">
+          {% if user.is_authenticated == True %}
+          <th>Textmarke (Für Administrator)</th>
+          {% endif %}
+          <th>Erklärung</th>
+          <th>Information</th>
+          <th>OK</th>
+        </tr>
+
+        
       
-        <tr class="">
-          <th>{{ field.label_tag }}</th>
-        <td>{{ field }}</td>
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_TrafoTextmarke }}</th>
+          {% endif %}
+          <th>Transformator T1</th>
+          <td > {{ form.VDE_Trafo }}</td>
+          {% if transformator.VDE_TrafoOK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_TrafoOK }}</td>
+        </tr>
+        
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_TrafoherstellerTextmarke }}</th>
+          {% endif %}
+          <th>Transformator-hersteller T1</th>
+          <td> {{ form.VDE_Trafohersteller }}</td>
+          {% if transformator.VDE_TrafoherstellerOK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_TrafoherstellerOK }}</td>
+        </tr>
+        
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_TrafotypTextmarke }}</th>
+          {% endif %}
+          <th>Transformator-typ T1</th>
+          <td> {{ form.VDE_Trafotyp }}</td>
+          {% if transformator.VDE_TrafotypOK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_TrafotypOK }}</td>
+        </tr>
+        
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_TrafoUeberTextmarke }}</th>
+          {% endif %}
+          <th>Transformator Übersetzungsverhältnis T1</th>
+          <td> {{ form.VDE_TrafoUeber }}</td>
+          {% if transformator.VDE_TrafoUeberOK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_TrafoUeberOK }}</td>
+        </tr>
+        
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_TrafoOberTextmarke }}</th>
+          {% endif %}
+          <th>Transformator Oberspannung in kV T1</th>
+          <td> {{ form.VDE_TrafoOber }}</td>
+          {% if transformator.VDE_TrafoOberOK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_TrafoOberOK }}</td>
+        </tr>
+        
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_TrafoUnterTextmarke }}</th>
+          {% endif %}
+          <th>Transformator Unterspannung in kV T1</th>
+          <td> {{ form.VDE_TrafoUnter }}</td>
+          {% if transformator.VDE_TrafoUnterOK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_TrafoUnterOK }}</td>
+        </tr>
+        
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_Trafo_kurzTextmarke }}</th>
+          {% endif %}
+          <th>Transformator rel. Kurzschluss in % T1</th>
+          <td> {{ form.VDE_Trafo_kurz }}</td>
+          {% if transformator.VDE_Trafo_kurzOK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_Trafo_kurzOK }}</td>
+        </tr>
+        
+        <tr>
+          {% if user.is_authenticated == True %}
+          <th>{{ form.VDE_Trafo_PTextmarke }}</th>
+          {% endif %}
+          <th>Transformatordaten in kVA T1</th>
+          <td> {{ form.VDE_Trafo_P }}</td>
+          {% if transformator.VDE_Trafo_POK == True %}
+          <td class="bg-success">
+          {% else %}
+          <td class="bg-danger">
+          {% endif %} {{ form.VDE_Trafo_POK }}</td>
+        </tr>
+          
+          <tr><th>Projekt</th> <td> {{ form.project }}</td><td></td> </tr>
+          </tr>
+          </table>
+
+          <table><tr class="error" >
+    {% for field in form%}
         <td>
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
@@ -20,12 +137,14 @@
         </td>
         <td>
         {% for error in field.errors %}
+          <th>{{ field.label_tag }}</th>
+        <!-- <td>{3{ field }}</td> -->
           <p style="color: red">{{ error }}</p>
         {% endfor %}
-        </td>
-      
-    {% endfor %}
+        </td></tr>
+        {% endfor %}
     </table>
+
     <button class="btn btn-primary" type="submit" value="Update">Transformator aktualisieren</button>
   </form>
 {% endblock %}
