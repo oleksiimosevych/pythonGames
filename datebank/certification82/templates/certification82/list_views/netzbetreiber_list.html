@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	Netzbetreiber index
+{% endblock %}
+		
+{% block content %}
+	{% if netzbetreiber_name_list %}
+		{% if user.admin == False %}
+		<h1>
+			Information des NetzBetreibers der Projekt  
+		</h1><h1>
+		{% elif user.admin == True %}
+			<div class="card"> <div class="card-body">
+				<table border=0 class = "col-md-2 table table-hover">
+					<!-- <tr class= "thead-light"> -->
+						<tr>
+						{% if user.admin == True %}
+						<th >Name</th>
+						<th>Projektnummer</th>
+						<th></th>
+						<th>Lesen</th>
+						<th>Aktuakisieren</th>
+						<th>Loschen</th>
+						{% endif %}
+					</tr>
+		{% endif %}
+		{% for item in netzbetreiber_name_list %}
+				{% if item.Projekt_Nr == user.projekt_nr %}
+				<!-- no more hardcoded href  appname:viewname-->
+				<div for = "link" class="jumbotron text-center">
+					<p><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">{{ item.NB_Ansprech }}</a></p>
+				</div>
+				
+				</h1>
+				{% elif user.admin == True %}
+				<!-- no more hardcoded href  appname:viewname-->
+
+				<tr>
+					<td><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">{{ item.NB_Ansprech }}</a></td><td>{{ item.Projekt_Nr }}</td><td>{{ item.Projekttitel }}</td>
+					<th><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">View</a></th>
+					<th><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">Edit</a></th>
+					{% if user.admin == True %}
+					<th><a name = "link" href="{% url 'certification82:netzbetreiberdetailview' item.pk %}">Remove</a></th>
+					</tr>
+					{% endif %}
+				{% endif %}
+		{% endfor %}
+		{% if user.admin == True %}
+			</table></div></div>
+		{% endif %}
+
+	</h1>
+	{% else %}
+		<p>Hier gibt es kein NetzBetreiber</p>
+	{% endif %}
+{% endblock %}

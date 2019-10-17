@@ -7,7 +7,7 @@ from . import views
 app_name = 'certification82'
 urlpatterns = [
     #!@#$
-    
+    path('', views.IndexView.as_view(), name='index'),
     # path('', views.index, name='index'),
     #A-Z
     #A
@@ -42,19 +42,28 @@ urlpatterns = [
     
     #E
     #eze
+    path('eze_user_detail<int:projekt_nr>', views.eze_user_detail, name = 'eze_user_detail'),
     path('new_eze_bestand', views.new_eze_bestand, name = 'new_eze_bestand'),
     path('new_eze_neu', views.new_eze_neu, name = 'new_eze_neu'),
     path('eze/number/<int:pk>', views.EzeDetailView.as_view(), name = 'ezedetailview'),
     path('eze/update/<int:pk>', views.EzeUpdate.as_view(), name='eze_update'),
-    path('eze/update2/<int:pk>', views.EzeUpdate.as_view(), name='eze_update2'),
+    path('ezes/', views.EzeIndexView.as_view(), name='ezeindex'),
+    
+    # path('eze/update2/<int:pk>', views.EzeUpdate.as_view(), name='eze_update2'),
     path('eze/delete/<int:pk>', views.EzeDelete.as_view(), name='eze_delete'),
     path('<int:ezeneu_id>/show', views.eze_neu_show, name='eze_neu_show'),
     # path('ezebestdetails/<int:ezebest_id>/', views.eze_best_show, name='eze_best_show'),
 
     #N
     #NETZBETREIBER HERE:
+    path('netzbet/number/<int:pk>', views.NetzbetreiberDetailView.as_view(), name = 'netzbetreiberdetailview'),
+    path('netzbet/all', views.NetzbetreiberIndexView.as_view(), name='netzbetreiberindex'),
     path('new_netzbet', views.new_netzbetreiber,name = 'new_netzbetreiber'),
+    path('netzbet/update/<int:pk>', views.NetzbetreiberUpdate.as_view(), name='netzbet_update'),
+    # path('eze/update2/<int:pk>', views.EzeUpdate.as_view(), name='eze_update2'),
+    path('netzbet/delete/<int:pk>', views.NetzbetreiberDelete.as_view(), name='netzbet_delete'),
     
+
     path('new_eze_typ', views.new_eze_typ, name = 'new_eze_typ'),
     path('new_hersteller', views.new_hersteller, name = 'new_hersteller'),
     
@@ -77,7 +86,7 @@ urlpatterns = [
     
     #P
     #PROJECT ALL Links:
-    path('', views.IndexView.as_view(), name='index'),
+    
     path('pro<int:project_id>/show', views.project_show, name='project_show'),
     path('pro/update/<int:pk>', views.ProjectUpdate.as_view(), name='project_update'),
     path('pro/delete/<int:pk>', views.ProjectDelete.as_view(), name='project_delete'),
@@ -105,6 +114,7 @@ urlpatterns = [
     path('trafotyps/', views.TrafoTypIndexView.as_view(), name='trafotypindex'),
     path('trafotyp/number/<int:pk>', views.TrafoTypDetailView.as_view(), name = 'trafotypdetailview'),
     
+    path('trafo_user_detail<int:projekt_nr>', views.trafo_user_detail, name = 'trafo_user_detail'),
     path('trafo/update/<int:pk>', views.TransformatorUpdate.as_view(), name='trafo_update'),
     path('trafo/delete/<int:pk>', views.TransformatorDelete.as_view(), name='trafo_delete'),
     path('new_trafo', views.new_trafo,name = 'new_trafo'),
@@ -119,8 +129,11 @@ urlpatterns = [
     #Z
     #ZERTIFIKATINHABER ALL:
     path('new_zert', views.new_zert,name = 'new_zert'),
-    # path('zer/update/<int:pk>', views.ZertifikatinhaberUpdate.as_view(), name='zert_update'),
-    # path('zer/delete/<int:pk>', views.ZertifikatinhaberDelete.as_view(), name='zert_delete'),
+    path('zer/update/<int:pk>', views.ZertifikatsinhaberUpdate.as_view(), name='zert_update'),
+    path('zer/delete/<int:pk>', views.ZertifikatsinhaberDelete.as_view(), name='zert_delete'),
+    path('zerts/', views.ZertifikatsinhaberIndexView.as_view(), name='zertifikatsinhaberindexview'),
+    path('zerts/number/<int:pk>', views.ZertifikatsinhaberDetailView.as_view(), name = 'zertifikatsinhaberdetailview'),
+    
     
 
     #############################new

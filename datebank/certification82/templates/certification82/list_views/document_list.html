@@ -7,18 +7,38 @@
 		
 {% block content %}
 	{% if document_name_list %}
+
 		<table class="table col-md-3">
+		<tr for = "link">
+			<th>Dokument</th>
+			<th>Projekt</th>
+			<th>Aktualisieren</th>
+			<th>Löschen</th>
+		</tr>
 		{% for item in document_name_list %}
 		<!-- no more hardcoded href  appname:viewname-->
-		<tr for = "link" class="">
-			<td><a name = "link" href="{% url 'certification82:documentdetailview' item.pk %}">{{ item.name }}</a></td>
-		<td>
-		<a class="alert bg-primary text-light " id = 'erst' href="{% url 'certification82:doc_update' item.pk %}">Aktualisieren: </a></td>
 			{% if user.admin == True %}
-			<td><a class="alert bg-primary text-light " id = 'del' href="{% url 'certification82:doc_delete' item.pk %}">Löschen: </a>
-			</td>
-			
+				<tr for = "link" class="">
+				<td><a name = "link" href="{% url 'certification82:documentdetailview' item.pk %}">{{ item.name }}</a></td>
+				<td><a name = "link" href="{% url 'certification82:documentdetailview' item.pk %}">{{ item.project }}</a></td>
+				<td>
+				<a class="text-secondary" id = 'erst' href="{% url 'certification82:doc_update' item.pk %}">Aktualisieren </a></td>
+				
+				<td><a class="text-danger " id = 'del' href="{% url 'certification82:doc_delete' item.pk %}">Löschen</a>
+				</td>
+				
 			{% endif %}
+			{% if user.admin == False %}
+				{% if item.project.project_number == user.projekt_nr %}
+					<tr for = "link" class="">
+					<td><a name = "link" href="{% url 'certification82:documentdetailview' item.pk %}">{{ item.name }}</a></td>
+					<td><a name = "link" href="{% url 'certification82:allgeminfo' item.project.project_number %}">{{ item.project }}</a></td>
+					<td>
+					<a class="text-secondary" id = 'erst' href="{% url 'certification82:doc_update' item.pk %}">Aktualisieren </a></td>
+				{% endif %}
+			{% endif %}
+			
+
 		</tr>
 	{% endfor %}
 	</table>

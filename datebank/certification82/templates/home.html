@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block title %}Home{% endblock %}
-{% block menu %}
+<!-- {2% block menu %}
 		<a href="{% url 'certification82:documenteindex'%}">DOCUMENTE |</a>
 		<a href="{% url 'certification82:index'%}">EZE |</a>
 		<a href="{% url 'certification82:schutzindex'%}">SCHUTZ |</a>
 		<a href="{% url 'certification82:trafoindex'%}">TRAFO |</a>
 		<a href="{% url 'certification82:regelungindex'%}">REGELUNG |</a>
-		{% endblock %}
+		{2% endblock %} -->
 {% block content %}
 {% if user.is_authenticated %}
 

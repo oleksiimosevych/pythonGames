@@ -3,7 +3,7 @@
 {% block title %} EZE aktualisieren {% endblock %}
 
 {% block content %}
-  <h2>Update EZE </h2>
+  <h2>Aktualisieren Sie EZE </h2>
 
   <form class = 'form' method="post">
     {% csrf_token %}
@@ -26,6 +26,6 @@
       
     {% endfor %}
     </table>
-    <button type="submit" value="Update">EZE aktualisieren</button>
+    <button class ='btn btn-primary' type="submit" value="Update">EZE aktualisieren</button>
   </form>
 {% endblock %}

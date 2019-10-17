@@ -9,49 +9,132 @@
 	<div class="jumbotron text-center">
 		<h2>Object "{{object.name}}" details: {{ object.project_name }}</h2> 	
 		<br>
-		<!-- <a href="{9% url 'certification82:ezeneuwindkraftsoftheprojectindex' ezen.id %}">Neue WINDKRAFTS |</a>
-		<a href="{9% url 'certification82:ezeneufotooftheprojectindex' ezen.id  %}">Neue Fotovoltaics |</a>
-		<a href="{9% url 'certification82:ezeneugenoftheprojectindex' ezen.id %}">Neue Generators |</a>
-		<a href="{9% url 'certification82:ezebestwindoftheprojectindex' ezen.id %}">Bestandene WINDKRAFTS |</a>
-		<a href="{9% url 'certification82:ezebestfotooftheprojectindex' ezen.id %}">Bestandene Fotovoltaics |</a>
-		<a href="{9% url 'certification82:ezebestgenoftheprojectindex' ezen.id %}">Bestandene Generators |</a>
-		 -->
 	</div>
 		<span class='col-md-6 ezeneu_left '>
-		<table border=2 class="table-hover table">
+		<table border=2 class="table table-hover table">
 			
-			<tr id="ezename"><th >{{object.EZA_Betreiber_NameTextmarke}}:</th> <td><b>{{ object.name }}</b></td></tr>
-			<tr><th>{{ object.EZA_Betreiber_AnspreTextmarke }}:</th> <td> {{ object.EZA_Betreiber_Anspre }}</td></tr>
-			<tr><th>{{ object.EZA_Betreiber_StrNrTextmarke }}:</th> <td> {{ object.EZA_Betreiber_StrNr }}</td></tr>
-			<tr><th>{{ object.EZA_Betreiber_PlzOrtTextmarke }}:</th> <td> {{ object.EZA_Betreiber_PlzOrt }}</td></tr>
-			<tr><th>{{ object.EZA_Betreiber_TelTextmarke }}:</th> <td> {{ object.EZA_Betreiber_Tel }}</td></tr>
-			<tr><th>{{ object.EZA_Betreiber_MailTextmarke }}:</th> <td> {{ object.EZA_Betreiber_Mail }}</td></tr>
-			<tr><th>{{ object.Anlagenzert_NrTextmarke }}:</th> <td> {{ object.Anlagenzert_Nr }}</td></tr>
-			<tr><th>{{ object.Projekt_NrTextmarke }}:</th> <td> {{ object.Projekt_Nr }}</td></tr>
-			<tr><th>{{ object.ProjekttitelTextmarke }}:</th> <td> {{ object.Projekttitel }}</td></tr>
-
-			<tr><th>ID:</th> <td> {{ object.id }}</td> </tr>
-
-			<tr><td><a href="{% url 'certification82:project_show' object.id %}">Edit</a>
+			<tr class= "thead-light">
+				<th >Info Betreiber:</th> <th>{{ object.Zert_Firm }}</th><th>OK</th>
+				{% if user.admin == True %}
+				<th>Textmarke</th></tr>
+				{% endif %}
+			<tr ><th >Ansprechpartner:</th> <td><b>{{ object.name }}</b></td>
+			{% if object.nameOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ object.nameOK }}</td>
 			{% if user.admin == True %}
-				<td for = 'del'><a name ='del' href="">Delete</a></td>
-			</td></tr>
+			<td>{{ object.EZA_Betreiber_AnspreTextmarke }}</td>
 			{% endif %}
+		</tr>
+			<tr><th>EZA-Betreiber:</th> <td> {{ object.EZA_Betreiber_Anspre }}</td>
+
+				{% if object.EZA_Betreiber_AnspreOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}{{ object.EZA_Betreiber_AnspreOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_AnspreTextmarke }}</td>
+			{% endif %}</tr>
+				</tr>
+			<tr><th>Str, HausNr.:</th> <td> {{ object.EZA_Betreiber_StrNr }}</td>
+			{% if object.EZA_Betreiber_StrNrOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ object.EZA_Betreiber_StrNrOK}}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_StrNrTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>PLZ, Ort:</th> <td> {{ object.EZA_Betreiber_PlzOrt }}</td>
+
+			{% if object.EZA_Betreiber_PlzOrtOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ object.EZA_Betreiber_PlzOrtOK }}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_PlzOrtTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Telefon:</th> <td> {{ object.EZA_Betreiber_Tel }}</td>
+
+			{% if object.EZA_Betreiber_TelOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ object.EZA_Betreiber_TelOK }}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_TelTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>E-Mail:</th> <td> {{ object.EZA_Betreiber_Mail }}</td>
+			{% if object.EZA_Betreiber_MailOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ object.EZA_Betreiber_MailOK }}</td>
+			{% if user.admin == True %}
+			<td>{{ object.EZA_Betreiber_MailTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Anlagenzertifikat Nummer:</th> <td> {{ object.Anlagenzert_Nr }}</td>
+			{% if object.Anlagenzert_NrOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}{{ object.Anlagenzert_NrOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.Anlagenzert_NrTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Projektnummer:</th> <td> {{ object.Projekt_Nr }}</td>
+			{% if object.Projekt_NrOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}{{ object.Projekt_NrOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.Projekt_NrTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><th>Projekttittel:</th> <td> {{ object.Projekttitel }}</td>
+			{% if object.ProjekttitelOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}{{ object.ProjekttitelOK }}</td>
+				 {% if user.admin == True %}
+			<td>{{ object.ProjekttitelTextmarke }}</td>
+			{% endif %}
+		</tr>
+			<tr><td><!-- <a href="{% url 'certification82:betreiberdetailview' object.id %}">View</a> -->	<a href="{% url 'certification82:betreiber_update' object.id %}">Aktualisieren</a>	 </td>
+				<td><a href="{% url 'certification82:betreiber_delete' object.id %}">Löschen</a>
+			</td></tr>
+			<tr><th></th></tr>
 			
 		</table>
 		<br>
-		<table border=2 class="table-hover">
+		<!-- <table border=2 class="table-hover">
 		
-			{% for proj in project %}
-				{% if proj.project_Nr == object.project_Nr %}
-					<tr id="ezename"><th >{{object.name}} BELONGS TO</th> <td><b>NEXT PROJECTS:</b></td></tr>
-					<tr><th>NAME:</th> <td> {{ proj.project_name }}</td></tr>
-					<tr><td><a href="{% url 'certification82:project_show' proj.id %}">Edit</a>	<a href="">Edit</a>
-				{% endif %}
+			{3% for proj in project %}
+				{3% if proj.project_Nr == object.project_Nr %}
+					<tr id="ezename"><th >{3{object.name}} BELONGS TO</th> <td><b>NEXT PROJECTS:</b></td></tr>
+					<tr><th>NAME:</th> <td> {3{ proj.project_name }}</td></tr>
+					<tr><td><a href="{3% url 'certification82:project_show' proj.id %}">Edit</a>	<a href="">Edit</a>
+				{3% endif %}
 
-			{%endfor%}
+			{3%endfor%}
 			
-		</table>
+		</table> -->
 		
 		</span>
 	<br>

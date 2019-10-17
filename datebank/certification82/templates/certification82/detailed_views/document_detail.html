@@ -7,14 +7,22 @@
 		
 {% block content %}
 {%if document %}
-	<table border=2 class="table-hover">
+	<table border=2 class="table-hover table">
 
 		<tr id="ezebname"><th >Document Name:</th> <td>{{ document.name }}</td></tr>
-		<tr ><th >proofed:</th> <td>{{ document.proofed }}</td></tr>
-		<tr ><th >comment:</th> <td>{{ document.comment }}</td></tr>
-		<tr ><th >upload directory:</th> <td>{{ document.upload }}</td></tr>
-		<tr ><th >dokument URL:</th> <td><a href="{{ document.upload.url }}">
-		<button class="btn btn" action="">Read/Download "{{ document.name }}"
+		<tr ><th >Geprüft:</th> 
+			{% if not document.proofed %}
+			<td class="bg-danger">
+			{% else %}
+			<td class="bg-success">
+			{% endif %}
+			{{ document.proofed }}</td>
+		</tr>
+		<tr ><th >Kommentar:</th> <td>{{ document.comment }}</td></tr>
+		<tr ><th >Verzeichnis:</th> <td>{{ document.upload }}</td></tr>
+		<tr ><th >Projektname:</th> <td>{{ document.project }}</td></tr>
+		<tr ><th >Dokument-URL:</th> <td><a href="{{ document.upload.url }}">
+		<button class="btn btn" action="">Lesen / Herunterladen "{{ document.name }}"
 		</a>
 		</td></tr>
 		<tr><th></th></tr>

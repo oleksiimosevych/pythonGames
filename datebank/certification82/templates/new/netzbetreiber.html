@@ -6,18 +6,25 @@
     <h2>Add Netzbetreiber</h2>
     <form method="post">
     {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
+        <table class="table col-md-5" border="1">
+      {% for field in form %}
+      
+        <tr class="">
+          <th>{{ field.label_tag }}</th>
+        <td>{{ field }}</td>
+        <td>
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
         {% endif %}
+        </td>
+        <td>
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">+1 Netzbetreiber hinzufügen</button>
+        </td>
+      
+      {% endfor %}
+    </table>
+    <button class='btn btn-success' type="submit">+1 Netzbetreiber hinzufügen</button>
   </form>
 {% endblock %}

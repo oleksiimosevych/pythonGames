@@ -8,14 +8,23 @@
 {% block content %}
 	{% if transformator_name_list %}
 		<table class="table col-md-3">
+		<tr for = "link">
+			<th>Transformator</th>
+			<th>Projekt</th>
+			<th>Aktualisieren</th>
+			<th>Löschen</th>
+		</tr>
 		{% for item in transformator_name_list %}
 		<!-- no more hardcoded href  appname:viewname-->
 		<tr for = "link" class="">
 			<td><a name = "link" href="{% url 'certification82:transformatordetailview' item.pk %}">{{ item.VDE_Trafo }}</a></td>
+				
+			<td><a name = "link" href="{% url 'certification82:projectdetailview' item.project_id %}">{{ item.project }}</a></td>
 			<td>
-		<a class="alert bg-primary text-light " id = 'erst' href="{% url 'certification82:trafo_update' item.pk %}">Aktualisieren: </a></td>
+
+		<a class="text-secondary" id = 'erst' href="{% url 'certification82:trafo_update' item.pk %}">Aktualisieren </a></td>
 			{% if user.admin == True %}
-			<td><a class="alert bg-primary text-light " id = 'del' href="{% url 'certification82:trafo_delete' item.pk %}">Löschen: </a>
+			<td><a class="text-danger " id = 'del' href="{% url 'certification82:trafo_delete' item.pk %}">Löschen </a>
 			</td>
 			{% endif %}
 		</tr>

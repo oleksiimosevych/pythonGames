@@ -368,7 +368,8 @@ def allgeminfo(request, projekt_nr):
 	print(netzbetreiber)
 	ezebestand = Eze.objects.filter(project=projekt_nr, ist_bestand=True)
 	ezeneu = Eze.objects.filter(project=projekt_nr, ist_bestand=False)
-	context={'ezebestand':ezebestand,'ezeneu':ezeneu,'betreiber' : betreiber, 'project' : project}
+	context={'ezebestand':ezebestand,'ezeneu':ezeneu,'betreiber' : betreiber, 'project' : project,\
+	'zertifikatsinhaber':zertifikatsinhaber,'netzbetreiber':netzbetreiber}
 
 	# ezebestwindkraft = EzeBestWindkraft.objects.filter(project=projekt_nr)
 	# ezeneuwind = EzeNeuWindkraft.objects.filter(project=projekt_nr)
@@ -386,6 +387,11 @@ def allgeminfo(request, projekt_nr):
 #E
 class EzeCreate(CreateView):
 	model = Eze
+class EzeIndexView(generic.ListView):
+	context_object_name = 'eze_name_list'
+	template_name = 'certification82/list_views/eze_list.html'
+	def get_queryset(self):
+		return Eze.objects.order_by('vDE_EZE1_Name')[:500]
 class EzeUpdate(UpdateView):
 	model = Eze
 	fields = [
@@ -409,6 +415,39 @@ class EzeDelete(DeleteView):
 class EzeDetailView(generic.DetailView):
 	model = Eze
 	template_name = 'certification82/detailed_views/eze_detail.html'
+
+#Z
+# ZertifikatsinhaberUpdate
+# ZertifikatsinhaberDelete
+class ZertifikatsinhaberIndexView(generic.ListView):
+	context_object_name = 'zertifikatsinhaber_name_list'
+	template_name = 'certification82/list_views/zertifikatsinhaber_list.html'
+	def get_queryset(self):
+		return Zertifikatsinhaber.objects.order_by('name')[:500]
+class ZertifikatsinhaberDetailView(generic.DetailView):
+	model = Zertifikatsinhaber
+	template_name = 'certification82/detailed_views/Zertifikatsinhaber_detail.html'
+
+
+class ZertifikatsinhaberUpdate(UpdateView):
+	model = Zertifikatsinhaber
+	fields = [
+	\
+			'Projekt_Nr','Projekt_NrOK','EZA_BezeichnungOK','EZA_Bezeichnung','Zert_PartOK','Zert_Part','Zert_FirmOK','Zert_Firm','Zert_NrOK','Zert_Nr'\
+			,'Zert_PLZOK','Zert_PLZ','Zert_TelOK','Zert_Tel','Zert_FaxOK','Zert_Fax','Zert_MailOK','Zert_Mail'\
+			, 'Projekt_NrTextmarke',\
+			 'EZA_BezeichnungTextmarke','Zert_PartTextmarke','Zert_FirmTextmarke','Zert_NrTextmarke','Zert_PLZTextmarke'\
+			,'Zert_TelTextmarke','Zert_FaxTextmarke', 'Zert_MailTextmarke'
+	]
+	template_name_suffix = '_update_form'
+	# success_url = reverse_lazy('certification82:zertifikatsinhaberindex')
+class ZertifikatsinhaberDelete(DeleteView):
+	model = Zertifikatsinhaber
+	success_url = reverse_lazy('certification82:zertifikatsinhaberindex')
+
+class ZertifikatsinhaberDetailView(generic.DetailView):
+	model = Zertifikatsinhaber
+	template_name = 'certification82/detailed_views/zertifikatsinhaber_detail.html'
 
 #P
 class ProjectCreate(CreateView):
@@ -584,7 +623,7 @@ class TransformatorIndexView(generic.ListView):
 	context_object_name = 'transformator_name_list'
 	template_name = 'certification82/list_views/Transformator_list.html'
 	def get_queryset(self):
-		return Transformator.objects.order_by('-VDE_Trafo')[:500]
+		return Transformator.objects.order_by('project')[:500]
 class TransformatorDetailView(generic.DetailView):
 	model = Transformator
 	template_name = 'certification82/detailed_views/Transformator_detail.html'
@@ -714,7 +753,7 @@ class DocumentCreate(CreateView):
 	model = Document
 class DocumentUpdate(UpdateView):
 	model = Document
-	fields = ['proofed','name','comment','upload']
+	fields = ['proofed','name','comment', 'project']
 	template_name_suffix = '_update_form'
 
 class DocumentDelete(DeleteView):
@@ -742,8 +781,39 @@ class BetreiberCreate(CreateView):
 	model = Betreiber
 class BetreiberUpdate(UpdateView):
 	model = Betreiber
+	fields = [
+	'login', 'name', 'EZA_Betreiber_Anspre', 'Projekt_Nr',\
+			'Projekttitel', 'EZA_Betreiber_Mail', 'EZA_Betreiber_StrNr',\
+		 'EZA_Betreiber_PlzOrt', 'EZA_Betreiber_Tel', 'Anlagenzert_Nr', \
+		 'password1', 'password2', 'EZA_Betreiber_AnspreOK', 'EZA_Betreiber_StrNrOK',\
+		 'EZA_Betreiber_PlzOrtOK','EZA_Betreiber_TelOK','EZA_Betreiber_MailOK',\
+		 'Anlagenzert_NrOK','Projekt_NrOK','ProjekttitelOK'
+	]
 class BetreiberDelete(DeleteView):
 	model = Betreiber
+	success_url = reverse_lazy('certification82:betreiberindex')
+#NB
+class NetzbetreiberIndexView(generic.ListView):
+	context_object_name = 'netzbetreiber_name_list'
+	template_name = 'certification82/list_views/Netzbetreiber_list.html'
+	def get_queryset(self):
+		return Netzbetreiber.objects.order_by('-NB_Name')[:500]
+class NetzbetreiberDetailView(generic.DetailView):
+	model = Netzbetreiber
+	template_name = 'certification82/detailed_views/Netzbetreiber_detail.html'
+
+class NetzbetreiberCreate(CreateView):
+	model = Betreiber
+class NetzbetreiberUpdate(UpdateView):
+	model = Netzbetreiber
+	fields = ['Projekt_Nr','NB_AnsprechOK','NB_Ansprech','NB_NameOK','NB_Name','NB_StrOK','NB_Str','NB_PLZOK','NB_PLZ'\
+			,'NB_TelOK','NB_Tel','NB_FaxOK','NB_Fax','NB_MailOK','NB_Mail','Registriernummer_NB','NB_AnsprechTextmarke'\
+			,'NB_NameTextmarke','NB_StrTextmarke','NB_PLZTextmarke','NB_TelTextmarke','NB_FaxTextmarke'\
+			,'NB_MailTextmarke','Registriernummer_NBTextmarke',\
+			'Projekt_NrOK','Projekt_NrTextmarke']
+	# template_name_suffix = '_update_form'
+class NetzbetreiberDelete(DeleteView):
+	model = Netzbetreiber
 
 
 def schutzindex(request):
@@ -809,7 +879,21 @@ def ezebestgenoftheprojectindex(request, project_id):
 
 
 ################################################################################################3
+def trafo_user_detail(request, projekt_nr):
+	# try:
+	ezen = Project.objects.all()
+	eze = Transformator.objects.all()
+	context = { 'ezen':ezen, 'eze':eze }
+	
+	return render(request, 'certification82/trafo_user_detail.html', context)
 
+def eze_user_detail(request, projekt_nr):
+	# try:
+	ezen = Project.objects.all()
+	eze = Eze.objects.all()
+	context = { 'ezen':ezen, 'eze':eze }
+	
+	return render(request, 'certification82/eze_user_detail.html', context)
 def detail(request, project_id):
 	# try:
 	ezen = get_object_or_404(Project, pk = project_id)

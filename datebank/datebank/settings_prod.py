@@ -1,4 +1,8 @@
+
 DEBUG = True
+#decomment for production
+# DEBUG = False
+
 ALLOWED_HOSTS = ['*']
 
 DATABASES = {
@@ -8,10 +12,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         #for MYSQL
         # 'ENGINE': 'django.db.backends.mysql',
-        'USER':'777',
-        'NAME':'777',
-        'PASSWORD':'@@@777',
-        'HOST':'777',
+        'USER':'',
+        'NAME':'',
+        'PASSWORD':'',
+        'HOST':'localhost',
  
     }
 }

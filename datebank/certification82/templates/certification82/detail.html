@@ -23,7 +23,7 @@
 				<th>Textmarke:</th>
 				{% endif %}
 				<th>Erklärung</th>
-				<th>Information</b></th>
+				<th>Information</th>
 				<th>OK</th>
 			</tr>
 			<tr>
@@ -35,7 +35,7 @@
 			 {% if eze.eZeHerstellerOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ eze.eZeHerstellerOK }}</td></tr>
 			<tr>
 				{% if user.admin == True %}
@@ -46,7 +46,7 @@
 				 {% if eze.eZeTypOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				  {{ eze.eZeTypOK }}</td></tr>
 			<tr>
@@ -58,7 +58,7 @@
 				 {% if eze.vDE_EZE1_NameOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ eze.vDE_EZE1_NameOK }}</td></tr>
 			<tr>
 				{% if user.admin == True %}
@@ -69,7 +69,7 @@
 				 {% if eze.vDE_EZE1_ZertNROK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ eze.vDE_EZE1_ZertNROK }}</td></tr>
 			<tr>
 				{% if user.admin == True %}
@@ -80,7 +80,7 @@
 				 {% if eze.VDE_EZE1_MotorOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ eze.VDE_EZE1_MotorOK }}</td>
 				</tr>
 			<tr>
@@ -92,7 +92,7 @@
 				 {% if eze.VDE_EZE1_GeneratorOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ eze.VDE_EZE1_GeneratorOK }}</td>
 				</tr>
 			<tr>
@@ -104,7 +104,7 @@
 				 {% if eze.vDE_EZE1_SOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ eze.vDE_EZE1_SOK }}</td>
 				</tr>
 			<tr>
@@ -116,7 +116,7 @@
 				 {% if eze.vDE_EZE1_POK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				  {{ eze.vDE_EZE1_POK }}</td></tr>
 			<tr>
@@ -128,18 +128,18 @@
 			 {% if eze.vDE_Anzahl_EZE1OK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ eze.vDE_Anzahl_EZE1OK }}</td></tr>
 				 <tr>
 				{% if user.admin == True %}
 				<th>{{eze.VDE_EZE_Bestand_ZahlTextmarke}}:</th>
 				{% endif %}
-				<td>Anzahl Bestands-BHKW</td>
+				<th>Anzahl Bestands-BHKW</th>
 				 <td> {{ eze.VDE_EZE_Bestand_Zahl }}</td>
 				 {% if eze.VDE_EZE_Bestand_ZahlOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				{{ eze.VDE_EZE_Bestand_ZahlOK }}</td>
 			</tr>
@@ -148,12 +148,12 @@
 				{% if user.admin == True %}
 				<th title="Inbetriebnahmedatum">{{ eze.VDE_P_inbe_ALTTextmarke }}:</th>
 				{% endif %}
-				<td>Inbetrieb-nahmedatum</td>
+				<th>Inbetrieb-nahmedatum</th>
 				 <td> {{ eze.VDE_P_inbe_ALT }}</td>
 			{% if eze.VDE_P_inbe_ALTOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				{{ eze.VDE_P_inbe_ALTOK }}</td>
 			</tr>
@@ -193,12 +193,12 @@
 				{% if user.admin == True %}
 				<th>{{ezebestwind.VDE_EZE_Herst_AltTextmarke}}:</th>
 				{% endif %}
-				<td>Hersteller der EZE</td>
+				<th>Hersteller der EZE</th>
 				 <td> {{ ezebestwind.eZeHersteller }}</td>
 				{% if ezebestwind.eZeHerstellerOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				{{ ezebestwind.eZeHerstellerOK }}</td>
 			</tr>
@@ -206,11 +206,11 @@
 				{% if user.admin == True %}
 				<th>{{ ezebestwind.VDE_EZE_Typ_AltTextmarke }}:</th>
 				{% endif %} 
-				<td>Typ der EZE</td>
+				<th>Typ der EZE</th>
 				<td> {{ ezebestwind.eZeTyp }}</td>{% if ezebestwind.eZeTypOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				{{ ezebestwind.eZeTypOK }}</td>
 			</tr>
@@ -218,12 +218,12 @@
 				{% if user.admin == True %}
 				<th>{{ ezebestwind.VDE_EZE_Name_ALTTextmarke }}:</th>
 				{% endif %}
-				<td>Bezeichnung der EZE</td>
+				<th>Bezeichnung der EZE</th>
 				 <td> {{ ezebestwind.vDE_EZE1_Name }}</td>
 				{% if ezebestwind.vDE_EZE1_NameOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				{{ ezebestwind.vDE_EZE1_NameOK }}</td>
 			</tr>
@@ -236,7 +236,7 @@
 				 {% if ezebestwind.vDE_EZE1_ZertNROK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ ezebestwind.vDE_EZE1_ZertNROK }}</td></tr>
 			<tr>
 				{% if user.admin == True %}
@@ -247,7 +247,7 @@
 				 {% if ezebestwind.VDE_EZE1_MotorOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ ezebestwind.VDE_EZE1_MotorOK }}</td>
 				</tr>
 			<tr>
@@ -259,7 +259,7 @@
 				 {% if ezebestwind.VDE_EZE1_GeneratorOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ ezebestwind.VDE_EZE1_GeneratorOK }}</td>
 				</tr>
 			
@@ -273,7 +273,7 @@
 				 {% if ezebestwind.vDE_EZE1_SOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ ezebestwind.vDE_EZE1_SOK }}</td>
 				</tr>
 			<tr>
@@ -285,7 +285,7 @@
 				 {% if ezebestwind.vDE_EZE1_POK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				  {{ ezebestwind.vDE_EZE1_POK }}</td></tr>
 				  <tr>
@@ -297,18 +297,18 @@
 			 {% if ezebestwind.vDE_Anzahl_EZE1OK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %} {{ ezebestwind.vDE_Anzahl_EZE1OK }}</td></tr>
 			<tr>
 				{% if user.admin == True %}
 				<th>{{ezebestwind.VDE_EZE_Bestand_ZahlTextmarke}}:</th>
 				{% endif %}
-				<td>Anzahl Bestands-BHKW</td>
+				<th>Anzahl Bestands-BHKW</th>
 				 <td> {{ ezebestwind.VDE_EZE_Bestand_Zahl }}</td>
 				 {% if ezebestwind.VDE_EZE_Bestand_ZahlOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				{{ ezebestwind.VDE_EZE_Bestand_ZahlOK }}</td>
 			</tr>
@@ -318,12 +318,12 @@
 				{% if user.admin == True %}
 				<th title="Inbetriebnahmedatum">{{ ezebestwind.VDE_P_inbe_ALTTextmarke }}:</th>
 				{% endif %}
-				<td>Inbetrieb-nahmedatum</td>
+				<th>Inbetrieb-nahmedatum</th>
 				 <td> {{ ezebestwind.VDE_P_inbe_ALT }}</td>
 			{% if ezebestwind.VDE_P_inbe_ALTOK == True %}
 				 <td class="bg-success">
 				 {% else %}
-				 <td>
+				 <td class="bg-danger">
 				 {% endif %}
 				{{ ezebestwind.VDE_P_inbe_ALTOK }}</td>
 			</tr>
@@ -334,7 +334,7 @@
 			</table>
 
 			<div class="alert btn-group" role="group" aria-label="Basic example">
-				<button type="button" class="btn btn"><a href="{% url 'certification82:eze_update2' ezebestwind.id %}"><d class='text-dark'>Edit<d/></a></button>
+				<button type="button" class="btn btn"><a href="{% url 'certification82:eze_update' ezebestwind.id %}"><d class='text-dark'>Edit<d/></a></button>
  
 				{% if user.admin == True %}
 				<button type="button" class="btn btn-primary"><a href="{% url 'certification82:ezedetailview' ezebestwind.id %}"><d class='text-light'>View<d/></a>

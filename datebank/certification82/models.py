@@ -15,19 +15,6 @@ def user_directory_path(instance, filename):
 	return 'name_{1}/%Y-%m-%d/'.format(filename)
 class User2(AbstractBaseUser):
 	pass
-#D
-class Document(models.Model):
-	proofed = models.BooleanField(default=False,  null=True)
-	name = models.CharField(max_length=250,  null=True)
-	comment = models.CharField(max_length=500,  null=True)
-	#file will be saved to MEDIA_ROOT/uploads/2019/11/30
-	upload = models.FileField()
-	def __str__(self):
-		return self.name
-	def was_published_recently(self):
-		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
-	def get_absolute_url(self):
-		return reverse('certification82:documentdetailview', kwargs={'pk': self.pk})
 #N
 class Netzbetreiber(models.Model):
 	NB_AnsprechOK=models.BooleanField(default=False)
@@ -273,7 +260,27 @@ class Project(models.Model):
 
 	def __str__(self):
 		return self.project_name
+
+
+#D
+class Document(models.Model):
+	proofed = models.BooleanField(default=False,  null=True)
+	name = models.CharField(max_length=250,  null=True)
+	comment = models.CharField(max_length=500,  null=True)
+	#file will be saved to MEDIA_ROOT/uploads/2019/11/30
+	upload = models.FileField()
+	project =  models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+	def __str__(self):
+		return self.name
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+	def get_absolute_url(self):
+		return reverse('certification82:documentdetailview', kwargs={'pk': self.pk})
+
+
 #E
+
+
 
 class EzeHersteller(models.Model):
 	hersteller_name = models.CharField(max_length=250, unique=True,null=False) 
@@ -382,9 +389,11 @@ class Transformator(models.Model):
 	VDE_TrafoOK = models.BooleanField(default=False)
 	VDE_Trafo = models.CharField(max_length=250, default='No INFO')
 	VDE_TrafoherstellerOK = models.BooleanField(default=False)
-	VDE_Trafohersteller = models.ForeignKey(TrafoHersteller, on_delete=models.CASCADE, default='No INFO')
+	# VDE_Trafohersteller = models.ForeignKey(TrafoHersteller, on_delete=models.CASCADE, default='No INFO')
+	VDE_Trafohersteller = models.CharField(max_length=250, default='No INFO')
+	VDE_Trafotyp = models.CharField(max_length=250, default='No INFO')
 	VDE_TrafotypOK = models.BooleanField(default=False)
-	VDE_Trafotyp = models.ForeignKey(TrafoTyp, on_delete=models.CASCADE, default='No INFO')
+	# VDE_Trafotyp = models.ForeignKey(TrafoTyp, on_delete=models.CASCADE, default='No INFO')
 	VDE_TrafoUeberOK = models.BooleanField(default=False)
 	VDE_TrafoUeber = models.CharField(max_length=250, default='No INFO')
 	VDE_TrafoOberOK = models.BooleanField(default=False)

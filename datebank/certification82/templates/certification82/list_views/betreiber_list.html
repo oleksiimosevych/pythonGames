@@ -27,10 +27,10 @@
 				<!-- no more hardcoded href  appname:viewname-->
 				<tr>
 					<td><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">{{ item.name }}</a></td><td>{{ item.Projekt_Nr }}</td><td>{{ item.Projekttitel }}</td>
-					<th><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">View</a></th>
-					<th><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">Edit</a></th>
+					<th><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">Aussehen</a></th>
+					<th><a name = "link" href="{% url 'certification82:betreiber_update' item.pk %}">Aktualisieren</a></th>
 					{% if user.admin == True %}
-					<th><a name = "link" href="{% url 'certification82:betreiberdetailview' item.pk %}">Remove</a></th>
+					<th><a name = "link" href="{% url 'certification82:betreiber_delete' item.pk %}">Löschen</a></th>
 					</tr>
 					{% endif %}
 				{% endif %}

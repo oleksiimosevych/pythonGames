@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+	NeuWindkraft detail
+{% endblock %}
+		
+{% block content %}
+{%if zertifikatsinhaber %}
+	{% with zertifikatsinhaber as zert %}
+		<table border=0 class="table table-hover">
+					<tr class= "thead-light"><th >Info Zertifikatsinhaber:</th> <th>{{ zert.Zert_Firm }}</th><th>OK</th></tr>
+			<tr ><th >{{ zert.EZA_BezeichnungTextmarke }}:</th> <td>{{ zert.EZA_Bezeichnung }}
+				{% if zert.EZA_BezeichnungOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}{{ zert.EZA_BezeichnungOK }}</td></tr>
+			</td></tr>
+			<tr><th>{{ zert.Zert_PartTextmarke }}:</th> <td> {{ zert.Zert_Part }}</td>
+			{% if zert.Zert_PartOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Zert_PartOK }}</td></tr>
+			<tr><th>{{ zert.Zert_FirmTextmarke }}:</th> <td> {{ zert.Zert_Firm }}</td>
+			{% if zert.Zert_FirmOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Zert_FirmOK }}</td></tr>
+			<tr><th>{{ zert.Zert_NrTextmarke }}:</th> <td> {{ zert.Zert_Nr }}</td>
+			{% if zert.Zert_NrOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Zert_NrOK }}</td></tr>
+			<tr><th>{{ zert.Zert_PLZTextmarke }}:</th> <td> {{ zert.Zert_PLZ }}</td>
+			{% if zert.Zert_PLZOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Zert_PLZOK }}</td></tr>
+			<tr><th>{{ zert.Zert_TelTextmarke }}:</th> <td> {{ zert.Zert_Tel }}</td>
+			{% if zert.Zert_TelOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Zert_TelOK }}</td></tr></tr>
+			<tr><th>{{ zert.Zert_FaxTextmarke }}:</th> <td> {{ zert.Zert_Fax }}</td>
+			{% if zert.Zert_FaxOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Zert_FaxOK }}</td></tr>
+			<tr><th>{{ zert.Zert_MailTextmarke }}:</th> <td> {{ zert.Zert_Mail }}</td>
+			{% if zert.Zert_MailOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Zert_MailOK }}</td></tr>
+			
+			<tr><th>{{ zert.Projekt_NrTextmarke }}:</th> <td> {{ zert.Projekt_Nr }}</td>
+			{% if zert.Projekt_NrOK == True %}
+				 <td class="bg-success">
+				 {% else %}
+				 <td class="bg-danger">
+				 {% endif %}
+			{{ zert.Projekt_NrOK }}</td></tr>
+			<tr><td><a href="{% url 'certification82:zert_update' zert.id %}">Aktualisieren</a>
+			</td></tr>
+			<tr><th></th></tr>
+</table>
+					<div class="alert btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn"><a href="{% url 'certification82:zert_update' zertifikatsinhaber.id %}"><d class='text-dark'>Aktualisieren<d/></a></button>
+ 
+					{% if user.admin == True %}
+						<button type="button" class="btn btn-danger"><a href="{% url 'certification82:zert_update' zertifikatsinhaber.id %}"><d class='text-light'>Löschen<d/></a></button>
+
+					{% endif %}
+					</div>
+	</h1>
+	{% endwith %}
+{% else %}
+		<p>Keine zertifikatsinhaber.</p>
+{% endif %}
+	
+{% endblock %}

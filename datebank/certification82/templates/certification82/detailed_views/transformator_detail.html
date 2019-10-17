@@ -7,20 +7,131 @@
 		
 {% block content %}
 {%if transformator %}
-	<table border=2 class="table-hover table">
+	<table border=0 class="col-md-5 table table-hover clear_both" >
+				<tr class= "thead-light">
+					{% if user.admin == True %}
+					<th>Textmarke:</th>
+					{% endif %}
+					<th>Erklärung</th>
+					<th>Information</th>
+					<th>OK</th>
+				</tr>
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_TrafoTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator T1</th>
+					<td> {{ transformator.VDE_Trafo }}</td>
+					{% if transformator.VDE_TrafoOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_TrafoOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_TrafoherstellerTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator-hersteller T1</th>
+					<td> {{ transformator.VDE_Trafohersteller }}</td>
+					{% if transformator.VDE_TrafoherstellerOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_TrafoherstellerOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_TrafotypTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator-typ T1</th>
+					<td> {{ transformator.VDE_Trafotyp }}</td>
+					{% if transformator.VDE_TrafotypOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_TrafotypOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_TrafoUeberTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator Übersetzungsverhältnis T1</th>
+					<td> {{ transformator.VDE_TrafoUeber }}</td>
+					{% if transformator.VDE_TrafoUeberOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_TrafoOberOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_TrafoOberTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator Oberspannung in kV T1</th>
+					<td> {{ transformator.VDE_TrafoOber }}</td>
+					{% if transformator.VDE_TrafoOberOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_TrafoOberOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_TrafoUnterTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator Unterspannung in kV T1</th>
+					<td> {{ transformator.VDE_TrafoUnter }}</td>
+					{% if transformator.VDE_TrafoUnterOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_TrafoUnterOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_Trafo_kurzTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator rel. Kurzschluss in % T1</th>
+					<td> {{ transformator.VDE_Trafo_kurz }}</td>
+					{% if transformator.VDE_Trafo_kurzOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_Trafo_kurzOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ transformator.VDE_Trafo_PTextmarke }}:</th>
+					{% endif %}
+					<th>Transformatordaten in kVA T1</th>
+					<td> {{ transformator.VDE_Trafo_P }}</td>
+					{% if transformator.VDE_Trafo_POK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ transformator.VDE_Trafo_POK }}</td>
+				</tr>
+					
+					<tr><th>Projekt:</th> <td> {{ transformator.project }}</td><td></td> </tr>
+					<tr><th>ID:</th> <td> {{ transformator.id }}</td><td></td> 
+					</tr>
+					</table>
+					<div class="alert btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn"><a href="{% url 'certification82:trafo_update' transformator.id %}"><d class='text-dark'>Aktualisieren<d/></a></button>
+ 
+					{% if user.admin == True %}
+						<button type="button" class="btn btn-danger"><a href="{% url 'certification82:trafo_delete' transformator.id %}"><d class='text-light'>Löschen<d/></a></button>
 
-		<tr id="ezename"><th ><h2></th> <td>Transformator Details</h2></td></tr>
-			<tr id="ezename"><th >VDE_Trafo:</th> <td>{{ transformator.VDE_Trafo }}</td></tr>
-			<tr><th>Hersteller:</th> <td> {{ transformator.VDE_Trafohersteller }}</td></tr>
-			<tr><th>TrafoTyp :</th> <td> {{ transformator.VDE_Trafotyp }}</td></tr>
-			<tr><th>VDE_TrafoUeber:</th> <td> {{ transformator.VDE_TrafoUeber }}</td></tr>
-			<tr><th>VDE_TrafoOber:</th> <td> {{ transformator.VDE_TrafoOber }}</td></tr>
-			<tr><th>VDE_TrafoUnter:</th> <td> {{ transformator.VDE_TrafoUnter }}</td></tr>
-			<tr><th>VDE_Trafo_kurz:</th> <td> {{ transformator.VDE_Trafo_kurz }}</td></tr>
-			<tr><th>VDE_Trafo_P:</th> <td> {{ transformator.VDE_Trafo_P }}</td></tr>
-			<tr><th>ID:</th> <td> {{ transformator.id }}</td> </tr>
-			
-		</table>
+					{% endif %}
+					</div>
 	</h1>
 {% else %}
 		<p>No transformators yet.</p>

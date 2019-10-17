@@ -9,7 +9,14 @@
 	{%if user.admin == True %}
 		<p class="text-center nav-li">
 			<a href="">Alle Projekte (nur für Administratoren)</a>
+
 		</p>
+		<table class="table"><tr>
+			<th>Projekttittel</th>
+			<th>Projektnummer</th>
+			<th>CRUD</th>
+		</tr>
+			
 	{% else %}
 		<p class="text-center nav-li">
 			<a href="">Ihr Zugang zum Projekt</a>
@@ -22,24 +29,27 @@
 			
 			{% for proj in project_name_list %}
 				{%if user.admin == True %}
-					<table class="table">
 						<tr>
-							<td width="50%">Projekttittel: <b>{{ proj.project_name }}</b></td>
-							<td width="50%">Projektnummer: <b>{{ proj.project_number }}</b></td>
-							<td width="10%"><a name = "link" href="{% url 'certification82:detail' proj.id %}">View</a></td>
-							<td width="10%"><a name = "link" href="{% url 'certification82:project_update' proj.id %}">Edit</a></td>
-							<td width="10%"><a name = "link" href="{% url 'certification82:project_delete' proj.id %}">Delete</a></td>
+							<td><a href="{% url 'certification82:projectdetailview' proj.id %}">{{ proj.project_name }}</a></td>
+							<td>{{ proj.project_number }}</td>
+							<!-- <td width="10%"><a name = "link" href="{6% url 'certification82:detail' proj.id %}">EZEs</a></td> -->
+							<td><a class="text-secondary" name = "link" href="{% url 'certification82:project_update' proj.id %}">Bearbeiten</a></td>
+							<td><a class="text-danger" name = "link" href="{% url 'certification82:project_delete' proj.id %}">Löschen</a></td>
 						</tr>
-					</table>
+					
 				{% elif proj.project_number == user.projekt_nr %}
-			<h2>	<div for = "link" class="jumbotron text-center">
+				<table class="table">	
+				<div for = "link" class="card text-center">
+						<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">Um auf das Projekt zuzugreifen, klicken Sie bitte hier</a></p>
 						<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_name }}</a></p>
 						<p><a name = "link" href="{% url 'certification82:detail' proj.id %}">{{ proj.project_number }}</a></p>
+						<h1>{{ proj }}</h1>
+
 					</div>
+				</table>
 				{% endif %}
-				
 		{% endfor %}
-		</h1>
+	</h2></table>
 		{% else %}
 			<p>No projects are available.</p>
 		{% endif %}

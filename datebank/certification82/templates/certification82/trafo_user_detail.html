@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+<!-- # detail which depends to the project id -->
+
+{% block title %}
+	Details index
+{% endblock %}
+{% block content %}
+
+	<div class="card text-center">
+{% for proj in ezen %}
+	{% if proj.project_number == user.projekt_nr %}
+	<h5>Projekt "{{ proj.project_name }}". EZE.</h5>
+	<br>
+	</div>
+	<span class='card col-md-6 ezeneu_left'>
+		<li class="list-group-item ">EZE Neu</li>
+		
+			<!-- <h1>proj.project_number == user.projekt_nr {4{ proj.project_number }} ID {{ proj.id }}</h1> -->
+		
+		{% for eze in eze %}
+			{% if eze.project_id == proj.id %}
+				<table border=0 class="col-md-5 table table-hover clear_both" >
+				<tr class= "thead-light">
+					{% if user.admin == True %}
+					<th>Textmarke:</th>
+					{% endif %}
+					<th>Erklärung</th>
+					<th>Information</th>
+					<th>OK</th>
+				</tr>
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_TrafoTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator T1</th>
+					<td> {{ eze.VDE_Trafo }}</td>
+					{% if eze.VDE_TrafoOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_TrafoOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_TrafoherstellerTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator-hersteller T1</th>
+					<td> {{ eze.VDE_Trafohersteller }}</td>
+					{% if eze.VDE_TrafoherstellerOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_TrafoherstellerOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_TrafotypTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator-typ T1</th>
+					<td> {{ eze.VDE_Trafotyp }}</td>
+					{% if eze.VDE_TrafotypOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_TrafotypOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_TrafoUeberTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator Übersetzungsverhältnis T1</th>
+					<td> {{ eze.VDE_TrafoUeber }}</td>
+					{% if eze.VDE_TrafoUeberOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_TrafoOberOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_TrafoOberTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator Oberspannung in kV T1</th>
+					<td> {{ eze.VDE_TrafoOber }}</td>
+					{% if eze.VDE_TrafoOberOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_TrafoOberOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_TrafoUnterTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator Unterspannung in kV T1</th>
+					<td> {{ eze.VDE_TrafoUnter }}</td>
+					{% if eze.VDE_TrafoUnterOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_TrafoUnterOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_Trafo_kurzTextmarke }}:</th>
+					{% endif %}
+					<th>Transformator rel. Kurzschluss in % T1</th>
+					<td> {{ eze.VDE_Trafo_kurz }}</td>
+					{% if eze.VDE_Trafo_kurzOK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_Trafo_kurzOK }}</td>
+				</tr>
+				
+				<tr>
+					{% if user.admin == True %}
+					<th>{{ eze.VDE_Trafo_PTextmarke }}:</th>
+					{% endif %}
+					<th>Transformatordaten in kVA T1</th>
+					<td> {{ eze.VDE_Trafo_P }}</td>
+					{% if eze.VDE_Trafo_POK == True %}
+					<td class="bg-success">
+					{% else %}
+					<td class="bg-danger">
+					{% endif %} {{ eze.VDE_Trafo_POK }}</td>
+				</tr>
+					
+					<tr><th>Projekt:</th> <td> {{ eze.project }}</td><td></td> </tr>
+					<tr><th>ID:</th> <td> {{ eze.id }}</td><td></td> 
+					</tr>
+					</table>
+					<div class="alert btn-group" role="group" aria-label="Basic example">
+					<button type="button" class="btn btn"><a href="{% url 'certification82:trafo_update' eze.id %}"><d class='text-dark'>Aktualisieren<d/></a></button>
+ 
+					{% if user.admin == True %}
+						<button type="button" class="btn btn-primary"><a href="{% url 'certification82:ezedetailview' eze.id %}"><d class='text-light'>Aussicht<d/></a></button>
+	  					<button type="button" class="btn btn-danger"><a href="{% url 'certification82:eze_delete' eze.id %}"><d class='text-light'>Löschen<d/></a></button>
+
+					{% endif %}
+					</div>
+		
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+		
+		{% if user.admin == True %}
+		<br><button class="container bg-success btn"><a href="{% url 'certification82:new_eze_neu' %}"><d class='text-light'>+1 Transformator<d/></a></button>
+		{% endif %}		
+		</span>
+{% endblock %}

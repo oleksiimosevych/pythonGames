@@ -4,31 +4,40 @@
 {% block title %}
 	Details index
 {% endblock %}
-{% block menu %}
-	<p>
-		<a href="{% url 'certification82:index' %}">Zurück |</a>
-		
-		<a href="{% url 'certification82:ezeneuwindkraftsoftheprojectindex' user.projekt_nr %}">Neue WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezeneufotooftheprojectindex' user.projekt_nr  %}">Neue Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezeneugenoftheprojectindex' user.projekt_nr %}">Neue Generators |</a>
-		<a href="{% url 'certification82:ezebestwindoftheprojectindex' user.projekt_nr %}">Bestandene WINDKRAFTS |</a>
-		<a href="{% url 'certification82:ezebestfotooftheprojectindex' user.projekt_nr %}">Bestandene Fotovoltaics |</a>
-		<a href="{% url 'certification82:ezebestgenoftheprojectindex' user.projekt_nr %}">Bestandene Generators |</a>
-	</p>
-{% endblock %}
 
 {% block content %}
-
 	
 	<div class="card"> <div class="card-body">
-		<table border=2 class = "table-hover">
-		<p>Allgemeine Information zum Project: "{{ object.project_name }}"</p>
-		<table border=0 class="table-hover">
+		<p>Allgemeine Information zum Projekt: "{{ object.project_name }}"</p>
+		<table border=0 class="table table-hover">
 		<h1>
-			<tr><th><h1>{{ object.Projekt_NrTexmarke }}:</th> <td><h1> {{ object.project_number }}</td></tr>
-			<tr><th><h1>{{ object.ProjekttitelTexmarke }}:</th> <td><h1> {{ object.project_name }}</td></tr>
-		</h1>
+			<tr><th>{{ object.Projekt_NrTexmarke }}:</th> <td> {{ object.project_number }}</td></tr>
+			<tr><th>{{ object.ProjekttitelTexmarke }}:</th> <td> {{ object.project_name }}</td></tr>
 		</table>
+
+
+		{% if user.admin == True %}
+			<table border=0 class=" table table-hover">
+				<tr>
+					<th>Textmarke</th><th>Information</th><th>Daten</th>
+				</tr>
+
+				<tr><td>{{ object.Projekt_DateTexmarke }}:</td><td>Projekt Deadline Datum</td> <td> {{ object.project_deadline_date }}</td></tr>
+				<tr><td>{{ object.betreiberTextmarke }}:</td> <td>EZA-Betreiber</td><td><a href="{% url 'certification82:betreiberdetailview' object.betreiber.id %}" > {{ object.betreiber }}</a></td></tr>
+				<tr><td>{{ object.Zert_PartTextmarke }}:</td><td>Firma (Zertifikatsinhaber)</td> <td> <a href="{% url 'certification82:zertifikatsinhaberdetailview' object.zertifikatsinhaber.id %}" >{{ object.zertifikatsinhaber }}</td></tr></a>
+				
+				<tr><td>{{ object.netzbetreiberTextmarke }}:</td><td>Netzbetreiber</td> <td><a href="{% url 'certification82:netzbetreiberdetailview' object.netzbetreiber.id %}" > {{ object.netzbetreiber }}</a></td></tr>
+				
+
+			</table>
+				<button type="button" class="btn btn"><a href="{% url 'certification82:project_update' object.id %}"><d class='text-dark'>Aktualisieren<d/></a></button>
+ 				<button type="button" class="btn btn-danger"><a href="{% url 'certification82:project_delete' object.id %}"><d class='text-light'>Löschen<d/></a></button>
+	  			</d></a></button></d></a></button></d></a></button></div>
+
+					
+
+			{% endif %}
+		
 		<span class='col-md-6 ezeneu_left '>
 			
 		<table border=0 class="table-hover">
@@ -119,9 +128,10 @@
 					{% for u in ProjectUser.objects.all %}
 						USER: {{u}}
 					{%endfor%}
-			<br><tr><td><a href="{% url 'certification82:new_projekt' %}">Neu Projekt</a></td></tr>
+			<tr><td></td></tr>
 			{%endif%}
-		</table>
+		</table><br>
+		<a class="alert btn-success btn text-light" href="{% url 'certification82:new_projekt' %}">Neu Projekt</a>
 	</div></div>
 		</span>
 

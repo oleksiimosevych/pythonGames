@@ -6,29 +6,48 @@
 	</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
 <link rel="stylesheet" type="text/css" href="{% static 'certification82/style.css' %}">
 </head>
+	<nav  class='float_right navbar bg-light alert'>
+	{% if user.admin != True %}
+		<p>Sie haben Zugriff auf die Projektnummer {{ user.projekt_nr }}!</p>
+		<br>
+		<a href="{% url 'logout' %}">AUSLOGGEN |</a></nav>
+	{% else %}
+			<p>Sie sind <b> ADMIN</b> {{ user.projekt_nr }}! 
+			<br><a href="{% url 'logout' %}">AUSLOGGEN |</a>
+			<br><a href="{% url 'signup' %}">Neu Benutzer Registrieren |</a>
+		</nav>
+	{% endif %}
+
 <body>
 	<a href="{% url 'certification82:index' %}"><img id="logo82" src="{% static 'images/sitelogo.png' %}" alt="Logo"></a>
 	<nav class="navbar navbar-light bg-light" type="button">
 {% if user.is_authenticated %}
 
 		{% block menu %}
-		<a href="{% url 'certification82:documenteindex'%}">Dokumente |</a>
 		<a href="{% url 'certification82:allgeminfo' user.projekt_nr %}">Allgemeine Information |</a>
-		<a href="{% url 'certification82:index'%}">EZE |</a>
+		{% if user.admin == True %}
+		<a href="{% url 'certification82:index' %}">Projekte |</a>
+		{% endif %}
+		<a href="{% url 'certification82:documenteindex'%}">Dokumente |</a>
+		
+		{% if user.admin == True %}
 		<!-- <a href="{3% url 'certification82:schutzindex'%}">SCHUTZ |</a> -->
+		<a href="{% url 'certification82:ezeindex' %}">EZE |</a>
 		<a href="{% url 'certification82:trafoindex'%}">Transformatoren |</a>
+		{% endif %}
+		
+		{% if user.admin != True %}
+		
+		<a href="{% url 'certification82:eze_user_detail' user.projekt_nr %}">EZE |</a>
+		
+		<a href="{% url 'certification82:trafo_user_detail' user.projekt_nr %}">Transformatoren|</a>
+		
+		{% endif %}
 		<!-- <a href="{3% url 'certification82:regelungindex'%}">REGELUNG |</a> -->
 		{% endblock %}
-	{% if user.admin != True %}
-		<p>Sie haben Zugriff auf die Projektnummer {{ user.projekt_nr }}!</p>
-			<a href="{% url 'logout' %}">AUSLOGGEN |</a>
-	{% else %}
-			<p>Sie sind <b> ADMIN</b> {{ user.projekt_nr }}!</p>
-			<a href="{% url 'logout' %}">AUSLOGGEN |</a>
-	{% endif %}
+	
 {%endif%}
 
 	</nav>
@@ -39,7 +58,99 @@
 	</div>
 {% if user.admin == True %}
 	<li class="list-group-item active">Für Administrator:</li>
+	
+			
+	<span class="float_left clear_both">
+		<ul class="list-group text-center">
+			<li class="list-group-item active">CRUD: </li>
+	</ul></span>
+	  
+
+
+	<span class="float_left clear_left">
+		<ul class="list-group text-center">
+			<li class="list-group-item active">Erstellen: </li>
+	</ul></span>
 	<span class="float_left">
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_eze_neu'%}">EZE Neu</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_eze_bestand'%}">EZE Bestand</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_hersteller'%}">EZE Hersteller</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_eze_typ'%}">EZE Typ</a>
+			</li>
+			
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_betreiber'%}">Betreiber</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_netzbetreiber'%}">Netzbetreiber</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_zert' %}">Zertifikatsinhaber</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_projekt'%}">Projekt</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:upload_doc'%}">Dokument</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:new_trafo'%}">Trafo</a>
+			</li>
+			
+			
+			<!-- <li class="float_left list-group-item">
+				<a href="{4% url 'certification82:ezebestwindindex'%}">Schutz</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{4% url 'certification82:ezebestwindindex'%}">Regelung</a>
+			</li> -->
+	</ul>	
+	</span>
+
+	
+	<span class="float_left clear_left">
+		<ul class="list-group text-center">
+			<li class="list-group-item active">Anzeigen: </li>
+	</ul></span>
+	<span class="float_left">
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:index'%}">EZE</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:betreiberindex'%}">Betreiber</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:netzbetreiberindex'%}">Netzbetreiber</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:index'%}">Projekt</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:documenteindex'%}">Dokumente</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{% url 'certification82:trafoindex'%}">Trafo</a>
+			</li>
+			
+			
+
+			<!-- <li class="float_left list-group-item">
+				<a href="{2% url 'certification82:ezebestwindindex'%}">Schutz</a>
+			</li>
+			<li class="float_left list-group-item">
+				<a href="{2% url 'certification82:ezebestwindindex'%}">Regelung</a>
+			</li> -->
+	</ul>	
+	</span>
+
+	<span class="float_left clear_left">
 		<ul class="list-group text-center">
 			<li class="list-group-item ">ALLE EZE: </li>
 			<li class="float_left list-group-item">
@@ -85,118 +196,7 @@
 			</li>
 		</ul>
 	</span>
-			
-	Bearbeiten Löschen
-	<span class="float_left clear_both">
-		<ul class="list-group text-center">
-			<li class="list-group-item active">CRUD: </li>
-	</ul></span>
-	  
 
-
-	<span class="float_left clear_left">
-		<ul class="list-group text-center">
-			<li class="list-group-item active">Erstellen: </li>
-	</ul></span>
-	<span class="float_left">
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_eze_neu'%}">EZE Neu</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_eze_bestand'%}">EZE Bestand</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_hersteller'%}">EZE Hersteller</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_eze_typ'%}">EZE Typ</a>
-			</li>
-			
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_betreiber'%}">Betreiber</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_netzbetreiber'%}">Netzbetreiber</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_projekt'%}">Projekt</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Dokument</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:new_trafo'%}">Trafo</a>
-			</li>
-			<!-- <li class="float_left list-group-item">
-				<a href="{4% url 'certification82:ezebestwindindex'%}">Schutz</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{4% url 'certification82:ezebestwindindex'%}">Regelung</a>
-			</li> -->
-	</ul>	
-	</span>
-
-	
-	<span class="float_left clear_left">
-		<ul class="list-group text-center">
-			<li class="list-group-item active">Anzeigen: </li>
-	</ul></span>
-	<span class="float_left">
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:index'%}">EZE</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:betreiberindex'%}">Betreiber</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Netzbetreiber</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:index'%}">Projekt</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:documenteindex'%}">Dokumente</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Trafo</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Schutz</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Regelung</a>
-			</li>
-	</ul>	
-	</span>
-
-	<span class="float_left clear_left">
-		<ul class="list-group text-center">
-			<li class="list-group-item active">Erstellen: </li>
-	</ul></span>
-	<span class="float_left">
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezeneuwindindex'%}">EZE</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Betreiber</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Netzbetreiber</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:index'%}">Projekt</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Dokumente</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Trafo</a>
-			</li>
-			<li class="float_left list-group-item">
-				<a href="{% url 'certification82:ezebestwindindex'%}">Schutz</a>
-			</li>
-	</ul>	
-	</span>
 
 {% elif user.is_authenticated %}
 	<p>Sie sind als normaler Benutzer angemeldet</p>

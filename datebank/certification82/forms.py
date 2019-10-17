@@ -36,11 +36,11 @@ class NewTransformatorForm(forms.ModelForm):
 	
 	VDE_TrafoherstellerTextmarke = forms.CharField(max_length=250, initial='VDE_Trafohersteller', required=False)
 	VDE_TrafoherstellerOK = forms.BooleanField(initial=False, required=False)
-	VDE_Trafohersteller = forms.ModelChoiceField(queryset=TrafoHersteller.objects.all(), label='Hersteller', required=False)
+	VDE_Trafohersteller = forms.CharField(max_length=250, initial='Hersteller 1 ', required=False)
 	
 	VDE_TrafotypTextmarke = forms.CharField(max_length=250, initial='VDE_Trafotyp', required=False)
 	VDE_TrafotypOK = forms.BooleanField(initial=False, required=False)
-	VDE_Trafotyp = forms.ModelChoiceField(label='Typ des Transformators', queryset=TrafoTyp.objects.all())
+	VDE_Trafotyp = forms.CharField(max_length=250, initial='TYP1', required=False)
 	
 
 	VDE_TrafoUeberTextmarke = forms.CharField(max_length=250, initial='VDE_TrafoUeber', required=False)
@@ -80,23 +80,26 @@ class DateInput(forms.DateInput):
 
 
 class NewDocumentForm(forms.ModelForm):
+
+# Verzeichnis hochladen:
 	proofed = forms.BooleanField(label='Ist geprüft', initial=False, required=False)
 	name = forms.CharField(label='Name', max_length=250)
-	comment =forms.CharField(label='Commentieren', max_length=250, widget=forms.Textarea) 
+	comment =forms.CharField(label='Kommentar', max_length=250, widget=forms.Textarea) 
 	upload = forms.FileField()
+	project = forms.ModelChoiceField(label='Projektname', queryset=Project.objects.all())
 	# file = forms.FileField()
 	class Meta:
 		model =Document
-		fields = ('name','comment', 'upload', 'proofed')
+		fields = ('name','comment', 'upload', 'proofed', 'project')
 
 class NewHerstellerForm(forms.ModelForm):
-	hersteller_name = forms.CharField(label='Hersteller der EZE--id', max_length=250)
+	hersteller_name = forms.CharField(label='Hersteller der EZE', max_length=250)
 	class Meta:
 		model =EzeHersteller
 		fields = ('hersteller_name',)
 
 class NewEzeTypForm(forms.ModelForm):
-	typ_name = forms.CharField(label='Typ der EZE--id', max_length=250)
+	typ_name = forms.CharField(label='Typ der EZE', max_length=250)
 	class Meta:
 		model =EzeTyp 
 		fields = ('typ_name',)	
